@@ -12,6 +12,6 @@ public class Resources {
 
     }
 
-    public static URL THW_ICON_URL = Main.class.getResource("/gui/thw.ico");
+    public static final URL THW_ICON_URL = Application.class.getResource("/gui/thw.ico");
     
 }

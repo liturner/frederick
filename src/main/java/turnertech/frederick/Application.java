@@ -11,7 +11,7 @@ import turnertech.frederick.gui.FrederickTrayIcon;
  * Currently the only executable method for this application. Used to analyse
  * all balls with all methods.
  */
-public class Main {
+public class Application {
 
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
@@ -37,5 +37,9 @@ public class Main {
         FrederickMainFrame frame = new FrederickMainFrame();        
         frame.setVisible(true);
 
+    }
+
+    public static void exit() {
+        System.exit(0);
     }
 }

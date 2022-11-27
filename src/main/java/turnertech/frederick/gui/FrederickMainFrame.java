@@ -11,7 +11,12 @@ public class FrederickMainFrame extends Frame {
         this.setSize(500, 500);
 
         this.add(new Label("Hello!"));
-        
+
+        this.addWindowListener(new FrederickMainFrameEventListener(this));
+    }
+
+    void windowClosing() {
+        this.dispose();
     }
 
 }
