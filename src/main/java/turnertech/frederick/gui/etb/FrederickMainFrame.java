@@ -1,4 +1,4 @@
-package turnertech.frederick.gui;
+package turnertech.frederick.gui.etb;
 
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -16,7 +16,7 @@ public class FrederickMainFrame extends Frame {
     }
 
     void windowClosing() {
-        this.dispose();
+        this.setVisible(false);
     }
 
 }

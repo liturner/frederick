@@ -4,14 +4,16 @@ import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.util.logging.Level;
 
-import turnertech.frederick.gui.FrederickMainFrame;
-import turnertech.frederick.gui.FrederickTrayIcon;
+import turnertech.frederick.gui.etb.FrederickMainFrame;
+import turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
  * Currently the only executable method for this application. Used to analyse
  * all balls with all methods.
  */
 public class Application {
+
+    private static FrederickMainFrame frame = null;
 
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
@@ -34,9 +36,12 @@ public class Application {
             return;
         }
 
-        FrederickMainFrame frame = new FrederickMainFrame();        
+        frame = new FrederickMainFrame();        
         frame.setVisible(true);
+    }
 
+    public static void showETB() {
+        frame.setVisible(true);
     }
 
     public static void exit() {

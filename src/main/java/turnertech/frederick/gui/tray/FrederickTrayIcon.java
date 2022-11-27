@@ -1,4 +1,4 @@
-package turnertech.frederick.gui;
+package turnertech.frederick.gui.tray;
 
 import java.awt.Image;
 import java.awt.TrayIcon;

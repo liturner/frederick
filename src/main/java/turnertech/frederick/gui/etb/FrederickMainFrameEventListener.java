@@ -1,4 +1,4 @@
-package turnertech.frederick.gui;
+package turnertech.frederick.gui.etb;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
