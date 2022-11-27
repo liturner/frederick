@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.turnertech</groupId>
+  <artifactId>frederick</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <name>Frederick</name>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <inceptionYear>2022</inceptionYear>
+
+  <organization>
+    <name>TurnerTech</name>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>liturner</id>
+      <name>Luke Ian Turner</name>
+      <email>turnertech@outlook.de</email>
+      <organization>TurnerTech</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>Azure DevOps</system>
+    <url>https://dev.azure.com/TurnerTech/Frederick</url>
+  </issueManagement>
+
+  <scm>
+    <connection>scm:git:https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</connection>
+    <developerConnection>scm:git:https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</url>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
+    <sonar.java.source>17</sonar.java.source>
+    <downloadSources>true</downloadSources>
+		<downloadJavadocs>true</downloadJavadocs>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Site -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <configuration>
+          <disableXmlReport>false</disableXmlReport>
+          <useFile>false</useFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
+        <executions>
+          <execution>
+            <id>default-prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--Generate Javadoc Jar-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+  	<!-- Test Dependencies -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+  </dependencies>
+
+  <reporting>
+    <plugins>
+      <!-- Generate and add Javadoc to the Project Site-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <show>private</show>
+          <nohelp>true</nohelp>
+        </configuration>
+      </plugin>
+
+      <!-- Generate and add JUnit Tests to the Project Site-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.0.0-M5</version>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+</project>
