@@ -15,6 +15,8 @@ public class Application {
 
     private static FrederickMainFrame frame = null;
 
+    public static final String CURRENT_USER = System.getProperty("user.name");
+
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
      * 
