@@ -10,7 +10,7 @@ public class ResourcesTests {
     @Test
     @DisplayName("THW Icon Exists")
 	public void thwIconExists() {
-        assertNotNull(Resources.THW_ICON_URL);
+        assertNotNull(Resources.getThwIconUrl());
     }
 
 }

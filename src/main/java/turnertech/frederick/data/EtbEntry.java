@@ -1,8 +1,8 @@
-package turnertech.frederick.gui.etb;
+package turnertech.frederick.data;
 
 import java.time.Instant;
 
-public class FrederickEtbEntry {
+public class EtbEntry {
     
     private final Instant timestamp;
 
@@ -10,7 +10,7 @@ public class FrederickEtbEntry {
 
     private final String entry;
 
-    public FrederickEtbEntry(final Instant timestamp, String user, final String entry) {
+    public EtbEntry(final Instant timestamp, String user, final String entry) {
         this.timestamp = timestamp;
         this.user = user;
         this.entry = entry;

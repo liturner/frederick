@@ -1,16 +1,25 @@
 package turnertech.frederick.gui.etb;
 
 import java.time.Instant;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 
+import turnertech.frederick.data.EtbEntry;
+
 public class FrederickEtbTableModel extends AbstractTableModel {
 
-    private final LinkedList<FrederickEtbEntry> etbEntries = new LinkedList<>();
+    private final transient List<EtbEntry> etbEntries;
 
     private final FrederickEtbTableColumnModel columnModel = new FrederickEtbTableColumnModel();
+
+    public FrederickEtbTableModel(final List<EtbEntry> source) {
+        if(source == null) {
+            throw new IllegalArgumentException("Table model cannot be initialised without a data source.");
+        }
+        this.etbEntries = source;
+    }
 
     @Override
     public int getRowCount() {
@@ -24,7 +33,7 @@ public class FrederickEtbTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        FrederickEtbEntry entry = etbEntries.get(rowIndex);
+        EtbEntry entry = etbEntries.get(rowIndex);
         if(columnIndex == 0) {
             return entry.getTimestamp();
         } else if (columnIndex == 1) {
@@ -54,13 +63,10 @@ public class FrederickEtbTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        FrederickEtbEntry entry = etbEntries.get(rowIndex);
-        if(columnIndex == 4) {
-
-        }
+        // Not yet implemented
     }
 
-    public void addEtbEntry(final FrederickEtbEntry etbEntry) {
+    public void addEtbEntry(final EtbEntry etbEntry) {
         etbEntries.add(etbEntry);
         this.fireTableRowsInserted(etbEntries.size()-1, etbEntries.size()-1); 
     }

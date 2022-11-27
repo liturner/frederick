@@ -3,11 +3,11 @@ package turnertech.frederick.gui.etb;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class FrederickMainFrameEventListener extends WindowAdapter {
+public class FrederickEtbFrameEventListener extends WindowAdapter {
     
-    private final FrederickMainFrame frederickMainFrame;
+    private final FrederickEtbFrame frederickMainFrame;
 
-    public FrederickMainFrameEventListener(final FrederickMainFrame frederickMainFrame) {
+    public FrederickEtbFrameEventListener(final FrederickEtbFrame frederickMainFrame) {
         this.frederickMainFrame = frederickMainFrame;
     }
 
