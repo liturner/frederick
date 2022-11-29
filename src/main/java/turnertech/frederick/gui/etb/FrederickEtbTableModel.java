@@ -74,5 +74,10 @@ public class FrederickEtbTableModel extends AbstractTableModel {
     public TableColumnModel getColumnModel() {
         return columnModel;
     }
+
+    public int getRowLineCount(int rowIndex) {
+        EtbEntry entry = etbEntries.get(rowIndex);
+        return Math.max(entry.getEntry().split("[\n|\r]").length, 0);
+    }
     
 }

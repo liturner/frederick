@@ -1,8 +1,9 @@
 package turnertech.frederick.data;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public class EtbEntry {
+public class EtbEntry implements Serializable {
     
     private final Instant timestamp;
 

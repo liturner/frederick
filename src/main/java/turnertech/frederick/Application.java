@@ -2,6 +2,7 @@ package turnertech.frederick;
 
 import java.awt.AWTException;
 import java.awt.SystemTray;
+import java.io.IOException;
 import java.util.logging.Level;
 
 import turnertech.frederick.data.Deployment;
@@ -41,6 +42,8 @@ public class Application {
             return;
         }
 
+        load();
+
         frame = new FrederickEtbFrame();        
         frame.setVisible(true);
     }
@@ -51,6 +54,19 @@ public class Application {
 
     public static void exit() {
         System.exit(0);
+    }
+
+    public static void save() {
+        currentDeployment.save();
+    }
+
+    public static void load() {
+        try {
+            currentDeployment = (Deployment)(Serialization.deserialize(System.getProperty("user.home") + "\\CurrentDeployment.thw"));
+        } catch (ClassNotFoundException | IOException e) {
+            Logging.LOGGER.log(Level.SEVERE, "Cannot load current deployment", e);
+        }
+        
     }
 
     public static Deployment getCurrentDeployment() {
