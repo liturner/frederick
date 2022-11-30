@@ -3,6 +3,8 @@ package turnertech.frederick.gui.etb;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import turnertech.frederick.gui.InstantCellRenderer;
+
 public class FrederickEtbTableColumnModel extends DefaultTableColumnModel {
     
     public FrederickEtbTableColumnModel() {
@@ -11,6 +13,7 @@ public class FrederickEtbTableColumnModel extends DefaultTableColumnModel {
         timestamp.setHeaderValue("Timestamp");
         timestamp.setMinWidth(130);
         timestamp.setMaxWidth(200);
+        timestamp.setCellRenderer(new InstantCellRenderer());
         this.addColumn(timestamp);
 
         TableColumn user = new TableColumn(1);
@@ -22,6 +25,7 @@ public class FrederickEtbTableColumnModel extends DefaultTableColumnModel {
 
         TableColumn entry = new TableColumn(2);
         entry.setHeaderValue("Entry");
+        entry.setCellRenderer(new MultiLineCellRenderer());
         this.addColumn(entry);
 
         TableColumn notes = new TableColumn(3);

@@ -1,13 +1,10 @@
 package turnertech.frederick.gui.etb;
 
 import java.awt.Dimension;
-import java.time.Instant;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-
-import turnertech.frederick.gui.InstantCellRenderer;
 
 public class EtbFrameTable extends JScrollPane {
     
@@ -23,8 +20,6 @@ public class EtbFrameTable extends JScrollPane {
         this.dm = dm;
 
         etb = new JTable(dm, dm.getColumnModel());
-        etb.setDefaultRenderer(Instant.class, new InstantCellRenderer());
-        etb.setDefaultRenderer(String.class, new MultiLineCellRenderer(dm));
 
         this.setViewportView(etb);
         this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

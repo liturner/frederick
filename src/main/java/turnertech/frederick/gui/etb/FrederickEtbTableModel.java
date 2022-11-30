@@ -8,7 +8,7 @@ import javax.swing.table.TableColumnModel;
 
 import turnertech.frederick.data.EtbEntry;
 
-public class FrederickEtbTableModel extends AbstractTableModel {
+public class FrederickEtbTableModel extends AbstractTableModel implements MultiLineTableModel {
 
     private final transient List<EtbEntry> etbEntries;
 
@@ -75,6 +75,7 @@ public class FrederickEtbTableModel extends AbstractTableModel {
         return columnModel;
     }
 
+    @Override
     public int getRowLineCount(int rowIndex) {
         EtbEntry entry = etbEntries.get(rowIndex);
         return Math.max(entry.getEntry().split("[\n|\r]").length, 0);
