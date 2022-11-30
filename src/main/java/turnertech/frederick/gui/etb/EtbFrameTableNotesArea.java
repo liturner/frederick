@@ -21,6 +21,7 @@ public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionLi
         this.selectionModel = selectionModel;
         this.getDocument().addDocumentListener(this);
         this.setMinimumSize(new Dimension(200,200));
+        this.setEnabled(false);
     }
 
     @Override
@@ -29,6 +30,7 @@ public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionLi
             Application.save();
             return;
         }
+        this.setEnabled(!selectionModel.isSelectionEmpty());
         this.getDocument().removeDocumentListener(this);
         this.setText(tableModel.getValueAt(selectionModel.getLeadSelectionIndex(), EtbTableModel.NOTES).toString());
         this.getDocument().addDocumentListener(this);
