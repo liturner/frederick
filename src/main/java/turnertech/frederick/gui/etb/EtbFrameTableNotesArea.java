@@ -8,6 +8,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import turnertech.frederick.Application;
+
 public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionListener,  DocumentListener {
     
     private final EtbTableModel tableModel;
@@ -24,6 +26,7 @@ public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionLi
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if(e.getValueIsAdjusting()) {
+            Application.save();
             return;
         }
         this.getDocument().removeDocumentListener(this);
@@ -45,7 +48,5 @@ public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionLi
     public void changedUpdate(DocumentEvent e) {
         tableModel.setValueAt(this.getText(), selectionModel.getLeadSelectionIndex(), EtbTableModel.NOTES);
     }
-
-
 
 }
