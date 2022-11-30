@@ -8,13 +8,21 @@ import javax.swing.table.TableColumnModel;
 
 import turnertech.frederick.data.EtbEntry;
 
-public class FrederickEtbTableModel extends AbstractTableModel {
+public class EtbTableModel extends AbstractTableModel {
+
+    public static final int TIMESTAMP = 0;
+
+    public static final int USER = 1;
+
+    public static final int ENTRY = 2;
+
+    public static final int NOTES = 3;
 
     private final transient List<EtbEntry> etbEntries;
 
     private final FrederickEtbTableColumnModel columnModel = new FrederickEtbTableColumnModel();
 
-    public FrederickEtbTableModel(final List<EtbEntry> source) {
+    public EtbTableModel(final List<EtbEntry> source) {
         if(source == null) {
             throw new IllegalArgumentException("Table model cannot be initialised without a data source.");
         }
@@ -34,28 +42,32 @@ public class FrederickEtbTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         EtbEntry entry = etbEntries.get(rowIndex);
-        if(columnIndex == 0) {
+        if(columnIndex == TIMESTAMP) {
             return entry.getTimestamp();
-        } else if (columnIndex == 1) {
+        } else if (columnIndex == USER) {
             return entry.getUser();
-        } else if (columnIndex == 2) {
+        } else if (columnIndex == ENTRY) {
             return entry.getEntry();
+        } else if (columnIndex == NOTES) {
+            return entry.getNotes();
         }
         return null;
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 3;
+        return columnIndex == NOTES;
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if(columnIndex == 0) {
+        if(columnIndex == TIMESTAMP) {
             return Instant.class;
-        } else if (columnIndex == 1) {
+        } else if (columnIndex == USER) {
             return String.class;
-        } else if (columnIndex == 2) {
+        } else if (columnIndex == ENTRY) {
+            return String.class;
+        } else if (columnIndex == NOTES) {
             return String.class;
         }
         return Object.class;
@@ -63,7 +75,11 @@ public class FrederickEtbTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        // Not yet implemented
+        EtbEntry entry = etbEntries.get(rowIndex);
+        if (columnIndex == NOTES) {
+            entry.setNotes(aValue.toString());
+            this.fireTableCellUpdated(rowIndex, columnIndex);
+        }
     }
 
     public void addEtbEntry(final EtbEntry etbEntry) {

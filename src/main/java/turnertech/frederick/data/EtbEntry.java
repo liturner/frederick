@@ -11,10 +11,13 @@ public class EtbEntry implements Serializable {
 
     private final String entry;
 
+    private String notes;
+
     public EtbEntry(final Instant timestamp, String user, final String entry) {
         this.timestamp = timestamp;
         this.user = user;
         this.entry = entry;
+        this.notes = "";
     }
 
     public Instant getTimestamp() {
@@ -27,6 +30,14 @@ public class EtbEntry implements Serializable {
 
     public String getEntry() {
         return entry;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
 }

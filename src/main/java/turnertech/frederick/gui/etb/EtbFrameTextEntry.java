@@ -14,11 +14,11 @@ import turnertech.frederick.data.EtbEntry;
 
 public class EtbFrameTextEntry extends JScrollPane implements KeyListener {
 
-    private final FrederickEtbTableModel tableModel;
+    private final EtbTableModel tableModel;
 
     private final JTextArea textArea = new JTextArea();
 
-    public EtbFrameTextEntry(FrederickEtbTableModel dm) {
+    public EtbFrameTextEntry(EtbTableModel dm) {
         super();
         this.setViewportView(textArea);
         this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
