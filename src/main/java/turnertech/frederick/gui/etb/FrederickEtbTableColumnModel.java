@@ -25,7 +25,6 @@ public class FrederickEtbTableColumnModel extends DefaultTableColumnModel {
 
         TableColumn entry = new TableColumn(2);
         entry.setHeaderValue("Entry");
-        entry.setCellRenderer(new MultiLineCellRenderer());
         this.addColumn(entry);
 
         TableColumn notes = new TableColumn(3);
