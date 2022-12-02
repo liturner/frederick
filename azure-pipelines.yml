@@ -25,3 +25,13 @@ steps:
     summaryFileLocation: 'target/site/jacoco/jacoco.xml'
     pathToSources: 'src/main/java'
     failIfCoverageEmpty: true
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'target'
+    Contents: 'Frederick.jar'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
