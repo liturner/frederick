@@ -10,7 +10,8 @@ steps:
   inputs:
     script: |
       v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-      echo "##vso[frederick.version]$v"
+      echo "##vso[task.setvariable variable=FrederickVersion]$v"
+      echo "##vso[build.updatebuildnumber]$(FrederickVersion)$(Rev:.r)"
 
 - task: Maven@3
   inputs:
@@ -44,7 +45,7 @@ steps:
     rootFolderOrFile: '$(Build.BinariesDirectory)'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/Frederick-$(frederick.version).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Frederick-$(Build.BuildId).zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
