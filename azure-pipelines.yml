@@ -5,6 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+      echo "##vso[frederick.version]$v"
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -15,19 +22,6 @@ steps:
     jdkVersionOption: '1.17'
     mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'help:evaluate'
-    options: '-Dexpression=project.version -q -DforceStdout'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
@@ -50,7 +44,7 @@ steps:
     rootFolderOrFile: '$(Build.BinariesDirectory)'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/Frederick-$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Frederick-$(frederick.version).zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
