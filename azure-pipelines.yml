@@ -19,6 +19,19 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
 
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'help:evaluate'
+    options: '-Dexpression=project.version -q -DforceStdout'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'JaCoCo'
