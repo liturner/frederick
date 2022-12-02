@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-import turnertech.frederick.Resources;
-import turnertech.frederick.gui.StatusBar;
+import de.turnertech.frederick.Resources;
+import de.turnertech.frederick.gui.StatusBar;
 
 public class FrederickEtbFrame extends JFrame {
     

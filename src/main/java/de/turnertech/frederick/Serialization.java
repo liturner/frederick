@@ -1,4 +1,4 @@
-package turnertech.frederick;
+package de.turnertech.frederick;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

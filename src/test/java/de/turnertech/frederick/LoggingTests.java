@@ -1,4 +1,4 @@
-package turnertech.frederick;
+package de.turnertech.frederick;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

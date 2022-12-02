@@ -1,4 +1,4 @@
-package turnertech.frederick.data;
+package de.turnertech.frederick.data;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 
-import turnertech.frederick.Logging;
-import turnertech.frederick.Serialization;
+import de.turnertech.frederick.Logging;
+import de.turnertech.frederick.Serialization;
 
 public class Deployment implements Serializable {
     

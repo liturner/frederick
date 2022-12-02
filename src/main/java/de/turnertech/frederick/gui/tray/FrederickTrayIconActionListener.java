@@ -1,9 +1,9 @@
-package turnertech.frederick.gui.tray;
+package de.turnertech.frederick.gui.tray;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import turnertech.frederick.Application;
+import de.turnertech.frederick.Application;
 
 public class FrederickTrayIconActionListener implements ActionListener {
 

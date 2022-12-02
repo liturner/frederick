@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import java.awt.Dimension;
 

@@ -1,4 +1,4 @@
-package turnertech.frederick.gui;
+package de.turnertech.frederick.gui;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;

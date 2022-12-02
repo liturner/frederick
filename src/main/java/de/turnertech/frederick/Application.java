@@ -1,13 +1,13 @@
-package turnertech.frederick;
+package de.turnertech.frederick;
 
 import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import turnertech.frederick.data.Deployment;
-import turnertech.frederick.gui.etb.FrederickEtbFrame;
-import turnertech.frederick.gui.tray.FrederickTrayIcon;
+import de.turnertech.frederick.data.Deployment;
+import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
+import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
  * Currently the only executable method for this application. Used to analyse

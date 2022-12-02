@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import java.time.Instant;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 
-import turnertech.frederick.data.EtbEntry;
+import de.turnertech.frederick.data.EtbEntry;
 
 public class EtbTableModel extends AbstractTableModel {
 

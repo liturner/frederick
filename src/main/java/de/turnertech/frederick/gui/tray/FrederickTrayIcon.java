@@ -1,8 +1,8 @@
-package turnertech.frederick.gui.tray;
+package de.turnertech.frederick.gui.tray;
 
 import java.awt.TrayIcon;
 
-import turnertech.frederick.Resources;
+import de.turnertech.frederick.Resources;
 
 
 public class FrederickTrayIcon extends TrayIcon {

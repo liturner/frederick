@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import java.awt.Dimension;
 
@@ -8,7 +8,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import turnertech.frederick.Application;
+import de.turnertech.frederick.Application;
 
 public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionListener,  DocumentListener {
     

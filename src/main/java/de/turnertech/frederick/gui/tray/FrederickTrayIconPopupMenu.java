@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.tray;
+package de.turnertech.frederick.gui.tray;
 
 import java.awt.MenuItem;
 import java.awt.PopupMenu;

@@ -1,8 +1,8 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import javax.swing.JSplitPane;
 
-import turnertech.frederick.Application;
+import de.turnertech.frederick.Application;
 
 public class EtbFrameMainPanel extends JSplitPane {
     

@@ -1,4 +1,4 @@
-package turnertech.frederick.gui;
+package de.turnertech.frederick.gui;
 
 import java.awt.Component;
 import java.time.Instant;

@@ -1,9 +1,9 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-import turnertech.frederick.gui.InstantCellRenderer;
+import de.turnertech.frederick.gui.InstantCellRenderer;
 
 public class FrederickEtbTableColumnModel extends DefaultTableColumnModel {
     

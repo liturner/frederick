@@ -1,4 +1,4 @@
-package turnertech.frederick.gui.etb;
+package de.turnertech.frederick.gui.etb;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -9,8 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import turnertech.frederick.Application;
-import turnertech.frederick.data.EtbEntry;
+import de.turnertech.frederick.Application;
+import de.turnertech.frederick.data.EtbEntry;
 
 public class EtbFrameTextEntry extends JScrollPane implements KeyListener {
 

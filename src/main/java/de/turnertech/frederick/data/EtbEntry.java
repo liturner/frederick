@@ -1,4 +1,4 @@
-package turnertech.frederick.data;
+package de.turnertech.frederick.data;
 
 import java.io.Serializable;
 import java.time.Instant;
