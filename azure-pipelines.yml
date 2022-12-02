@@ -10,8 +10,7 @@ steps:
   inputs:
     script: |
       v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-      echo "##vso[task.setvariable variable=FrederickVersion]$v"
-      echo "##vso[build.updatebuildnumber]$(FrederickVersion)$(Rev:.r)"
+      echo "##vso[task.setvariable variable=FrederickVersion;]$v"
 
 - task: Maven@3
   inputs:
