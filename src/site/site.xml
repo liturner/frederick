@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd" name="Frederick">
+  <!--bannerLeft>
+    <name>Frederick</name>
+    <src>images/icon.svg</src>
+    <href>https://google.de</href>
+  </bannerLeft>
+  <bannerRight>
+    <src>images/icon.svg</src>
+  </bannerRight-->
+ 
+  <body>
+    <head>
+      <![CDATA[<link rel="icon" type="image/svg+xml" href="./images/favicon.svg">]]>
+    </head>
+    <links>
+      <item name="THW" href="https://www.thw.de/" />
+      <item name="BBK" href="https://www.bbk.bund.de/"/>
+    </links>
+ 
+    <menu name="Frederick">
+      <item name="Introduction" href="index.html"/>
+      <item name="Herunterladen" href="download.html"/>
+      <item name="Handbuch" href="manual.html">
+        <item name="Einsatztagebuch" href="download.html"/>
+      </item>
+    </menu>
+ 
+    <menu ref="reports"/>
+
+  </body>
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.11.1</version>
+  </skin>
+</project>

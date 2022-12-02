@@ -17,7 +17,7 @@ public class FrederickTrayIconActionListener implements ActionListener {
         if(EXIT_COMMAND.equals(e.getActionCommand())) {
             Application.exit();  
         } else if (SHOW_ETB_COMMAND.equals(e.getActionCommand())) {
-            Application.showETB();
+            Application.getEtbFrame().setVisible(true);
         }              
     }
 }

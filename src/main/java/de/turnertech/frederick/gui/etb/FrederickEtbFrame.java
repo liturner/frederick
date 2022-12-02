@@ -15,7 +15,7 @@ public class FrederickEtbFrame extends JFrame {
     public FrederickEtbFrame() {
         super();
         this.setTitle("Frederick - ETB");
-        this.setIconImage(Resources.getThwIcon().getImage());
+        this.setIconImage(Resources.getdiary24pxIcon().getImage());
         this.getContentPane().setLayout(new java.awt.BorderLayout());
         this.setMinimumSize(new Dimension(200,200));
         this.setSize(800, 500);

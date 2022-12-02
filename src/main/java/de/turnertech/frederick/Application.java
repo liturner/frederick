@@ -2,10 +2,8 @@ package de.turnertech.frederick;
 
 import java.awt.AWTException;
 import java.awt.SystemTray;
-import java.io.IOException;
 import java.util.logging.Level;
 
-import de.turnertech.frederick.data.Deployment;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
@@ -17,7 +15,7 @@ public class Application {
 
     private static FrederickEtbFrame frame = null;
 
-    private static Deployment currentDeployment = new Deployment();
+    private static final Database database = new Database();
 
     public static final String CURRENT_USER = System.getProperty("user.name");
 
@@ -27,14 +25,16 @@ public class Application {
      * @param args System provided arguments
      */
     public static void main(String[] args) {
+
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
             Logging.LOGGER.log(Level.SEVERE, "SystemTray is not supported");
             return;
         }
-        final FrederickTrayIcon trayIcon = new FrederickTrayIcon();
+        
         final SystemTray tray = SystemTray.getSystemTray();
-              
+        final FrederickTrayIcon trayIcon = new FrederickTrayIcon();
+        
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
@@ -42,34 +42,20 @@ public class Application {
             return;
         }
 
-        load();
-
         frame = new FrederickEtbFrame();        
         frame.setVisible(true);
     }
 
-    public static void showETB() {
-        frame.setVisible(true);
+    public static FrederickEtbFrame getEtbFrame() {
+        return frame;
     }
 
     public static void exit() {
         System.exit(0);
     }
 
-    public static void save() {
-        currentDeployment.save();
+    public static Database getDatabase() {
+        return database;
     }
 
-    public static void load() {
-        try {
-            currentDeployment = (Deployment)(Serialization.deserialize(System.getProperty("user.home") + "\\CurrentDeployment.thw"));
-        } catch (ClassNotFoundException | IOException e) {
-            Logging.LOGGER.log(Level.SEVERE, "Cannot load current deployment", e);
-        }
-        
-    }
-
-    public static Deployment getCurrentDeployment() {
-        return currentDeployment;
-    }
 }

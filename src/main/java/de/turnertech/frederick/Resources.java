@@ -10,26 +10,45 @@ import javax.swing.ImageIcon;
  */
 public class Resources {
 
-    private static URL thwIconUrl;
-    
-    private static ImageIcon thwIcon;
-
     private Resources() {
 
     }
 
-    public static URL getThwIconUrl() {
-        if(thwIconUrl == null) {
-            thwIconUrl = Application.class.getResource("/gui/thw.png");
+    private static ImageIcon diary24pxIcon;
+    public static ImageIcon getdiary24pxIcon() {
+        if(diary24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("etb/icon-24.png");
+            diary24pxIcon = new ImageIcon(iconUrl);
         }
-        return thwIconUrl;
+        return diary24pxIcon;
+    }
+    
+    private static ImageIcon deployment16pxIcon;
+    public static ImageIcon getdeployment16pxIcon() {
+        if(deployment16pxIcon == null) {
+            URL iconUrl = Application.class.getResource("icon-16.png");
+            deployment16pxIcon = new ImageIcon(iconUrl);
+        }
+        return deployment16pxIcon;
     }
 
-    public static ImageIcon getThwIcon() {
-        if(thwIcon == null) {
-            thwIcon = new ImageIcon(Resources.getThwIconUrl());
+    private static ImageIcon deployment24pxIcon;
+    public static ImageIcon getdeployment24pxIcon() {
+        if(deployment24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("icon-24.png");
+            deployment24pxIcon = new ImageIcon(iconUrl);
         }
-        return thwIcon;
+        return deployment24pxIcon;
     }
+
+    private static ImageIcon deployment32pxIcon;
+    public static ImageIcon getdeployment32pxIcon() {
+        if(deployment32pxIcon == null) {
+            URL iconUrl = Application.class.getResource("icon-32.png");
+            deployment32pxIcon = new ImageIcon(iconUrl);
+        }
+        return deployment32pxIcon;
+    }
+    
 
 }

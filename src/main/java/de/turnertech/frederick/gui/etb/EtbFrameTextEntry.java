@@ -38,7 +38,7 @@ public class EtbFrameTextEntry extends JScrollPane implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ENTER && e.isControlDown() ) {
             tableModel.addEtbEntry(new EtbEntry(Instant.now(), Application.CURRENT_USER, textArea.getText()));    
             textArea.setText("");
-            Application.save();
+            Application.getDatabase().saveCurrentDeployment();;
             e.consume();
         }   
     }

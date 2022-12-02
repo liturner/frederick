@@ -1,0 +1,29 @@
+/*body {
+    background-color: #444;
+}
+
+.breadcrumb>li {
+    text-shadow: 0 0px 0 #000;
+}
+
+a {
+    color: #fff;
+}
+
+li {
+    color: #ffffff;
+}
+
+
+
+.breadcrumb {
+    background-color: #0039AC;
+}*/
+
+.well {
+    background-color: #0039AC;
+}
+
+.nav-list>li>a, .nav-list .nav-header {
+    text-shadow: 0 0px 0 #000;
+}
