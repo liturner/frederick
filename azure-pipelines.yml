@@ -36,11 +36,26 @@ steps:
     failIfCoverageEmpty: true
 
 - task: CopyFiles@2
+  displayName: Copy Frederick.cmd
+  inputs:
+    SourceFolder: 'install'
+    Contents: 'Frederick.cmd'
+    TargetFolder: '$(Build.BinariesDirectory)'
+
+- task: CopyFiles@2
   displayName: Copy binaries
   inputs:
     SourceFolder: 'target'
     Contents: 'Frederick.jar'
-    TargetFolder: '$(Build.BinariesDirectory)'
+    TargetFolder: '$(Build.BinariesDirectory)/lib'
+
+- task: CmdLine@2
+  displayName: Inject jre
+  inputs:
+    script: |
+      wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip
+      unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip -d $(Build.BinariesDirectory)
+      mv $(Build.BinariesDirectory)/jdk-17.0.5+8-jre $(Build.BinariesDirectory)/jre'
 
 - task: ArchiveFiles@2
   displayName: Zip binaries
