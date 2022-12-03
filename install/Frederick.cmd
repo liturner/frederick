@@ -8,4 +8,4 @@
 :: %~dp0    - Is the directory holding this file
 :: -d64     - 64 bit required. We anyway ship 64bit javaw
 :: -Xmx128m - Max Heap Size. Its a lightweight app...
-%~dp0jre\bin\javaw -Xmx128m -d64 -jar %~dp0lib\Frederick.jar
+"%~dp0jre\bin\javaw" -Xmx128m -jar "%~dp0lib\Frederick.jar"
