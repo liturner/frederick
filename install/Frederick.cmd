@@ -5,7 +5,8 @@
 :: We will always use shortcuts installed in the start menu
 :: and desktop with icons to this cmd.
 ::
+:: START    - Runs without keeping CMD window open
 :: %~dp0    - Is the directory holding this file
-:: -d64     - 64 bit required. We anyway ship 64bit javaw
+:: /B       - Should skip making any cmd windows
 :: -Xmx128m - Max Heap Size. Its a lightweight app...
-"%~dp0jre\bin\javaw" -Xmx128m -jar "%~dp0lib\Frederick.jar"
+START "Frederick" /B "%~dp0jre\bin\javaw" -Xmx128m -jar "%~dp0lib\Frederick.jar"
