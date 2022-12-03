@@ -13,3 +13,15 @@ We aim to provide a set of tools to help with analysing various Lotto results. T
 # Architechture
 
 The intention is to provide a set of usefull interfaces and base classes, as well as a kind of "engine".
+
+# Site Deployment
+
+Make sure the username and password are set in the settings.xml file using the <servers> element with the site id as you would for any other repository.
+
+```xml
+<server>
+  <id>frederick.sourceforge.io</id>
+  <username>turnertech</username>
+  <password>...</password>
+</server>
+```

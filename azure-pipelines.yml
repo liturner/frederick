@@ -1,6 +1,3 @@
-trigger:
-- master
-
 pool:
   vmImage: ubuntu-latest
 
@@ -14,9 +11,10 @@ steps:
       echo "##vso[task.setvariable variable=FrederickVersion;]$v"
 
 - task: Maven@3
-  displayName: Maven package
+  displayName: Maven package site
   inputs:
     mavenPomFile: 'pom.xml'
+    goals: 'package site'
     options: '--no-transfer-progress'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -70,3 +68,11 @@ steps:
   displayName: Publish binaries
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'bin'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish site
+  inputs:
+    PathtoPublish: 'target/site'
+    ArtifactName: 'site'
+    StoreAsTar: true
