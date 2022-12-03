@@ -1,28 +1,45 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--https://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html#class_logo-->
 <project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd" name="Frederick">
-  <!--bannerLeft>
+  <bannerLeft>
     <name>Frederick</name>
-    <src>images/icon.svg</src>
-    <href>https://google.de</href>
+    <src>images/frederick-logo.svg</src>
+    <title>Frederick</title>
+    <height>51px</height>
   </bannerLeft>
   <bannerRight>
-    <src>images/icon.svg</src>
-  </bannerRight-->
- 
+    <name>TurnerTech</name>
+    <src>images/tt-banner.svg</src>
+    <title>Frederick</title>
+    <height>51px</height>
+  </bannerRight>
+  <publishDate position="right" />
+  <version position="right" />
+  <poweredBy>
+    <logo name="Unterstützt von Azure DevOps" href="https://dev.azure.com/TurnerTech/Frederick" img="./images/azure.png" title="Azure DevOps"/>
+    <logo name="Unterstützt von SourceForge" href="https://sourceforge.net/p/frederick/" img="./images/sf-logo-full.png" title="SourceForge"/>
+    <logo name="Unterstützt von Maven" href="https://maven.apache.org/" img="./images/logos/maven-feather.png" width="90" title="Maven" />
+  </poweredBy>
+<!--a href=><img alt="Download Frederick" src="" width=200></a>
+<img class="builtBy" alt="Erstellt von Maven" src=""  90 x 30 --> 
   <body>
     <head>
       <![CDATA[<link rel="icon" type="image/svg+xml" href="./images/favicon.svg">]]>
     </head>
     <links>
-      <item name="THW" href="https://www.thw.de/" />
-      <item name="BBK" href="https://www.bbk.bund.de/"/>
+      <item name="THW" href="https://www.thw.de/" img="https://www.thw.de/SiteGlobals/StyleBundles/Bilder/favicon.ico?__blob=normal&amp;v=2" height="14px"/>
+      <item name="BBK" href="https://www.bbk.bund.de/" img="https://www.bbk.bund.de/SiteGlobals/Frontend/Images/favicons/favicon.ico?__blob=normal&amp;v=1" height="14px"/>
     </links>
- 
+    <breadcrumbs>
+      <item name="Frederick" href="https://frederick.sourceforge.io/"/>
+    </breadcrumbs>
+
     <menu name="Frederick">
       <item name="Introduction" href="index.html"/>
       <item name="Herunterladen" href="download.html"/>
-      <item name="Handbuch" href="manual.html">
-        <item name="Einsatztagebuch" href="download.html"/>
+      <item name="Handbuch" title="Handbuch" href="manual.html" collapse="true">
+        <item name="Einführung" href="overview.html"/>
+        <item name="Einsatztagebuch" href="deployment-diary.html"/>
       </item>
     </menu>
  
