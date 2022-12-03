@@ -1,3 +1,7 @@
+[![Download Frederick](https://img.shields.io/sourceforge/dt/frederick.svg)](https://sourceforge.net/projects/frederick/files/latest/download) [![Build Status](https://dev.azure.com/TurnerTech/Frederick/_apis/build/status/Frederick?branchName=master)](https://dev.azure.com/TurnerTech/Frederick/_build/latest?definitionId=22&branchName=master)
+
+[![Download Frederick](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/frederick/files/latest/download)
+
 # Project Type
 
 This project is intended to be a "pure maven" project. In order to reduce complexity we will not include any IDE specific configuration files. Instead a few hints may be provided in this readme file.
