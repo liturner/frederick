@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.util.logging.Level;
 
+import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
@@ -14,6 +15,8 @@ import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 public class Application {
 
     private static FrederickEtbFrame frame = null;
+
+    private static DeploymentFrame deploymentFrame = null;
 
     private static final Database database = new Database();
 
@@ -42,12 +45,17 @@ public class Application {
             return;
         }
 
+        deploymentFrame = new DeploymentFrame();
         frame = new FrederickEtbFrame();        
         frame.setVisible(true);
     }
 
     public static FrederickEtbFrame getEtbFrame() {
         return frame;
+    }
+
+    public static DeploymentFrame getDeploymentFrame() {
+        return deploymentFrame;
     }
 
     public static void exit() {

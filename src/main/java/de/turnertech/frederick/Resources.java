@@ -13,15 +13,6 @@ public class Resources {
     private Resources() {
 
     }
-
-    private static ImageIcon diary24pxIcon;
-    public static ImageIcon getdiary24pxIcon() {
-        if(diary24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("etb/icon-24.png");
-            diary24pxIcon = new ImageIcon(iconUrl);
-        }
-        return diary24pxIcon;
-    }
     
     private static ImageIcon deployment16pxIcon;
     public static ImageIcon getdeployment16pxIcon() {

@@ -9,17 +9,22 @@ public class FrederickTrayIconPopupMenu extends PopupMenu {
     public FrederickTrayIconPopupMenu() {
         super();
 
-        MenuItem showItem = new MenuItem("Show ETB");
-        showItem.addActionListener(new FrederickTrayIconActionListener());
-        showItem.setActionCommand(FrederickTrayIconActionListener.SHOW_ETB_COMMAND);
-        this.add(showItem);
+        MenuItem menuItem = new MenuItem("Einsatz Manager");
+        menuItem.addActionListener(new FrederickTrayIconActionListener());
+        menuItem.setActionCommand(FrederickTrayIconActionListener.SHOW_DEPLOYMENT_MANAGER_COMMAND);
+        this.add(menuItem);
+
+        menuItem = new MenuItem("ETB");
+        menuItem.addActionListener(new FrederickTrayIconActionListener());
+        menuItem.setActionCommand(FrederickTrayIconActionListener.SHOW_ETB_COMMAND);
+        this.add(menuItem);
 
         this.addSeparator();
         
-        MenuItem exitItem = new MenuItem("Exit");
-        exitItem.addActionListener(new FrederickTrayIconActionListener());
-        exitItem.setActionCommand(FrederickTrayIconActionListener.EXIT_COMMAND);
-        this.add(exitItem);
+        menuItem = new MenuItem("Beenden");
+        menuItem.addActionListener(new FrederickTrayIconActionListener());
+        menuItem.setActionCommand(FrederickTrayIconActionListener.EXIT_COMMAND);
+        this.add(menuItem);
     }
     
 }

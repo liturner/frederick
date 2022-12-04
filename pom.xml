@@ -29,7 +29,16 @@
       <email>turnertech@outlook.de</email>
       <organization>TurnerTech</organization>
       <roles>
-        <role>Developer</role>
+        <role>Entwickler</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+    <developer>
+      <name>Annika Hibben</name>
+      <email>turnertech@outlook.de</email>
+      <organization>TurnerTech</organization>
+      <roles>
+        <role>Designerin</role>
       </roles>
       <timezone>Europe/Berlin</timezone>
     </developer>

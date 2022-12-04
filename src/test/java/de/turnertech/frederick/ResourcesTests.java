@@ -10,7 +10,6 @@ public class ResourcesTests {
     @Test
     @DisplayName("THW Icon Exists")
 	public void thwIconExists() {
-        assertNotNull(Resources.getdiary24pxIcon());
         assertNotNull(Resources.getdeployment16pxIcon());
         assertNotNull(Resources.getdeployment24pxIcon());
         assertNotNull(Resources.getdeployment32pxIcon());
