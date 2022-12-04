@@ -46,6 +46,7 @@ public class Application {
         }
 
         deploymentFrame = new DeploymentFrame();
+        deploymentFrame.setVisible(true);
         frame = new FrederickEtbFrame();        
         frame.setVisible(true);
     }
