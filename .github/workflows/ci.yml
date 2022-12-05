@@ -44,8 +44,8 @@ jobs:
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
-        name: Package
-        path: artefact/Frederick-{{$env.PROJECT_VERSION}}.zip
+        name: Binaries
+        path: artefact/*.zip
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
