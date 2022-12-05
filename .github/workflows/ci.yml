@@ -23,7 +23,7 @@ jobs:
       run: |
         mkdir staging && \
         cp install/Frederick.cmd staging/Frederick.cmd && \
-        cp target/Frederick.jar staging/lib/Frederick.jar
+        mkdir staging/lib && cp target/Frederick.jar staging/lib/Frederick.jar
 
     - name: Inject JRE
       run: |
