@@ -19,7 +19,7 @@ jobs:
     - name: Retrieve Version
       run: |
         v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
-        echo "{PROJECT_VERSION}={$v}" >> $GITHUB_ENV
+        echo "PROJECT_VERSION=$v" >> $GITHUB_ENV
 
     - name: Maven package site
       run: mvn -B package site --no-transfer-progress --file pom.xml
@@ -39,13 +39,13 @@ jobs:
     - name: Zip files
       run: |
         mkdir artefact && \
-        (cd staging && zip -q -r ../artefact/Frederick.zip .)
+        (cd staging && zip -q -r ../artefact/Frederick-$PROJECT_VERSION.zip .)
 
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: artefact/Frederick.zip
+        path: artefact/Frederick-$PROJECT_VERSION.zip
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
