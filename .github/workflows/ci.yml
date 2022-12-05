@@ -39,13 +39,13 @@ jobs:
     - name: Zip files
       run: |
         mkdir artefact && \
-        (cd staging && zip -q -r ../artefact/Frederick-$PROJECT_VERSION.zip .)
+        (cd staging && zip -q -r ../artefact/Frederick-${{PROJECT_VERSION}}.zip .)
 
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: artefact/Frederick-$PROJECT_VERSION.zip
+        path: artefact/Frederick-{{$PROJECT_VERSION}}.zip
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
