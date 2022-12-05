@@ -34,7 +34,7 @@ jobs:
     - name: Zip files
       run: |
         mkdir artefact && \
-        zip artefact/Frederick.zip staging
+        zip -q -r artefact/Frederick.zip staging
 
     - name: Publish build
       uses: actions/upload-artifact@v3
