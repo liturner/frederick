@@ -22,8 +22,8 @@ jobs:
     - name: Stage binaries
       run: |
         mkdir staging && \
-        cp install/Frederick.cmd staging && \
-        cp target/Frederick.jar staging/lib
+        cp install/Frederick.cmd staging/Frederick.cmd && \
+        cp target/Frederick.jar staging/lib/Frederick.jar
 
     - name: Inject JRE
       run: |
