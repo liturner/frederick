@@ -20,13 +20,13 @@ jobs:
       run: mvn -B package site --no-transfer-progress --file pom.xml
 
     - name: Stage binaries
-    - run: |
+      run: |
         mkdir staging \
         cp install/Frederick.cmd staging \
         cp target/Frederick.jar staging/lib
 
     - name: Inject JRE
-    - run: |
+      run: |
         wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip \
         unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip -d staging \
         mv staging/jdk-17.0.5+8-jre staging/jre
