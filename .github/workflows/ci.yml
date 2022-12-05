@@ -31,11 +31,16 @@ jobs:
         unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip -d staging && \
         mv staging/jdk-17.0.5+8-jre staging/jre
 
+    - name: Zip files
+      run: |
+        mkdir artefact && \
+        zip artefact/Frederick.zip staging
+
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: staging
+        path: artefact/Frederick.zip
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
