@@ -27,15 +27,12 @@ public class Database {
      * The constructor initialises the data storage folder.
      */
     public Database() {
-
-        if(System.getProperty("os.name").contains("indow")) {
-            root = Path.of("C:\\ProgramData\\Frederick");
-        } else {
-            root = Path.of(System.getProperty("user.home"), ".frederick");
-        }
+        // Handle cross platform by changing this property during the build pipeline!
+        root = Path.of(System.getProperty("de.turnertech.frederick.store.location"));
 
         try {
             Files.createDirectories(root);
+            Files.createDirectories(Path.of(root.toString(), "Logs"));
         } catch (IOException e) {
             Logging.LOGGER.log(Level.SEVERE, "Could not create database. Exiting!", e);
             Application.exit();

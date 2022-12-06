@@ -2,6 +2,8 @@ package de.turnertech.frederick;
 
 import java.awt.AWTException;
 import java.awt.SystemTray;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
@@ -13,6 +15,15 @@ import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
  * all balls with all methods.
  */
 public class Application {
+
+    static {
+        try (InputStream props = Application.class.getResourceAsStream("frederick.properties");) {
+            System.getProperties().load(props);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
 
     private static FrederickEtbFrame frame = null;
 
