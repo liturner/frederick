@@ -17,6 +17,7 @@ public class DeploymentFrame extends JFrame  {
         this.getContentPane().setLayout(new java.awt.BorderLayout());
         this.setMinimumSize(new Dimension(200,200));
         this.setSize(400, 400);
+        this.add(new DeploymentTablePane(), BorderLayout.CENTER);
         this.add(new StatusBar(), BorderLayout.PAGE_END);
     }
 
