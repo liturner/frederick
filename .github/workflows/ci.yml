@@ -29,6 +29,7 @@ jobs:
         mkdir staging && \
         cp install/Frederick.cmd staging/Frederick.cmd && \
         cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt && \
+        cp target/generated-sources/license/LICENSE.txt staging/license.txt && \
         mv target/dependency staging/lib && \
         cp target/*.jar staging/lib && \
         mv target/generated-resources/licenses staging/lic && \

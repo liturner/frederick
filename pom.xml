@@ -10,8 +10,8 @@
   <name>Frederick</name>
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>MIT</name>
+      <url>https://opensource.org/licenses/MIT</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -225,6 +225,15 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <executions>
+          <execution>
+            <id>update-project-license</id>
+            <goals>
+              <goal>update-project-license</goal>
+            </goals>
+            <configuration>
+              <licenseName>mit</licenseName>
+            </configuration>
+          </execution>
           <execution>
             <id>add-third-party</id>
             <goals>
