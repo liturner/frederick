@@ -1,9 +1,12 @@
 package de.turnertech.frederick;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -19,6 +22,12 @@ public class Database {
     private final Path root;
 
     public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current.dep";
+
+    public static final Integer DEPLOYMENT_CLOSED_EVENT = "DEPLOYMENT_CLOSED_EVENT".hashCode();
+
+    public static final Integer DEPLOYMENT_SAVED_EVENT = "DEPLOYMENT_SAVED_EVENT".hashCode();
+
+    private final ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
     private final Timer saveTimer = new Timer("Save Timer");
 
@@ -43,6 +52,17 @@ public class Database {
             Application.exit();
         }
 
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        actionListeners.add(actionListener);
+    }
+
+    public void notifyActionListeners(int event) {
+        ActionEvent actionEvent = new ActionEvent(this, event, "");
+        for(ActionListener actionListener : actionListeners) {
+            actionListener.actionPerformed(actionEvent);
+        }
     }
 
     /**
@@ -94,6 +114,7 @@ public class Database {
             Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME);
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.log(Level.INFO, "Saved current deployment");
+            notifyActionListeners(DEPLOYMENT_SAVED_EVENT);
         } catch (IOException e) {
             Logging.LOGGER.log(Level.SEVERE, "Unable to save the deployment!");
         }
@@ -137,6 +158,25 @@ public class Database {
             return Optional.empty();
         }
         return Optional.empty();
+    }
+
+    public void closeDeployment(final String name) {
+        try {
+            Path pathToDeployment = getPathToDeployment(name);
+            Serialization.serialize(currentDeployment, pathToDeployment.toString());
+            Logging.LOGGER.log(Level.INFO, "Wrote current deployment to new file");
+
+            pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME);
+            Files.delete(pathToDeployment);
+            currentDeployment = null;
+            Logging.LOGGER.info("Deleted old current");
+            // This triggers creation of the new empty deployment
+            getCurrentDeployment();
+            saveCurrentDeployment();
+            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT);
+        } catch (IOException e) {
+            Logging.LOGGER.log(Level.SEVERE, "Unable to close the deployment!");
+        }
     }
 
 }

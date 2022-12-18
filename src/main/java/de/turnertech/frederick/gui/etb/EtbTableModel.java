@@ -1,14 +1,18 @@
 package de.turnertech.frederick.gui.etb;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 
+import de.turnertech.frederick.Application;
+import de.turnertech.frederick.Database;
 import de.turnertech.frederick.data.EtbEntry;
 
-public class EtbTableModel extends AbstractTableModel {
+public class EtbTableModel extends AbstractTableModel implements ActionListener {
 
     public static final int TIMESTAMP = 0;
 
@@ -27,6 +31,7 @@ public class EtbTableModel extends AbstractTableModel {
             throw new IllegalArgumentException("Table model cannot be initialised without a data source.");
         }
         this.etbEntries = source;
+        Application.getDatabase().addActionListener(this);
     }
 
     @Override
@@ -89,6 +94,13 @@ public class EtbTableModel extends AbstractTableModel {
 
     public TableColumnModel getColumnModel() {
         return columnModel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID())) {
+            fireTableDataChanged();
+        }
     }
     
 }
