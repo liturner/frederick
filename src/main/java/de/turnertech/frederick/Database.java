@@ -1,5 +1,6 @@
 package de.turnertech.frederick;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.turnertech.frederick.data.Deployment;
 import de.turnertech.frederick.data.SaveTimerTask;
@@ -28,16 +31,38 @@ public class Database {
      */
     public Database() {
         // Handle cross platform by changing this property during the build pipeline!
-        root = Path.of(System.getProperty("de.turnertech.frederick.store.location"));
+        String rootFolder = System.getProperty("de.turnertech.frederick.store.location");
+        String subFolder = System.getProperty("de.turnertech.frederick.store.deployment.folder", "Deployments");
+
+        root = Path.of(rootFolder, subFolder);
 
         try {
             Files.createDirectories(root);
-            Files.createDirectories(Path.of(root.toString(), "Logs"));
         } catch (IOException e) {
             Logging.LOGGER.log(Level.SEVERE, "Could not create database. Exiting!", e);
             Application.exit();
         }
 
+    }
+
+    /**
+     * Return the sorted set of files stored in the deployments folder
+     * of the data store. This will not cause the files to be loaded into memory.
+     * 
+     * @return Never null, empty list on exception.
+     */
+    public List<File> getDeploymentFiles() {
+        try (Stream<Path> stream = Files.list(root)) {
+            return stream
+                .filter(file -> Files.isRegularFile(file))
+                .map(Path::toFile)
+                .sorted()
+                .collect(Collectors.toList());
+        } catch (Exception e) {
+            Logging.LOGGER.severe("Could not list deployment files!");
+        }
+
+        return List.of();
     }
 
     public List<Deployment> getDeployments() {

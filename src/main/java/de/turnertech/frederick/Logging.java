@@ -1,5 +1,9 @@
 package de.turnertech.frederick;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -14,4 +18,17 @@ public class Logging {
 
     }
 
+    public static void initialise() {
+        String storeRoot = System.getProperty("de.turnertech.frederick.store.location");
+        String logFolder = System.getProperty("de.turnertech.frederick.store.log.folder", "Logs");
+
+        Path fullLogFolder = Paths.get(storeRoot, logFolder);
+
+        try {
+            Files.createDirectories(fullLogFolder);
+        } catch (Exception e) {
+            Logging.LOGGER.log(Level.SEVERE, "Could not create database. Exiting!", e);
+            Application.exit();
+        }
+    }
 }

@@ -40,6 +40,8 @@ public class Application {
      */
     public static void main(String[] args) {
 
+        Logging.initialise();
+
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
             Logging.LOGGER.log(Level.SEVERE, "SystemTray is not supported");
