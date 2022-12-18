@@ -41,5 +41,49 @@ public class Resources {
         return deployment32pxIcon;
     }
     
+    private static ImageIcon rowDelete24pxIcon;
+    public static ImageIcon getRowDelete24pxIcon() {
+        if(rowDelete24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/table/RowDelete24.gif");
+            rowDelete24pxIcon = new ImageIcon(iconUrl);
+        }
+        return rowDelete24pxIcon;
+    }
+
+    private static ImageIcon print24pxIcon;
+    public static ImageIcon getPrint24pxIcon() {
+        if(print24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Print24.gif");
+            print24pxIcon = new ImageIcon(iconUrl);
+        }
+        return print24pxIcon;
+    }
+
+    private static ImageIcon delete24pxIcon;
+    public static ImageIcon getDelete24pxIcon() {
+        if(delete24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Delete24.gif");
+            delete24pxIcon = new ImageIcon(iconUrl);
+        }
+        return delete24pxIcon;
+    }
+
+    private static ImageIcon export24pxIcon;
+    public static ImageIcon getExport24pxIcon() {
+        if(export24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Export24.gif");
+            export24pxIcon = new ImageIcon(iconUrl);
+        }
+        return export24pxIcon;
+    }
+
+    private static ImageIcon stop24pxIcon;
+    public static ImageIcon getStop24pxIcon() {
+        if(stop24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Stop24.gif");
+            stop24pxIcon = new ImageIcon(iconUrl);
+        }
+        return stop24pxIcon;
+    }
 
 }

@@ -1,32 +1,34 @@
 package de.turnertech.frederick.gui.deployments;
 
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
-import javax.swing.UIManager;
+import javax.swing.JToolBar;
 
-public class DeploymentMenuBar extends JMenuBar {
+import de.turnertech.frederick.Resources;
 
-    public DeploymentMenuBar() {
+public class DeploymentToolBar extends JToolBar {
+
+    public DeploymentToolBar() {
 
         JButton menuItem = new JButton();
-        menuItem.setIcon(UIManager.getIcon("FileView.computerIcon"));
+        menuItem.setIcon(Resources.getStop24pxIcon());
         menuItem.setToolTipText("Einsatz Beenden");
         this.add(menuItem);
 
         menuItem = new JButton();
-        menuItem.setIcon(UIManager.getIcon("FileView.computerIcon"));
+        menuItem.setIcon(Resources.getDelete24pxIcon());
         menuItem.setToolTipText("Einsatz Löschen");
         this.add(menuItem);
 
         menuItem = new JButton();
-        menuItem.setIcon(UIManager.getIcon("FileView.computerIcon"));
+        menuItem.setIcon(Resources.getExport24pxIcon());
         menuItem.setToolTipText("Einsatz Exportieren");
         this.add(menuItem);
         
         menuItem = new JButton();
-        menuItem.setIcon(UIManager.getIcon("FileView.computerIcon"));
+        menuItem.setIcon(Resources.getPrint24pxIcon());
         menuItem.setToolTipText("Einsatz Drücken");
         this.add(menuItem);
+
     }
 
 }

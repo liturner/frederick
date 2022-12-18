@@ -168,6 +168,7 @@
           <useFile>false</useFile>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -188,6 +189,22 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>compile</includeScope>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Ensure a detailed MANIFEST is generated -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -198,7 +215,6 @@
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
               <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
               <mainClass>de.turnertech.frederick.Application</mainClass>
             </manifest>
           </archive>
@@ -219,15 +235,21 @@
         <executions>
           <execution>
             <id>add-third-party</id>
-            <phase>compile</phase>
             <goals>
               <goal>add-third-party</goal>
             </goals>
             <configuration>
               <useMissingfile>true</useMissingfile>
-              <licenseMerges>
-                <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0|Apache Public License 2.0</licenseMerge>
-              </licenseMerges>
+              <excludedScopes>test,provided</excludedScopes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>download-licenses</id>
+            <goals>
+              <goal>download-licenses</goal>
+            </goals>
+            <configuration>
+              <excludedScopes>test,provided</excludedScopes>
             </configuration>
           </execution>
         </executions>
@@ -278,13 +300,21 @@
   </reporting>
 
   <dependencies>
-  	<!-- Test Dependencies -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.1</version>
-			<scope>test</scope>
-		</dependency>
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.9.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- GUI Icons -->
+    <!-- https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html -->
+    <dependency>
+      <groupId>net.java.linoleum</groupId>
+      <artifactId>jlfgr</artifactId>
+      <version>1_0</version>
+    </dependency>
   </dependencies>
 
 </project>
