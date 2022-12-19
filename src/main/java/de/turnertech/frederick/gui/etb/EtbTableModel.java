@@ -3,7 +3,6 @@ package de.turnertech.frederick.gui.etb;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
-import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
@@ -12,6 +11,13 @@ import de.turnertech.frederick.Application;
 import de.turnertech.frederick.Database;
 import de.turnertech.frederick.data.EtbEntry;
 
+/**
+ * This model is somewhat stateless. It uses the {@link Application} class
+ * as its central service provider, and gets the data without caching. It
+ * is more of a connector, than a data store.
+ * 
+ * Note, that this application does not aim to be modular!
+ */
 public class EtbTableModel extends AbstractTableModel implements ActionListener {
 
     public static final int TIMESTAMP = 0;
@@ -22,21 +28,15 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     public static final int NOTES = 3;
 
-    private final transient List<EtbEntry> etbEntries;
-
     private final FrederickEtbTableColumnModel columnModel = new FrederickEtbTableColumnModel();
 
-    public EtbTableModel(final List<EtbEntry> source) {
-        if(source == null) {
-            throw new IllegalArgumentException("Table model cannot be initialised without a data source.");
-        }
-        this.etbEntries = source;
+    public EtbTableModel() {
         Application.getDatabase().addActionListener(this);
     }
 
     @Override
     public int getRowCount() {
-        return etbEntries.size();
+        return Application.getDatabase().getCurrentDeployment().getEtbEntryList().size();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        EtbEntry entry = etbEntries.get(rowIndex);
+        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntryList().get(rowIndex);
         if(columnIndex == TIMESTAMP) {
             return entry.getTimestamp();
         } else if (columnIndex == USER) {
@@ -80,7 +80,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        EtbEntry entry = etbEntries.get(rowIndex);
+        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntryList().get(rowIndex);
         if (columnIndex == NOTES) {
             entry.setNotes(aValue.toString());
             this.fireTableCellUpdated(rowIndex, columnIndex);
@@ -88,8 +88,8 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
     }
 
     public void addEtbEntry(final EtbEntry etbEntry) {
-        etbEntries.add(etbEntry);
-        this.fireTableRowsInserted(etbEntries.size()-1, etbEntries.size()-1); 
+        Application.getDatabase().getCurrentDeployment().getEtbEntryList().add(etbEntry);
+        this.fireTableRowsInserted(Application.getDatabase().getCurrentDeployment().getEtbEntryList().size()-1, Application.getDatabase().getCurrentDeployment().getEtbEntryList().size()-1); 
     }
 
     public TableColumnModel getColumnModel() {
@@ -99,7 +99,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID())) {
-            fireTableDataChanged();
+            this.fireTableDataChanged();
         }
     }
     
