@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -21,7 +22,7 @@ public class Database {
     
     private final Path root;
 
-    public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current.dep";
+    public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
 
     public static final Integer DEPLOYMENT_CLOSED_EVENT = "DEPLOYMENT_CLOSED_EVENT".hashCode();
 
@@ -74,9 +75,9 @@ public class Database {
     public List<File> getDeploymentFiles() {
         try (Stream<Path> stream = Files.list(root)) {
             return stream
-                .filter(file -> Files.isRegularFile(file))
+                .filter(Files::isRegularFile)
                 .map(Path::toFile)
-                .sorted()
+                .sorted(Comparator.comparingLong(File::lastModified).reversed())
                 .collect(Collectors.toList());
         } catch (Exception e) {
             Logging.LOGGER.severe("Could not list deployment files!");
@@ -158,6 +159,11 @@ public class Database {
             return Optional.empty();
         }
         return Optional.empty();
+    }
+
+    public boolean isDeploymentExists(final String name) {
+        Path pathToDeployment = getPathToDeployment(name);
+        return Files.exists(pathToDeployment);
     }
 
     public void closeDeployment(final String name) {

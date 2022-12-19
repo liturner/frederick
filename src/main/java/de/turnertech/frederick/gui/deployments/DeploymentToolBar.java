@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 
 import de.turnertech.frederick.Application;
@@ -60,7 +61,26 @@ public class DeploymentToolBar extends JToolBar implements ActionListener {
         if(DELETE_COMMAND.equals(e.getActionCommand())) {
             deploymentTable.getSelectedRow();
         } else if (END_COMMAND.equals(e.getActionCommand())) {
-            Application.getDatabase().closeDeployment("SomeText");
+
+            String additionalInstructions = "";
+            boolean nameValid = false;
+            String name = "";
+            while(!nameValid) {
+                name = JOptionPane.showInputDialog(
+                    this,
+                    "Wie soll den Einsatz genannt?\n\n" + additionalInstructions,
+                    "Einsatz Beenden",
+                    JOptionPane.QUESTION_MESSAGE);
+
+                if(Application.getDatabase().isDeploymentExists(name)) {
+                    additionalInstructions = "Name already exists! Choose another name.";
+                    continue;
+                }
+
+                nameValid = true;
+            }
+
+            Application.getDatabase().closeDeployment(name);
         } else if (EXPORT_COMMAND.equals(e.getActionCommand())) {
             
         } else if (PRINT_COMMAND.equals(e.getActionCommand())) {
