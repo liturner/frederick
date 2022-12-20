@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -112,13 +113,15 @@ public class Database {
 
     public void saveCurrentDeployment() {
         try {
-            Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME);
+            Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElseThrow();
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
-            Logging.LOGGER.log(Level.INFO, "Saved current deployment");
+            Logging.LOGGER.info("Saved current deployment");
             notifyActionListeners(DEPLOYMENT_SAVED_EVENT);
-        } catch (IOException e) {
-            Logging.LOGGER.log(Level.SEVERE, "Unable to save the deployment!");
-        }
+        } catch (NoSuchElementException e) {
+            Logging.LOGGER.severe("Unable to get path to current deployment! Cannot save current deployment!");
+        } catch (Exception e) {
+            Logging.LOGGER.severe("Unable to save the deployment!");
+        } 
     }
 
     /**
@@ -135,16 +138,29 @@ public class Database {
     }
 
     /**
-     * Always returns a File, although the file it refers to may not exist!
+     * Returns the path to a deployment with the specified name. Note, that
+     * the deployment does not need to exist! This function is rather a 
+     * helper function for concatenating the desired deployment name to the
+     * store root folder path.
      * 
-     * @param name
-     * @return
+     * @param name The name of the deployment to get a path for.
+     * @return {@link Optional#empty()} on failure, or a valid theoretical {@link Path} .
      */
-    private Path getPathToDeployment(String name) {
-        return Path.of(root.toString(), name);
+    public Optional<Path> getPathToDeployment(final String name) {
+        Path returnPath = null;
+        if(name == null || "".equals(name)) {
+            return Optional.empty();
+        }        
+        try {
+            returnPath = Path.of(root.toString(), name);
+        } 
+        catch (Exception e) {
+            Logging.LOGGER.severe(() -> "Could not get path to deployment. Is it a valid name?: " + name);
+        }
+        return Optional.ofNullable(returnPath);
     }
 
-    public Optional<Deployment> getDeployment(String name) {
+    public Optional<Deployment> getDeployment(final String name) {
         try {
             Path pathToFile = Path.of(root.toString(), name);
             if(!pathToFile.toFile().exists()) {
@@ -161,18 +177,27 @@ public class Database {
         return Optional.empty();
     }
 
+    /**
+     * Simple check for if a deployment with the given name exists on disk.
+     * 
+     * @param name The name of a deployment to check for.
+     * @return Whether the deployment exists or not.
+     */
     public boolean isDeploymentExists(final String name) {
-        Path pathToDeployment = getPathToDeployment(name);
+        if(name == null || "".equals(name)) {
+            return false;
+        }
+        Path pathToDeployment = getPathToDeployment(name).orElse(null);
         return Files.exists(pathToDeployment);
     }
 
     public void closeDeployment(final String name) {
         try {
-            Path pathToDeployment = getPathToDeployment(name);
+            Path pathToDeployment = getPathToDeployment(name).orElse(null);
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.log(Level.INFO, "Wrote current deployment to new file");
 
-            pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME);
+            pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElse(null);
             Files.delete(pathToDeployment);
             currentDeployment = null;
             Logging.LOGGER.info("Deleted old current");

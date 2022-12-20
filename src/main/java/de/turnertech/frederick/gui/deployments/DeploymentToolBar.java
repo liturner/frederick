@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 
 import de.turnertech.frederick.Application;
+import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
 
 public class DeploymentToolBar extends JToolBar implements ActionListener {
@@ -72,12 +73,16 @@ public class DeploymentToolBar extends JToolBar implements ActionListener {
                     "Einsatz Beenden",
                     JOptionPane.QUESTION_MESSAGE);
 
-                if(Application.getDatabase().isDeploymentExists(name)) {
+                if(name == null) {
+                    Logging.LOGGER.info("User aborted the closing of the deployment.");
+                    return;
+                } else if(Application.getDatabase().isDeploymentExists(name)) {
                     additionalInstructions = "Name already exists! Choose another name.";
-                    continue;
-                }
-
-                nameValid = true;
+                } else if (Application.getDatabase().getPathToDeployment(name).isEmpty()) {
+                    additionalInstructions = "Name invalid! Choose a valid file name.";
+                } else {
+                    nameValid = true;
+                }                
             }
 
             Application.getDatabase().closeDeployment(name);
