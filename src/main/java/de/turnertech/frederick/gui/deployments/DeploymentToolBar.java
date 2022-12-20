@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import de.turnertech.frederick.Application;
 import de.turnertech.frederick.Database;
 import de.turnertech.frederick.Logging;
+import de.turnertech.frederick.Printing;
 import de.turnertech.frederick.Resources;
 
 public class DeploymentToolBar extends JToolBar implements ActionListener, ListSelectionListener {
@@ -136,7 +137,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
             
         } 
         else if (PRINT_COMMAND.equals(e.getActionCommand())) {
-            
+            Printing.printDeployment();
         }
         else if (HELP_COMMAND.equals(e.getActionCommand())) {
             Application.getHelp(DeploymentFrame.class);

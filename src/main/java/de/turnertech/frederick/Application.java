@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.logging.Level;
 
+import javax.swing.UIManager;
+
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
@@ -24,6 +26,13 @@ public class Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
+        }
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -43,6 +52,7 @@ public class Application {
     public static void main(String[] args) {
 
         Logging.initialise();
+        Printing.initialise();
 
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
