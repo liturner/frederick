@@ -8,5 +8,6 @@
 :: START    - Runs without keeping CMD window open
 :: %~dp0    - Is the directory holding this file
 :: /B       - Should skip making any cmd windows
-:: -Xmx128m - Max Heap Size. Its a lightweight app...
-START "Frederick" /B "%~dp0jre\bin\javaw" -Xmx128m -jar "%~dp0lib\frederick.jar"
+::
+:: Set VM Options in the maven config for jlink!
+START "Frederick" /B "%~dp0jre\bin\javaw" -m de.turnertech.frederick/de.turnertech.frederick.Application %*
