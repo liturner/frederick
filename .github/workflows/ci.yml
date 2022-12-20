@@ -38,7 +38,7 @@ jobs:
 
     - name: Zip files
       run: |
-        mkdir artefact && \
+        mkdir artefact
         (cd staging && zip -q -r ../artefact/Frederick-${{env.PROJECT_VERSION}}.zip .)
 
     - name: Publish build
