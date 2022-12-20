@@ -282,16 +282,6 @@
         </reportSets>
       </plugin>
 
-      <!-- Generate and add Javadoc to the Project Site-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <show>private</show>
-          <nohelp>true</nohelp>
-        </configuration>
-      </plugin>
-
       <!-- Generate and add JUnit Tests to the Project Site-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
