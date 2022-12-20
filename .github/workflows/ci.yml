@@ -18,8 +18,8 @@ jobs:
 
     #SET v=(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
     - name: Retrieve Version
-      run: >
-        SET v=TEMP-VERSION \
+      run: |
+        SET v=TEMP-VERSION
         echo "PROJECT_VERSION=%v%" >> $GITHUB_ENV
 
     - name: Maven package site
