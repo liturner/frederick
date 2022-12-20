@@ -211,6 +211,9 @@
         <configuration>
           <launcher>Frederick=de.turnertech.frederick/de.turnertech.frederick.Application</launcher>
           <noHeaderFiles>true</noHeaderFiles>
+          <addOptions>
+            <addOption>-Xmx256m</addOption>
+          </addOptions>
         </configuration>
       </plugin>
 

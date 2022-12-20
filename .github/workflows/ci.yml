@@ -16,10 +16,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    #SET v=(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
     - name: Retrieve Version
       run: |
-        v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
-        echo "PROJECT_VERSION=$v" >> $GITHUB_ENV
+        SET v=TEMP-VERSION && \
+        echo "PROJECT_VERSION=%v%" >> $GITHUB_ENV
 
     - name: Maven package site
       run: mvn -B package site --no-transfer-progress --file pom.xml
