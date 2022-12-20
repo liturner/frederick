@@ -20,7 +20,7 @@ jobs:
     - name: Retrieve Version
       run: |
         SET v=TEMP-VERSION
-        echo "PROJECT_VERSION=%v%" >> $env:GITHUB_ENV
+        echo "PROJECT_VERSION=TEMP-VERSION" >> $env:GITHUB_ENV
 
     - name: Maven package site
       run: mvn -B package site --no-transfer-progress --file pom.xml
