@@ -27,13 +27,13 @@ jobs:
 
     - name: Stage binaries
       run: |
-        mkdir staging && \
-        cp install/Frederick.cmd staging/Frederick.cmd && \
-        cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt && \
-        cp target/generated-sources/license/LICENSE.txt staging/license.txt && \
-        mv target/dependency staging/lib && \
-        mv target/generated-resources/licenses staging/lic && \
-        mv target/site staging/doc && \
+        mkdir staging
+        cp install/Frederick.cmd staging/Frederick.cmd
+        cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt
+        cp target/generated-sources/license/LICENSE.txt staging/license.txt
+        mv target/dependency staging/lib
+        mv target/generated-resources/licenses staging/lic
+        mv target/site staging/doc
         unzip target/frederick.zip -d staging/jre
 
     - name: Zip files
