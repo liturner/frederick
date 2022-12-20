@@ -3,6 +3,7 @@ package de.turnertech.frederick.gui.deployments;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
@@ -24,6 +25,8 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
 
     public static final String PRINT_COMMAND = "DEPLOYMENT_PRINT";
 
+    public static final String HELP_COMMAND = "HELP";
+
     private final DeploymentTable deploymentTable;
 
     JButton endDeploymentButton;
@@ -33,6 +36,8 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
     JButton exportDeploymentButton;
 
     JButton printDeploymentButton;
+
+    JButton helpButton;
 
     public DeploymentToolBar(DeploymentTable deploymentTable) {
 
@@ -72,6 +77,15 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
         printDeploymentButton.addActionListener(this);
         printDeploymentButton.setEnabled(false);
         this.add(printDeploymentButton);
+
+        this.add(Box.createHorizontalGlue());
+
+        helpButton = new JButton();
+        helpButton.setIcon(Resources.getHelp24pxIcon());
+        helpButton.setToolTipText("Hilfe");
+        helpButton.setActionCommand(HELP_COMMAND);
+        helpButton.addActionListener(this);
+        this.add(helpButton);
     }
 
     @Override
@@ -92,7 +106,8 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
                 Application.getDatabase().deleteDeployment(name);
             }
 
-        } else if (END_COMMAND.equals(e.getActionCommand())) {
+        } 
+        else if (END_COMMAND.equals(e.getActionCommand())) {
             String additionalInstructions = "";
             boolean nameValid = false;
             String name = "";
@@ -116,10 +131,15 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
             }
 
             Application.getDatabase().closeDeployment(name);
-        } else if (EXPORT_COMMAND.equals(e.getActionCommand())) {
+        } 
+        else if (EXPORT_COMMAND.equals(e.getActionCommand())) {
             
-        } else if (PRINT_COMMAND.equals(e.getActionCommand())) {
+        } 
+        else if (PRINT_COMMAND.equals(e.getActionCommand())) {
             
+        }
+        else if (HELP_COMMAND.equals(e.getActionCommand())) {
+            Application.getHelp(DeploymentFrame.class);
         }
     }
 

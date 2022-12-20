@@ -86,4 +86,13 @@ public class Resources {
         return stop24pxIcon;
     }
 
+    private static ImageIcon help24pxIcon;
+    public static ImageIcon getHelp24pxIcon() {
+        if(help24pxIcon == null) {
+            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Help24.gif");
+            help24pxIcon = new ImageIcon(iconUrl);
+        }
+        return help24pxIcon;
+    }
+
 }

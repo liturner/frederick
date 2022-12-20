@@ -1,9 +1,11 @@
 package de.turnertech.frederick;
 
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.awt.SystemTray;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.logging.Level;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
@@ -78,6 +80,25 @@ public class Application {
 
     public static Database getDatabase() {
         return database;
+    }
+
+    /**
+     * Shows the system web browser with the manual page for a given window.
+     * For example, if requested for {@link DeploymentFrame} class, then the
+     * web browser should open to the manual page describing the deployment 
+     * manager.
+     * 
+     * @param clazz Class to show help for.
+     */
+    public static void getHelp(Class<?> clazz) {
+
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI oURL = new URI("www.example.com");
+            desktop.browse(oURL);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
 }
