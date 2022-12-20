@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import de.turnertech.frederick.Application;
+import de.turnertech.frederick.Database;
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
 
-public class DeploymentToolBar extends JToolBar implements ActionListener {
+public class DeploymentToolBar extends JToolBar implements ActionListener, ListSelectionListener {
 
     public static final String DELETE_COMMAND = "DEPLOYMENT_DELETE";
 
@@ -23,46 +26,73 @@ public class DeploymentToolBar extends JToolBar implements ActionListener {
 
     private final DeploymentTable deploymentTable;
 
+    JButton endDeploymentButton;
+
+    JButton deleteDeploymentButton;
+
+    JButton exportDeploymentButton;
+
+    JButton printDeploymentButton;
+
     public DeploymentToolBar(DeploymentTable deploymentTable) {
 
         this.deploymentTable = deploymentTable;
         this.setFloatable(false);
+        deploymentTable.getSelectionModel().addListSelectionListener(this);
 
-        JButton menuItem = new JButton();
-        menuItem.setIcon(Resources.getStop24pxIcon());
-        menuItem.setToolTipText("Einsatz Beenden");
-        menuItem.setActionCommand(END_COMMAND);
-        menuItem.addActionListener(this);
-        this.add(menuItem);
+        endDeploymentButton = new JButton();
+        endDeploymentButton.setIcon(Resources.getStop24pxIcon());
+        endDeploymentButton.setToolTipText("Einsatz Beenden");
+        endDeploymentButton.setActionCommand(END_COMMAND);
+        endDeploymentButton.addActionListener(this);
+        this.add(endDeploymentButton);
 
-        menuItem = new JButton();
-        menuItem.setIcon(Resources.getDelete24pxIcon());
-        menuItem.setToolTipText("Einsatz Löschen");
-        menuItem.setActionCommand(DELETE_COMMAND);
-        menuItem.addActionListener(this);
-        this.add(menuItem);
+        this.addSeparator();
 
-        menuItem = new JButton();
-        menuItem.setIcon(Resources.getExport24pxIcon());
-        menuItem.setToolTipText("Einsatz Exportieren");
-        menuItem.setActionCommand(EXPORT_COMMAND);
-        menuItem.addActionListener(this);
-        this.add(menuItem);
+        deleteDeploymentButton = new JButton();
+        deleteDeploymentButton.setIcon(Resources.getDelete24pxIcon());
+        deleteDeploymentButton.setToolTipText("Einsatz Löschen");
+        deleteDeploymentButton.setActionCommand(DELETE_COMMAND);
+        deleteDeploymentButton.addActionListener(this);
+        deleteDeploymentButton.setEnabled(false);
+        this.add(deleteDeploymentButton);
+
+        exportDeploymentButton = new JButton();
+        exportDeploymentButton.setIcon(Resources.getExport24pxIcon());
+        exportDeploymentButton.setToolTipText("Einsatz Exportieren");
+        exportDeploymentButton.setActionCommand(EXPORT_COMMAND);
+        exportDeploymentButton.addActionListener(this);
+        exportDeploymentButton.setEnabled(false);
+        this.add(exportDeploymentButton);
         
-        menuItem = new JButton();
-        menuItem.setIcon(Resources.getPrint24pxIcon());
-        menuItem.setToolTipText("Einsatz Drücken");
-        menuItem.setActionCommand(PRINT_COMMAND);
-        menuItem.addActionListener(this);
-        this.add(menuItem);
+        printDeploymentButton = new JButton();
+        printDeploymentButton.setIcon(Resources.getPrint24pxIcon());
+        printDeploymentButton.setToolTipText("Einsatz Drücken");
+        printDeploymentButton.setActionCommand(PRINT_COMMAND);
+        printDeploymentButton.addActionListener(this);
+        printDeploymentButton.setEnabled(false);
+        this.add(printDeploymentButton);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(DELETE_COMMAND.equals(e.getActionCommand())) {
-            deploymentTable.getSelectedRow();
-        } else if (END_COMMAND.equals(e.getActionCommand())) {
+            int selectedRow = deploymentTable.getSelectedRow();
+            Object nameObject = deploymentTable.getModel().getValueAt(selectedRow, DeploymentTableModel.NAME);
+            
+            if(nameObject == null) {
+                Logging.LOGGER.severe("Deployment had no name!");
+                return;
+            }
 
+            String name = nameObject.toString();
+
+            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to permanently delete the deployment: " + name, "Einsatz Löschen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(response == JOptionPane.YES_OPTION) {
+                Application.getDatabase().deleteDeployment(name);
+            }
+
+        } else if (END_COMMAND.equals(e.getActionCommand())) {
             String additionalInstructions = "";
             boolean nameValid = false;
             String name = "";
@@ -93,4 +123,23 @@ public class DeploymentToolBar extends JToolBar implements ActionListener {
         }
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if(!e.getValueIsAdjusting()) {
+            final int selectedRow = deploymentTable.getSelectedRow();
+            if(selectedRow > -1) {
+                deleteDeploymentButton.setEnabled(true);
+                exportDeploymentButton.setEnabled(true);
+                printDeploymentButton.setEnabled(true);
+                if (Database.CURRENT_DEPLOYMENT_FILE_NAME.equals(deploymentTable.getModel().getValueAt(selectedRow, DeploymentTableModel.NAME))) {
+                    deleteDeploymentButton.setEnabled(false);
+                }
+            } 
+            else {
+                deleteDeploymentButton.setEnabled(false);
+                exportDeploymentButton.setEnabled(false);
+                printDeploymentButton.setEnabled(false);
+            }
+        }
+    }
 }

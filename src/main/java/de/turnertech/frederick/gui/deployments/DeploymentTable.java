@@ -9,6 +9,7 @@ public class DeploymentTable extends JTable {
         DeploymentTableModel tableModel = new DeploymentTableModel();
         this.setModel(tableModel);
         this.setColumnModel(tableModel.getColumnModel());
+        this.setSelectionModel(new DeploymentTableSelectionModel());
     }
     
 }

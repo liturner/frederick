@@ -29,6 +29,8 @@ public class Database {
 
     public static final Integer DEPLOYMENT_SAVED_EVENT = "DEPLOYMENT_SAVED_EVENT".hashCode();
 
+    public static final Integer DEPLOYMENT_DELETED_EVENT = "DEPLOYMENT_DELETED_EVENT".hashCode();
+
     private final ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
     private final Timer saveTimer = new Timer("Save Timer");
@@ -206,7 +208,18 @@ public class Database {
             saveCurrentDeployment();
             notifyActionListeners(DEPLOYMENT_CLOSED_EVENT);
         } catch (IOException e) {
-            Logging.LOGGER.log(Level.SEVERE, "Unable to close the deployment!");
+            Logging.LOGGER.severe("Unable to close the deployment!");
+        }
+    }
+
+    public void deleteDeployment(final String name) {
+        try {
+            Path pathToDeployment = getPathToDeployment(name).orElse(null);
+            Files.delete(pathToDeployment);
+            Logging.LOGGER.info(() -> "\"" + Application.CURRENT_USER + "\" hat den Einsatz \"" + name + "\" gelöscht");
+            notifyActionListeners(DEPLOYMENT_DELETED_EVENT);
+        } catch (IOException e) {
+            Logging.LOGGER.severe("Unable to delete the deployment!");
         }
     }
 

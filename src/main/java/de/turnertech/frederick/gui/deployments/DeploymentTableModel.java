@@ -69,7 +69,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
         } else if (columnIndex == NAME) {
             return file.getName();
         }
-
+        
         return null;
     }
 
@@ -83,7 +83,10 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
             fireTableDataChanged();
         } else if(Database.DEPLOYMENT_SAVED_EVENT.equals(e.getID())) {
             fireTableDataChanged();
+        } else if(Database.DEPLOYMENT_DELETED_EVENT.equals(e.getID())) {
+            fireTableDataChanged();
         }
+
     }
     
 }
