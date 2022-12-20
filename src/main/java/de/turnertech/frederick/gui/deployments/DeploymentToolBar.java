@@ -61,6 +61,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
         deleteDeploymentButton.setActionCommand(DELETE_COMMAND);
         deleteDeploymentButton.addActionListener(this);
         deleteDeploymentButton.setEnabled(false);
+
         this.add(deleteDeploymentButton);
 
         exportDeploymentButton = new JButton();

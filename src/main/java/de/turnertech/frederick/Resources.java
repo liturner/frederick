@@ -44,7 +44,7 @@ public class Resources {
     private static ImageIcon rowDelete24pxIcon;
     public static ImageIcon getRowDelete24pxIcon() {
         if(rowDelete24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/table/RowDelete24.gif");
+            URL iconUrl = Application.class.getResource("icons/Remove24.png");
             rowDelete24pxIcon = new ImageIcon(iconUrl);
         }
         return rowDelete24pxIcon;
@@ -53,7 +53,7 @@ public class Resources {
     private static ImageIcon print24pxIcon;
     public static ImageIcon getPrint24pxIcon() {
         if(print24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Print24.gif");
+            URL iconUrl = Application.class.getResource("icons/Print24.png");
             print24pxIcon = new ImageIcon(iconUrl);
         }
         return print24pxIcon;
@@ -62,7 +62,7 @@ public class Resources {
     private static ImageIcon delete24pxIcon;
     public static ImageIcon getDelete24pxIcon() {
         if(delete24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Delete24.gif");
+            URL iconUrl = Application.class.getResource("icons/Delete24.png");
             delete24pxIcon = new ImageIcon(iconUrl);
         }
         return delete24pxIcon;
@@ -71,7 +71,7 @@ public class Resources {
     private static ImageIcon export24pxIcon;
     public static ImageIcon getExport24pxIcon() {
         if(export24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Export24.gif");
+            URL iconUrl = Application.class.getResource("icons/Share24.png");
             export24pxIcon = new ImageIcon(iconUrl);
         }
         return export24pxIcon;
@@ -80,7 +80,7 @@ public class Resources {
     private static ImageIcon stop24pxIcon;
     public static ImageIcon getStop24pxIcon() {
         if(stop24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Stop24.gif");
+            URL iconUrl = Application.class.getResource("icons/Close24.png");
             stop24pxIcon = new ImageIcon(iconUrl);
         }
         return stop24pxIcon;
@@ -89,7 +89,7 @@ public class Resources {
     private static ImageIcon help24pxIcon;
     public static ImageIcon getHelp24pxIcon() {
         if(help24pxIcon == null) {
-            URL iconUrl = Application.class.getResource("/toolbarButtonGraphics/general/Help24.gif");
+            URL iconUrl = Application.class.getResource("icons/Help24.png");
             help24pxIcon = new ImageIcon(iconUrl);
         }
         return help24pxIcon;

@@ -187,22 +187,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeScope>compile</includeScope>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- Generate a minimal JRE -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -212,7 +196,7 @@
           <launcher>Frederick=de.turnertech.frederick/de.turnertech.frederick.Application</launcher>
           <noHeaderFiles>true</noHeaderFiles>
           <addOptions>
-            <addOption>-Xmx256m</addOption>
+            <addOption>-Xmx512m</addOption>
           </addOptions>
         </configuration>
       </plugin>
@@ -303,13 +287,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- GUI Icons -->
-    <!-- https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html -->
-    <dependency>
-      <groupId>net.java.linoleum</groupId>
-      <artifactId>jlfgr</artifactId>
-      <version>1_0</version>
-    </dependency>
   </dependencies>
 
 </project>
