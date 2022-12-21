@@ -63,7 +63,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
     <sonar.java.source>17</sonar.java.source>
-    <geotools.version>28-SNAPSHOT</geotools.version>
+    <geotools.version>29-SNAPSHOT</geotools.version>
     <downloadSources>true</downloadSources>
 		<downloadJavadocs>true</downloadJavadocs>
   </properties>
@@ -345,16 +345,6 @@
     <dependency>
       <groupId>org.geotools</groupId>
       <artifactId>gt-swing</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-render</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-main</artifactId>
       <version>${geotools.version}</version>
     </dependency>
 
