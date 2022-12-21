@@ -33,7 +33,7 @@ jobs:
         mv target/dependency staging/lib && \
         cp target/*.jar staging/lib && \
         mv target/generated-resources/licenses staging/lic && \
-        mv target/generated-resources/licenses.xml staging/lic/third-party.xml && \
+        mv target/generated-resources/licenses.xml staging/third-party.xml && \
         mv target/site staging/doc
 
     - name: Inject JRE
