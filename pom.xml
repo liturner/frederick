@@ -285,16 +285,9 @@
               <goal>add-third-party</goal>
             </goals>
             <configuration>
+              <failIfWarning>false</failIfWarning>
+              <missingFile>src/license/THIRD-PARTY.properties</missingFile>
               <useMissingfile>true</useMissingfile>
-              <excludedScopes>test,provided</excludedScopes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>download-licenses</id>
-            <goals>
-              <goal>download-licenses</goal>
-            </goals>
-            <configuration>
               <excludedScopes>test,provided</excludedScopes>
             </configuration>
           </execution>

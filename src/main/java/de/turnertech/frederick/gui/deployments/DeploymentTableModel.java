@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.time.Instant;
+import java.util.Date;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
@@ -54,7 +55,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == DATE) {
-            return Object.class;
+            return Date.class;
         } else if (columnIndex == NAME) {
             return String.class;
         }
@@ -65,7 +66,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
     public Object getValueAt(int rowIndex, int columnIndex) {
         File file = Application.getDatabase().getDeploymentFiles().get(rowIndex);
         if(columnIndex == DATE) {
-            return Instant.ofEpochMilli(file.lastModified());
+            return Date.from(Instant.ofEpochMilli(file.lastModified()));
         } else if (columnIndex == NAME) {
             return file.getName();
         }
@@ -79,14 +80,10 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID())) {
-            fireTableDataChanged();
-        } else if(Database.DEPLOYMENT_SAVED_EVENT.equals(e.getID())) {
-            fireTableDataChanged();
-        } else if(Database.DEPLOYMENT_DELETED_EVENT.equals(e.getID())) {
+        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID()) || 
+                Database.DEPLOYMENT_SAVED_EVENT.equals(e.getID()) || 
+                Database.DEPLOYMENT_DELETED_EVENT.equals(e.getID())) {
             fireTableDataChanged();
         }
-
-    }
-    
+    }    
 }

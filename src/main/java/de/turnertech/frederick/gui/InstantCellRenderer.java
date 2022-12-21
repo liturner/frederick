@@ -1,9 +1,9 @@
 package de.turnertech.frederick.gui;
 
 import java.awt.Component;
-import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -16,9 +16,9 @@ public class InstantCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column) {
         
-        if(value instanceof Instant) {
+        if(value instanceof Date) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            setText(formatter.format((Instant) value));            
+            setText(formatter.format(((Date) value).toInstant()));            
             return this;
         }
 

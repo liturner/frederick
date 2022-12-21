@@ -9,13 +9,10 @@ import javax.swing.ScrollPaneConstants;
 
 public class EtbFrameTable extends JSplitPane {
     
-    private final EtbTableModel dm;
-
     private final JTable etb;
 
     public EtbFrameTable(EtbTableModel dm) {
         super(JSplitPane.HORIZONTAL_SPLIT);
-        this.dm = dm;
         
         EtbTableSelectionModel selectionModel = new EtbTableSelectionModel();
         EtbFrameTableNotesArea notesArea = new EtbFrameTableNotesArea(dm, selectionModel);

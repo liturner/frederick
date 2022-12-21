@@ -2,7 +2,7 @@ package de.turnertech.frederick.gui.etb;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Instant;
+import java.util.Date;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
@@ -36,7 +36,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public int getRowCount() {
-        return Application.getDatabase().getCurrentDeployment().getEtbEntryList().size();
+        return Application.getDatabase().getCurrentDeployment().getEtbEntries().size();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntryList().get(rowIndex);
+        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntries().get(rowIndex);
         if(columnIndex == TIMESTAMP) {
             return entry.getTimestamp();
         } else if (columnIndex == USER) {
@@ -67,7 +67,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == TIMESTAMP) {
-            return Instant.class;
+            return Date.class;
         } else if (columnIndex == USER) {
             return String.class;
         } else if (columnIndex == ENTRY) {
@@ -80,7 +80,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntryList().get(rowIndex);
+        EtbEntry entry = Application.getDatabase().getCurrentDeployment().getEtbEntries().get(rowIndex);
         if (columnIndex == NOTES) {
             entry.setNotes(aValue.toString());
             this.fireTableCellUpdated(rowIndex, columnIndex);
@@ -88,8 +88,8 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
     }
 
     public void addEtbEntry(final EtbEntry etbEntry) {
-        Application.getDatabase().getCurrentDeployment().getEtbEntryList().add(etbEntry);
-        this.fireTableRowsInserted(Application.getDatabase().getCurrentDeployment().getEtbEntryList().size()-1, Application.getDatabase().getCurrentDeployment().getEtbEntryList().size()-1); 
+        Application.getDatabase().getCurrentDeployment().getEtbEntries().add(etbEntry);
+        this.fireTableRowsInserted(Application.getDatabase().getCurrentDeployment().getEtbEntries().size()-1, Application.getDatabase().getCurrentDeployment().getEtbEntries().size()-1); 
     }
 
     public TableColumnModel getColumnModel() {

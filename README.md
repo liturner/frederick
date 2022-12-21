@@ -4,24 +4,14 @@
 
 # Project Type
 
-This project is intended to be a "pure maven" project. In order to reduce complexity we will not include any IDE specific configuration files. Instead a few hints may be provided in this readme file.
+- Maven
+- Java 17
+- VS Code (optionally)
 
 # Project Aims
 
-We aim to provide a set of tools to help with analysing various Lotto results. The project is intended to be purely scientific in nature, and intends to foster understanding and investigating probabiity. Thanks to the large dataset available, the Lotto is a great use case as it is possible to simulate the effective accuracy over the entire dataset.
+We aim to provide a set of tools to help with the missions and deployments of the German Federal Agency for Technical Relief. The project aims to produce software which fulfills stringent security and data protection checks.
 
-# Architechture
-
-The intention is to provide a set of usefull interfaces and base classes, as well as a kind of "engine".
-
-# Site Deployment
-
-Make sure the username and password are set in the settings.xml file using the <servers> element with the site id as you would for any other repository.
-
-```xml
-<server>
-  <id>frederick.sourceforge.io</id>
-  <username>turnertech</username>
-  <password>...</password>
-</server>
-```
+- Stability of the software is preferred over quantity of features.
+- The software should only be configurable where neccassary.
+- The software is to be used in emergency situations. Pretty comes second to fast.

@@ -1,38 +1,36 @@
 package de.turnertech.frederick.data;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
-/**
- * A secure entry. Once created most of it is intentionally immutable. This aims to ensure
- * that, once written, ETB entries cannot be modified. This is one of the legal concerns
- * which many have when handling the ETB, in that in the case of an accident, a digital
- * ETB may be easily forged.
- */
 public class EtbEntry implements Serializable {
     
     /**
-     * The time at which the entry was made. Not the class instance, rather the user entry.
+     * The time at which the entry was made.
      */
-    private final Instant timestamp;
+    private Date timestamp;
 
     /**
      * The user who wrote the entry.
      */
-    private final String user;
+    private String user;
 
     /**
      * The ETB entry itself. This is just plain text, may be multi line, may be empty etc.
      */
-    private final String entry;
+    private String entry;
 
     private String notes;
 
-    public EtbEntry(final Instant timestamp, final String user, final String entry) {
+    public EtbEntry() {
+
+    }
+
+    public EtbEntry(final Date timestamp, final String user, final String entry) {
         this(timestamp, user, entry, "");
     }
 
-    public EtbEntry(final Instant timestamp, final String user, final String entry, String notes) {
+    public EtbEntry(final Date timestamp, final String user, final String entry, String notes) {
         if(timestamp == null) {
             throw new IllegalArgumentException("EtbEntry may not be created with a null timestamp.");
         }
@@ -52,8 +50,12 @@ public class EtbEntry implements Serializable {
      * 
      * @return The time at which the ETB entry was origionally written, never null.
      */
-    public Instant getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     /**
@@ -66,8 +68,16 @@ public class EtbEntry implements Serializable {
         return user;
     }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public String getEntry() {
         return entry;
+    }
+
+    public void setEntry(String entry) {
+        this.entry = entry;
     }
 
     public String getNotes() {

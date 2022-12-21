@@ -89,10 +89,6 @@ public class Database {
         return List.of();
     }
 
-    public List<Deployment> getDeployments() {
-        return null;
-    }
-
     /**
      * Always returns a deployment! If no deployment is loaded, then it will load
      * or create one.
@@ -163,20 +159,11 @@ public class Database {
     }
 
     public Optional<Deployment> getDeployment(final String name) {
-        try {
-            Path pathToFile = Path.of(root.toString(), name);
-            if(!pathToFile.toFile().exists()) {
-                return Optional.empty();
-            }
-            Object deployment = Serialization.deserialize(pathToFile.toString());
-            if(deployment instanceof Deployment) {
-                return Optional.of((Deployment)deployment);
-            }
-        } catch (ClassNotFoundException | IOException e) {
-            Logging.LOGGER.log(Level.WARNING, "Could not load deployment %s", name);
+        Path pathToFile = Path.of(root.toString(), name);
+        if(!pathToFile.toFile().exists()) {
             return Optional.empty();
         }
-        return Optional.empty();
+        return Serialization.deserialize(Deployment.class, pathToFile.toString());
     }
 
     /**
@@ -196,6 +183,10 @@ public class Database {
     public void closeDeployment(final String name) {
         try {
             Path pathToDeployment = getPathToDeployment(name).orElse(null);
+            if(pathToDeployment == null) {
+                return;
+            }
+
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.log(Level.INFO, "Wrote current deployment to new file");
 
