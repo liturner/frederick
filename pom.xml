@@ -291,6 +291,15 @@
               <excludedScopes>test,provided</excludedScopes>
             </configuration>
           </execution>
+          <execution>
+            <id>download-licenses</id>
+            <goals>
+              <goal>download-licenses</goal>
+            </goals>
+            <configuration>
+              <excludedScopes>test,provided</excludedScopes>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 
