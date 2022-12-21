@@ -63,7 +63,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
     <sonar.java.source>17</sonar.java.source>
-    <geotools.version>29-SNAPSHOT</geotools.version>
+    <geotools.version>28.0</geotools.version>
     <downloadSources>true</downloadSources>
 		<downloadJavadocs>true</downloadJavadocs>
   </properties>
