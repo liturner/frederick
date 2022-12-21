@@ -6,7 +6,7 @@
   <groupId>de.turnertech</groupId>
   <artifactId>frederick</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jlink</packaging>
+  <packaging>jar</packaging>
 
   <name>Frederick</name>
   <licenses>
@@ -63,6 +63,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
     <sonar.java.source>17</sonar.java.source>
+    <geotools.version>29-SNAPSHOT</geotools.version>
     <downloadSources>true</downloadSources>
 		<downloadJavadocs>true</downloadJavadocs>
   </properties>
@@ -73,6 +74,31 @@
       <url>sftp://web.sourceforge.net/home/project-web/frederick/htdocs</url>
     </site>
   </distributionManagement>
+
+    <repositories>
+      <repository>
+        <id>osgeo</id>
+        <name>OSGeo Release Repository</name>
+        <url>https://repo.osgeo.org/repository/release/</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
+      <repository>
+        <id>osgeo-snapshot</id>
+        <name>OSGeo Snapshot Repository</name>
+        <url>https://repo.osgeo.org/repository/snapshot/</url>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </repository>
+    </repositories>
 
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -279,6 +305,28 @@
   </reporting>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-shapefile</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-swing</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-render</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-main</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+
     <!-- Test Dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -286,7 +334,6 @@
       <version>5.9.1</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
 </project>

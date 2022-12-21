@@ -3,12 +3,24 @@ package de.turnertech.frederick;
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.SystemTray;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.logging.Level;
 
 import javax.swing.UIManager;
+
+import org.geotools.data.FileDataStore;
+import org.geotools.data.FileDataStoreFinder;
+import org.geotools.data.simple.SimpleFeatureSource;
+import org.geotools.map.FeatureLayer;
+import org.geotools.map.Layer;
+import org.geotools.map.MapContent;
+import org.geotools.styling.SLD;
+import org.geotools.styling.Style;
+import org.geotools.swing.JMapFrame;
+import org.geotools.swing.data.JFileDataStoreChooser;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
@@ -27,9 +39,9 @@ public class Application {
             e.printStackTrace();
             System.exit(-1);
         }
-
+        
         try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            UIManager.setLookAndFeel(System.getProperty("swing.defaultlaf", UIManager.getCrossPlatformLookAndFeelClassName()));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -74,6 +86,28 @@ public class Application {
         deploymentFrame.setVisible(true);
         frame = new FrederickEtbFrame();        
         frame.setVisible(true);
+
+        File file = JFileDataStoreChooser.showOpenFile("shp", null);
+        if (file == null) {
+            return;
+        }
+
+        
+        Layer layer = null;
+        try {
+            FileDataStore store = FileDataStoreFinder.getDataStore(file);
+            SimpleFeatureSource featureSource = store.getFeatureSource();
+            Style style = SLD.createSimpleStyle(featureSource.getSchema());
+            layer = new FeatureLayer(featureSource, style);            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // Now display the map
+        MapContent map = new MapContent();
+        map.setTitle("Quickstart");
+        map.addLayer(layer);
+        JMapFrame.showMap(map);
     }
 
     public static FrederickEtbFrame getEtbFrame() {
@@ -101,7 +135,6 @@ public class Application {
      * @param clazz Class to show help for.
      */
     public static void getHelp(Class<?> clazz) {
-
         try {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("www.example.com");
