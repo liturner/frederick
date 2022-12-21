@@ -5,7 +5,7 @@ on: push
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -16,27 +16,42 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    #SET v=(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
     - name: Retrieve Version
       run: |
-        SET v=TEMP-VERSION
-        echo "PROJECT_VERSION=TEMP-VERSION" >> $env:GITHUB_ENV
+        v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
+        echo "PROJECT_VERSION=$v" >> $GITHUB_ENV
 
     - name: Maven package site
       run: mvn -B package site --no-transfer-progress --file pom.xml
 
     - name: Stage binaries
       run: |
-        mkdir staging
-        cp install/Frederick.cmd staging/Frederick.cmd
-        cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt
-        cp target/generated-sources/license/LICENSE.txt staging/license.txt
-        mv target/generated-resources/licenses staging/lic
+        mkdir staging && \
+        cp install/Frederick.cmd staging/Frederick.cmd && \
+        cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt && \
+        cp target/generated-sources/license/LICENSE.txt staging/license.txt && \
+        mv target/dependency staging/lib && \
+        cp target/*.jar staging/lib && \
+        mv target/generated-resources/licenses staging/lic && \
         mv target/site staging/doc
-        unzip target/frederick.zip -d staging/jre
+
+    - name: Inject JRE
+      run: |
+        wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip && \
+        unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip -d staging && \
+        mv staging/jdk-17.0.5+8-jre staging/jre
+
+    - name: Zip files
+      run: |
+        mkdir artefact && \
+        (cd staging && zip -q -r ../artefact/Frederick-${{env.PROJECT_VERSION}}.zip .)
 
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
-        name: Frederick-${{env.PROJECT_VERSION}}
-        path: staging
+        name: Binaries
+        path: artefact/*.zip
+
+    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+    - name: Update dependency graph
+      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6

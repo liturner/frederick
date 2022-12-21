@@ -10,4 +10,4 @@
 :: /B       - Should skip making any cmd windows
 ::
 :: Set VM Options in the maven config for jlink!
-START "Frederick" /B "%~dp0jre\bin\javaw" -m de.turnertech.frederick/de.turnertech.frederick.Application %*
+START "Frederick" /B "%~dp0jre\bin\javaw" -Xmx128m -jar "%~dp0lib\frederick.jar" %*
