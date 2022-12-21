@@ -229,17 +229,32 @@
         </executions>
       </plugin>
 
-      <!-- Generate a minimal JRE -->
+      <!-- Generate a minimal JRE >
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jlink-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
-          <launcher>Frederick=de.turnertech.frederick/de.turnertech.frederick.Application</launcher>
           <noHeaderFiles>true</noHeaderFiles>
           <addOptions>
             <addOption>-Xmx512m</addOption>
           </addOptions>
+        </configuration>
+      </plugin-->
+
+      <!-- Ensure a detailed MANIFEST is generated -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              <addClasspath>true</addClasspath>
+              <mainClass>de.turnertech.frederick.Application</mainClass>
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
 
