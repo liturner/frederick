@@ -4,7 +4,7 @@ Für die, die Frederick nutzen wollen, können dir bei SourceForge unsere instal
 
 ## Windows
 
-[![Download Frederick](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/frederick/files/latest/download)
+[Download Frederick](https://github.com/liturner/frederick/releases)
 
 ## Instalation
 
