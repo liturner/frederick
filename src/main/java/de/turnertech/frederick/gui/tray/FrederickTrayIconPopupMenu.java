@@ -19,6 +19,11 @@ public class FrederickTrayIconPopupMenu extends PopupMenu {
         menuItem.setActionCommand(FrederickTrayIconActionListener.SHOW_ETB_COMMAND);
         this.add(menuItem);
 
+        menuItem = new MenuItem("Map");
+        menuItem.addActionListener(new FrederickTrayIconActionListener());
+        menuItem.setActionCommand(FrederickTrayIconActionListener.SHOW_MAP_COMMAND);
+        this.add(menuItem);
+
         this.addSeparator();
         
         menuItem = new MenuItem("Beenden");

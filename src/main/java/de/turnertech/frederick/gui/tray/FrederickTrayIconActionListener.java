@@ -11,6 +11,8 @@ public class FrederickTrayIconActionListener implements ActionListener {
 
     public static final String SHOW_ETB_COMMAND = "SHOW_ETB";
 
+    public static final String SHOW_MAP_COMMAND = "SHOW_MAP";
+
     public static final String SHOW_DEPLOYMENT_MANAGER_COMMAND = "SHOW_EINSATZ_MANAGER";
 
     @Override
@@ -22,6 +24,8 @@ public class FrederickTrayIconActionListener implements ActionListener {
             Application.getEtbFrame().setVisible(true);
         } else if (SHOW_DEPLOYMENT_MANAGER_COMMAND.equals(e.getActionCommand())) {
             Application.getDeploymentFrame().setVisible(true);
+        } else if (SHOW_MAP_COMMAND.equals(e.getActionCommand())) {
+            Application.getMapFrame().setVisible(true);
         }
     }
 }

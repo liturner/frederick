@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
+import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
@@ -36,9 +37,11 @@ public class Application {
         }
     }
 
-    private static FrederickEtbFrame frame = null;
+    private static FrederickEtbFrame etbFrame = null;
 
     private static DeploymentFrame deploymentFrame = null;
+
+    private static MapFrame mapFrame = null;
 
     private static final Database database = new Database();
 
@@ -71,38 +74,22 @@ public class Application {
         }
 
         deploymentFrame = new DeploymentFrame();
-        deploymentFrame.setVisible(true);
-        frame = new FrederickEtbFrame();        
-        frame.setVisible(true);
-
-        /*File file = JFileDataStoreChooser.showOpenFile("shp", null);
-        if (file == null) {
-            return;
-        }
-
-        
-        Layer layer = null;
-        try {
-            FileDataStore store = FileDataStoreFinder.getDataStore(file);
-            SimpleFeatureSource featureSource = store.getFeatureSource();
-            Style style = SLD.createSimpleStyle(featureSource.getSchema());
-            layer = new FeatureLayer(featureSource, style);            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Now display the map
-        MapContent map = new MapContent();
-        map.setTitle("Quickstart");
-        map.addLayer(layer);
-        JMapFrame.showMap(map);*/
+        etbFrame = new FrederickEtbFrame();
+        etbFrame.setVisible(true);
+        mapFrame = new MapFrame();
+        mapFrame.setVisible(true);
     }
 
     public static FrederickEtbFrame getEtbFrame() {
-        return frame;
+        return etbFrame;
     }
 
     public static DeploymentFrame getDeploymentFrame() {
         return deploymentFrame;
+    }
+
+    public static MapFrame getMapFrame() {
+        return mapFrame;
     }
 
     public static void exit() {

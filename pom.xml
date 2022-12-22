@@ -349,6 +349,16 @@
       <artifactId>gt-swing</artifactId>
       <version>${geotools.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-tile-client</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-epsg-hsql</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
 
     <!-- Test Dependencies -->
     <dependency>
