@@ -1,0 +1,16 @@
+ToDo: Write an End User License Agreement...
+
+This license must ensure that an agreement is described with 
+relation to the DSVGO and any other legal aspects.
+
+In the software, any user MUST agree to this EULA.
+
+We must also document here the efforts gone into enforcing
+that this EULA is read.
+
+We must also document liability, authority and 
+responsibility.
+
+In comparison to the License used for development (between
+us and other developers), this license is between us ant the
+end user.

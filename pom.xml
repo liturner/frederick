@@ -12,8 +12,15 @@
   <licenses>
     <license>
       <name>MIT</name>
-      <url>https://opensource.org/licenses/MIT</url>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/LICENSE.txt</url>
       <distribution>repo</distribution>
+      <comments>Für weiter entwicklung und nutzung dieses Projekt, und seine Quellcode</comments>
+    </license>
+    <license>
+      <name>EULA</name>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/EULA.txt</url>
+      <distribution>repo</distribution>
+      <comments>Den Lizenz für den Nutzer</comments>
     </license>
   </licenses>
 
@@ -272,10 +279,7 @@
               <goal>add-third-party</goal>
             </goals>
             <configuration>
-              <failIfWarning>false</failIfWarning>
-              <missingFile>src/license/THIRD-PARTY.properties</missingFile>
               <useMissingfile>true</useMissingfile>
-              <excludedScopes>test,provided</excludedScopes>
             </configuration>
           </execution>
           <execution>
@@ -284,7 +288,7 @@
               <goal>download-licenses</goal>
             </goals>
             <configuration>
-              <excludedScopes>test,provided</excludedScopes>
+              <useMissingfile>true</useMissingfile>
             </configuration>
           </execution>
         </executions>

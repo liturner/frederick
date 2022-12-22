@@ -35,6 +35,12 @@
     <menu name="Frederick">
       <item name="Introduction" href="index.html"/>
       <item name="Herunterladen" href="download.html"/>
+      <item name="Produktkonformität" href="compliance.html" collapse="true">
+        <item name="Lizenzkonformität" href="lico.html" collapse="true">
+          <item name="Lizenz" href="licenses.html"/>
+          <item name="Abhängigkeiten" href="dependencies.html"/>
+        </item>
+      </item>
       <item name="Handbuch" title="Handbuch" href="manual.html" collapse="true">
         <item name="Einführung" href="overview.html"/>
         <item name="Einsatztagebuch" href="deployment-diary.html"/>
