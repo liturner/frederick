@@ -46,15 +46,15 @@
   </developers>
 
   <issueManagement>
-    <system>Azure DevOps</system>
-    <url>https://dev.azure.com/TurnerTech/Frederick</url>
+    <system>GitHub</system>
+    <url>https://github.com/liturner/frederick</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</connection>
-    <developerConnection>scm:git:https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</developerConnection>
+    <connection>scm:git:https://github.com/liturner/frederick.git</connection>
+    <developerConnection>scm:git:https://github.com/liturner/frederick.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://dev.azure.com/TurnerTech/Frederick/_git/Frederick</url>
+    <url>https://github.com/liturner/frederick</url>
   </scm>
 
   <properties>
@@ -70,8 +70,8 @@
 
   <distributionManagement>
     <site>
-      <id>frederick.sourceforge.io</id>
-      <url>sftp://web.sourceforge.net/home/project-web/frederick/htdocs</url>
+      <id>github</id>
+      <url>scm:git:https://github.com/liturner/frederick.git</url>
     </site>
   </distributionManagement>
 
@@ -157,11 +157,6 @@
         <!-- Reporting Plugins -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.12.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.4.1</version>
         </plugin>
@@ -179,6 +174,23 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>2.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.12.1</version>
+          <configuration>
+            <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <content>${project.reporting.outputDirectory}</content><!-- mono-module doesn't require site:stage -->
+            <scmBranch>site</scmBranch>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -299,6 +311,20 @@
             <configuration>
               <excludedScopes>test,provided</excludedScopes>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>scm-publish</id>
+            <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
+            <goals>
+              <goal>publish-scm</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

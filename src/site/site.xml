@@ -16,7 +16,6 @@
   <publishDate position="right" />
   <version position="right" />
   <poweredBy>
-    <logo name="Unterstützt von Azure DevOps" href="https://dev.azure.com/TurnerTech/Frederick" img="./images/azure.png" title="Azure DevOps"/>
     <logo name="Unterstützt von SourceForge" href="https://sourceforge.net/p/frederick/" img="./images/sf-logo-full.png" title="SourceForge"/>
     <logo name="Unterstützt von Maven" href="https://maven.apache.org/" img="./images/logos/maven-feather.png" width="90" title="Maven" />
   </poweredBy>

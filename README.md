@@ -2,6 +2,12 @@
 
 [![Download Frederick](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/frederick/files/latest/download)
 
+# Links
+
+- [Product Site](https://liturner.github.io/frederick/)
+- [Sourceforge Project](https://sourceforge.net/projects/frederick/)
+- [GitHub Project](https://github.com/liturner/frederick)
+
 # Project Type
 
 - Maven
