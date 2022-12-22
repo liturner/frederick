@@ -15,8 +15,6 @@ import de.turnertech.frederick.Resources;
 
 public class MapFrame extends JMapFrame {
     
-    private CoordinateReferenceSystem crs;
-
     public MapFrame() {
         MapContent map = new MapContent();
         String baseURL = "http://tile.openstreetmap.org/";
@@ -25,15 +23,14 @@ public class MapFrame extends JMapFrame {
         map.addLayer(layer);
         
         try {
-            crs = CRS.decode("EPSG:3857");
+            CoordinateReferenceSystem crs = CRS.decode("EPSG:3857");
+            map.getViewport().setCoordinateReferenceSystem(crs);
+            ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(581339, 1720274, 5950324, 7449462, crs);
+            map.getViewport().setBounds(germanyEnvelope);
         } catch (FactoryException e) {
             Logging.LOGGER.severe("Could not decode CRS");
         }
 
-        map.getViewport().setCoordinateReferenceSystem(crs);
-        ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(581339, 1720274, 5950324, 7449462, crs);
-        map.getViewport().setBounds(germanyEnvelope);
-        
         this.setTitle("Frederick - Einsatz Karte");
         this.setIconImage(Resources.getdeployment24pxIcon().getImage());
         this.setMapContent(map);
