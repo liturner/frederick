@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Database.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Frederick</a> &gt; <a href="index.source.html" class="el_package">de.turnertech.frederick</a> &gt; <span class="el_source">Database.java</span></div><h1>Database.java</h1><pre class="source lang-java linenums">package de.turnertech.frederick;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import de.turnertech.frederick.data.Deployment;
+import de.turnertech.frederick.data.SaveTimerTask;
+
+public class Database {
+    
+    private final Path root;
+
+    public static final String CURRENT_DEPLOYMENT_FILE_NAME = &quot;Current&quot;;
+
+<span class="nc" id="L28">    public static final Integer DEPLOYMENT_CLOSED_EVENT = &quot;DEPLOYMENT_CLOSED_EVENT&quot;.hashCode();</span>
+
+<span class="nc" id="L30">    public static final Integer DEPLOYMENT_SAVED_EVENT = &quot;DEPLOYMENT_SAVED_EVENT&quot;.hashCode();</span>
+
+<span class="nc" id="L32">    public static final Integer DEPLOYMENT_DELETED_EVENT = &quot;DEPLOYMENT_DELETED_EVENT&quot;.hashCode();</span>
+
+<span class="nc" id="L34">    private final ArrayList&lt;ActionListener&gt; actionListeners = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L36">    private final Timer saveTimer = new Timer(&quot;Save Timer&quot;);</span>
+
+<span class="nc" id="L38">    private Optional&lt;SaveTimerTask&gt; saveTimerTask = Optional.empty();</span>
+
+    private Deployment currentDeployment;
+
+    /**
+     * The constructor initialises the data storage folder.
+     */
+<span class="nc" id="L45">    public Database() {</span>
+        // Handle cross platform by changing this property during the build pipeline!
+<span class="nc" id="L47">        String rootFolder = System.getProperty(&quot;de.turnertech.frederick.store.location&quot;);</span>
+<span class="nc" id="L48">        String subFolder = System.getProperty(&quot;de.turnertech.frederick.store.deployment.folder&quot;, &quot;Deployments&quot;);</span>
+
+<span class="nc" id="L50">        root = Path.of(rootFolder, subFolder);</span>
+
+        try {
+<span class="nc" id="L53">            Files.createDirectories(root);</span>
+<span class="nc" id="L54">        } catch (IOException e) {</span>
+<span class="nc" id="L55">            Logging.LOGGER.log(Level.SEVERE, &quot;Could not create database. Exiting!&quot;, e);</span>
+<span class="nc" id="L56">            Application.exit();</span>
+<span class="nc" id="L57">        }</span>
+
+<span class="nc" id="L59">    }</span>
+
+    public void addActionListener(ActionListener actionListener) {
+<span class="nc" id="L62">        actionListeners.add(actionListener);</span>
+<span class="nc" id="L63">    }</span>
+
+    public void notifyActionListeners(int event) {
+<span class="nc" id="L66">        ActionEvent actionEvent = new ActionEvent(this, event, &quot;&quot;);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for(ActionListener actionListener : actionListeners) {</span>
+<span class="nc" id="L68">            actionListener.actionPerformed(actionEvent);</span>
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+     * Return the sorted set of files stored in the deployments folder
+     * of the data store. This will not cause the files to be loaded into memory.
+     * 
+     * @return Never null, empty list on exception.
+     */
+    public List&lt;File&gt; getDeploymentFiles() {
+<span class="nc" id="L79">        try (Stream&lt;Path&gt; stream = Files.list(root)) {</span>
+<span class="nc" id="L80">            return stream</span>
+<span class="nc" id="L81">                .filter(Files::isRegularFile)</span>
+<span class="nc" id="L82">                .map(Path::toFile)</span>
+<span class="nc" id="L83">                .sorted(Comparator.comparingLong(File::lastModified).reversed())</span>
+<span class="nc" id="L84">                .collect(Collectors.toList());</span>
+<span class="nc" id="L85">        } catch (Exception e) {</span>
+<span class="nc" id="L86">            Logging.LOGGER.severe(&quot;Could not list deployment files!&quot;);</span>
+        }
+
+<span class="nc" id="L89">        return List.of();</span>
+    }
+
+    /**
+     * Always returns a deployment! If no deployment is loaded, then it will load
+     * or create one.
+     * 
+     * @return The active deployment.
+     */
+    public Deployment getCurrentDeployment() {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if(currentDeployment == null) {</span>
+<span class="nc" id="L100">            Optional&lt;Deployment&gt; optionalDeployment = getDeployment(CURRENT_DEPLOYMENT_FILE_NAME);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            if(optionalDeployment.isPresent()) {</span>
+<span class="nc" id="L102">                currentDeployment = optionalDeployment.get();</span>
+<span class="nc" id="L103">                Logging.LOGGER.log(Level.INFO, &quot;Loaded existing current deployment&quot;);</span>
+            } else {
+<span class="nc" id="L105">                currentDeployment = new Deployment();</span>
+<span class="nc" id="L106">                Logging.LOGGER.log(Level.INFO, &quot;Created new current deployment&quot;);</span>
+            }
+        }
+<span class="nc" id="L109">        return currentDeployment;</span>
+    }
+
+    public void saveCurrentDeployment() {
+        try {
+<span class="nc" id="L114">            Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElseThrow();</span>
+<span class="nc" id="L115">            Serialization.serialize(currentDeployment, pathToDeployment.toString());</span>
+<span class="nc" id="L116">            Logging.LOGGER.info(&quot;Saved current deployment&quot;);</span>
+<span class="nc" id="L117">            notifyActionListeners(DEPLOYMENT_SAVED_EVENT);</span>
+<span class="nc" id="L118">        } catch (NoSuchElementException e) {</span>
+<span class="nc" id="L119">            Logging.LOGGER.severe(&quot;Unable to get path to current deployment! Cannot save current deployment!&quot;);</span>
+<span class="nc" id="L120">        } catch (Exception e) {</span>
+<span class="nc" id="L121">            Logging.LOGGER.severe(&quot;Unable to save the deployment!&quot;);</span>
+<span class="nc" id="L122">        } </span>
+<span class="nc" id="L123">    }</span>
+
+    /**
+     * Manages a save timer which triggers in 5 seconds. Every call to this function
+     * resets the timer. This is usefull for enabling autosave functionality for
+     * example when saving after text bodies are entered.
+     */
+    public void saveCurrentDeploymentInFiveSeconds() {
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if(saveTimerTask.isPresent()) {</span>
+<span class="nc" id="L132">            saveTimerTask.get().cancel();</span>
+        }
+<span class="nc" id="L134">        saveTimerTask = Optional.of(new SaveTimerTask());</span>
+<span class="nc" id="L135">        saveTimer.schedule(saveTimerTask.get(), 5000);</span>
+<span class="nc" id="L136">    }</span>
+
+    /**
+     * Returns the path to a deployment with the specified name. Note, that
+     * the deployment does not need to exist! This function is rather a 
+     * helper function for concatenating the desired deployment name to the
+     * store root folder path.
+     * 
+     * @param name The name of the deployment to get a path for.
+     * @return {@link Optional#empty()} on failure, or a valid theoretical {@link Path} .
+     */
+    public Optional&lt;Path&gt; getPathToDeployment(final String name) {
+<span class="nc" id="L148">        Path returnPath = null;</span>
+<span class="nc bnc" id="L149" title="All 4 branches missed.">        if(name == null || &quot;&quot;.equals(name)) {</span>
+<span class="nc" id="L150">            return Optional.empty();</span>
+        }        
+        try {
+<span class="nc" id="L153">            returnPath = Path.of(root.toString(), name);</span>
+        } 
+<span class="nc" id="L155">        catch (Exception e) {</span>
+<span class="nc" id="L156">            Logging.LOGGER.severe(() -&gt; &quot;Could not get path to deployment. Is it a valid name?: &quot; + name);</span>
+<span class="nc" id="L157">        }</span>
+<span class="nc" id="L158">        return Optional.ofNullable(returnPath);</span>
+    }
+
+    public Optional&lt;Deployment&gt; getDeployment(final String name) {
+<span class="nc" id="L162">        Path pathToFile = Path.of(root.toString(), name);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if(!pathToFile.toFile().exists()) {</span>
+<span class="nc" id="L164">            return Optional.empty();</span>
+        }
+<span class="nc" id="L166">        return Serialization.deserialize(Deployment.class, pathToFile.toString());</span>
+    }
+
+    /**
+     * Simple check for if a deployment with the given name exists on disk.
+     * 
+     * @param name The name of a deployment to check for.
+     * @return Whether the deployment exists or not.
+     */
+    public boolean isDeploymentExists(final String name) {
+<span class="nc bnc" id="L176" title="All 4 branches missed.">        if(name == null || &quot;&quot;.equals(name)) {</span>
+<span class="nc" id="L177">            return false;</span>
+        }
+<span class="nc" id="L179">        Path pathToDeployment = getPathToDeployment(name).orElse(null);</span>
+<span class="nc" id="L180">        return Files.exists(pathToDeployment);</span>
+    }
+
+    public void closeDeployment(final String name) {
+        try {
+<span class="nc" id="L185">            Path pathToDeployment = getPathToDeployment(name).orElse(null);</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">            if(pathToDeployment == null) {</span>
+<span class="nc" id="L187">                return;</span>
+            }
+
+<span class="nc" id="L190">            Serialization.serialize(currentDeployment, pathToDeployment.toString());</span>
+<span class="nc" id="L191">            Logging.LOGGER.log(Level.INFO, &quot;Wrote current deployment to new file&quot;);</span>
+
+<span class="nc" id="L193">            pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElse(null);</span>
+<span class="nc" id="L194">            Files.delete(pathToDeployment);</span>
+<span class="nc" id="L195">            currentDeployment = null;</span>
+<span class="nc" id="L196">            Logging.LOGGER.info(&quot;Deleted old current&quot;);</span>
+            // This triggers creation of the new empty deployment
+<span class="nc" id="L198">            getCurrentDeployment();</span>
+<span class="nc" id="L199">            saveCurrentDeployment();</span>
+<span class="nc" id="L200">            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT);</span>
+<span class="nc" id="L201">        } catch (IOException e) {</span>
+<span class="nc" id="L202">            Logging.LOGGER.severe(&quot;Unable to close the deployment!&quot;);</span>
+<span class="nc" id="L203">        }</span>
+<span class="nc" id="L204">    }</span>
+
+    public void deleteDeployment(final String name) {
+        try {
+<span class="nc" id="L208">            Path pathToDeployment = getPathToDeployment(name).orElse(null);</span>
+<span class="nc" id="L209">            Files.delete(pathToDeployment);</span>
+<span class="nc" id="L210">            Logging.LOGGER.info(() -&gt; &quot;\&quot;&quot; + Application.CURRENT_USER + &quot;\&quot; hat den Einsatz \&quot;&quot; + name + &quot;\&quot; gelöscht&quot;);</span>
+<span class="nc" id="L211">            notifyActionListeners(DEPLOYMENT_DELETED_EVENT);</span>
+<span class="nc" id="L212">        } catch (IOException e) {</span>
+<span class="nc" id="L213">            Logging.LOGGER.severe(&quot;Unable to delete the deployment!&quot;);</span>
+<span class="nc" id="L214">        }</span>
+<span class="nc" id="L215">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

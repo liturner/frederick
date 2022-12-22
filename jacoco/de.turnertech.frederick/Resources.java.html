@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Resources.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Frederick</a> &gt; <a href="index.source.html" class="el_package">de.turnertech.frederick</a> &gt; <span class="el_source">Resources.java</span></div><h1>Resources.java</h1><pre class="source lang-java linenums">package de.turnertech.frederick;
+
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+
+/**
+ * Basic helper class intended to make the management and use of resources throughout the allication
+ * simple and efficient.
+ */
+public class Resources {
+
+    private Resources() {
+
+    }
+    
+    private static ImageIcon deployment16pxIcon;
+    public static ImageIcon getdeployment16pxIcon() {
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if(deployment16pxIcon == null) {</span>
+<span class="fc" id="L20">            URL iconUrl = Application.class.getResource(&quot;icon-16.png&quot;);</span>
+<span class="fc" id="L21">            deployment16pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="fc" id="L23">        return deployment16pxIcon;</span>
+    }
+
+    private static ImageIcon deployment24pxIcon;
+    public static ImageIcon getdeployment24pxIcon() {
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if(deployment24pxIcon == null) {</span>
+<span class="fc" id="L29">            URL iconUrl = Application.class.getResource(&quot;icon-24.png&quot;);</span>
+<span class="fc" id="L30">            deployment24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="fc" id="L32">        return deployment24pxIcon;</span>
+    }
+
+    private static ImageIcon deployment32pxIcon;
+    public static ImageIcon getdeployment32pxIcon() {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if(deployment32pxIcon == null) {</span>
+<span class="fc" id="L38">            URL iconUrl = Application.class.getResource(&quot;icon-32.png&quot;);</span>
+<span class="fc" id="L39">            deployment32pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="fc" id="L41">        return deployment32pxIcon;</span>
+    }
+    
+    private static ImageIcon rowDelete24pxIcon;
+    public static ImageIcon getRowDelete24pxIcon() {
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(rowDelete24pxIcon == null) {</span>
+<span class="nc" id="L47">            URL iconUrl = Application.class.getResource(&quot;icons/Remove24.png&quot;);</span>
+<span class="nc" id="L48">            rowDelete24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L50">        return rowDelete24pxIcon;</span>
+    }
+
+    private static ImageIcon print24pxIcon;
+    public static ImageIcon getPrint24pxIcon() {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if(print24pxIcon == null) {</span>
+<span class="nc" id="L56">            URL iconUrl = Application.class.getResource(&quot;icons/Print24.png&quot;);</span>
+<span class="nc" id="L57">            print24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L59">        return print24pxIcon;</span>
+    }
+
+    private static ImageIcon delete24pxIcon;
+    public static ImageIcon getDelete24pxIcon() {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if(delete24pxIcon == null) {</span>
+<span class="nc" id="L65">            URL iconUrl = Application.class.getResource(&quot;icons/Delete24.png&quot;);</span>
+<span class="nc" id="L66">            delete24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L68">        return delete24pxIcon;</span>
+    }
+
+    private static ImageIcon export24pxIcon;
+    public static ImageIcon getExport24pxIcon() {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if(export24pxIcon == null) {</span>
+<span class="nc" id="L74">            URL iconUrl = Application.class.getResource(&quot;icons/Share24.png&quot;);</span>
+<span class="nc" id="L75">            export24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L77">        return export24pxIcon;</span>
+    }
+
+    private static ImageIcon stop24pxIcon;
+    public static ImageIcon getStop24pxIcon() {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if(stop24pxIcon == null) {</span>
+<span class="nc" id="L83">            URL iconUrl = Application.class.getResource(&quot;icons/Close24.png&quot;);</span>
+<span class="nc" id="L84">            stop24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L86">        return stop24pxIcon;</span>
+    }
+
+    private static ImageIcon help24pxIcon;
+    public static ImageIcon getHelp24pxIcon() {
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if(help24pxIcon == null) {</span>
+<span class="nc" id="L92">            URL iconUrl = Application.class.getResource(&quot;icons/Help24.png&quot;);</span>
+<span class="nc" id="L93">            help24pxIcon = new ImageIcon(iconUrl);</span>
+        }
+<span class="nc" id="L95">        return help24pxIcon;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

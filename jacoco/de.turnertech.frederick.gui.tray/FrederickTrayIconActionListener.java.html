@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FrederickTrayIconActionListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Frederick</a> &gt; <a href="index.source.html" class="el_package">de.turnertech.frederick.gui.tray</a> &gt; <span class="el_source">FrederickTrayIconActionListener.java</span></div><h1>FrederickTrayIconActionListener.java</h1><pre class="source lang-java linenums">package de.turnertech.frederick.gui.tray;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import de.turnertech.frederick.Application;
+
+<span class="nc" id="L8">public class FrederickTrayIconActionListener implements ActionListener {</span>
+
+    public static final String EXIT_COMMAND = &quot;EXIT&quot;;
+
+    public static final String SHOW_ETB_COMMAND = &quot;SHOW_ETB&quot;;
+
+    public static final String SHOW_MAP_COMMAND = &quot;SHOW_MAP&quot;;
+
+    public static final String SHOW_DEPLOYMENT_MANAGER_COMMAND = &quot;SHOW_EINSATZ_MANAGER&quot;;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(EXIT_COMMAND.equals(e.getActionCommand())) {</span>
+<span class="nc" id="L22">            Application.exit();  </span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        } else if (SHOW_ETB_COMMAND.equals(e.getActionCommand())) {</span>
+<span class="nc" id="L24">            Application.getEtbFrame().setVisible(true);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        } else if (SHOW_DEPLOYMENT_MANAGER_COMMAND.equals(e.getActionCommand())) {</span>
+<span class="nc" id="L26">            Application.getDeploymentFrame().setVisible(true);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        } else if (SHOW_MAP_COMMAND.equals(e.getActionCommand())) {</span>
+<span class="nc" id="L28">            Application.getMapFrame().setVisible(true);</span>
+        }
+<span class="nc" id="L30">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
