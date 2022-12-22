@@ -27,14 +27,14 @@ import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 <span class="nc" id="L27">        } catch (IOException e) {</span>
 <span class="nc" id="L28">            e.printStackTrace();</span>
 <span class="nc" id="L29">            System.exit(-1);</span>
-<span class="nc" id="L30">        }</span>
+        }
         
         try {
 <span class="nc" id="L33">            UIManager.setLookAndFeel(System.getProperty(&quot;swing.defaultlaf&quot;, UIManager.getCrossPlatformLookAndFeelClassName()));</span>
 <span class="nc" id="L34">        } catch (Exception e) {</span>
 <span class="nc" id="L35">            e.printStackTrace();</span>
 <span class="nc" id="L36">            System.exit(1);</span>
-<span class="nc" id="L37">        }</span>
+        }
     }
 
 <span class="nc" id="L40">    private static FrederickEtbFrame etbFrame = null;</span>
@@ -71,7 +71,7 @@ import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 <span class="nc" id="L71">        } catch (AWTException e) {</span>
 <span class="nc" id="L72">            Logging.LOGGER.log(Level.SEVERE, &quot;SystemTray is not supported&quot;);</span>
 <span class="nc" id="L73">            return;</span>
-<span class="nc" id="L74">        }</span>
+        }
 
 <span class="nc" id="L76">        deploymentFrame = new DeploymentFrame();</span>
 <span class="nc" id="L77">        etbFrame = new FrederickEtbFrame();</span>
@@ -120,7 +120,7 @@ import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 <span class="nc" id="L120">            desktop.browse(oURL);</span>
 <span class="nc" id="L121">        } catch (Exception exception) {</span>
 <span class="nc" id="L122">            exception.printStackTrace();</span>
-<span class="nc" id="L123">        }</span>
+        }
 <span class="nc" id="L124">    }</span>
 
 }

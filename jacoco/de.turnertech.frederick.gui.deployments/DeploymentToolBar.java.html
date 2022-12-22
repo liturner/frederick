@@ -115,10 +115,10 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
 <span class="nc" id="L115">            String name = &quot;&quot;;</span>
 <span class="nc bnc" id="L116" title="All 2 branches missed.">            while(!nameValid) {</span>
 <span class="nc" id="L117">                name = JOptionPane.showInputDialog(</span>
-                    this,
-                    &quot;Wie soll den Einsatz genannt?\n\n&quot; + additionalInstructions,
-                    &quot;Einsatz Beenden&quot;,
-                    JOptionPane.QUESTION_MESSAGE);
+<span class="nc" id="L118">                    this,</span>
+<span class="nc" id="L119">                    &quot;Wie soll den Einsatz genannt?\n\n&quot; + additionalInstructions,</span>
+<span class="nc" id="L120">                    &quot;Einsatz Beenden&quot;,</span>
+<span class="nc" id="L121">                    JOptionPane.QUESTION_MESSAGE);</span>
 
 <span class="nc bnc" id="L123" title="All 2 branches missed.">                if(name == null) {</span>
 <span class="nc" id="L124">                    Logging.LOGGER.info(&quot;User aborted the closing of the deployment.&quot;);</span>
@@ -127,7 +127,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
 <span class="nc" id="L127">                    additionalInstructions = &quot;Name already exists! Choose another name.&quot;;</span>
 <span class="nc bnc" id="L128" title="All 2 branches missed.">                } else if (Application.getDatabase().getPathToDeployment(name).isEmpty()) {</span>
 <span class="nc" id="L129">                    additionalInstructions = &quot;Name invalid! Choose a valid file name.&quot;;</span>
-                } else {
+<span class="nc" id="L130">                } else {</span>
 <span class="nc" id="L131">                    nameValid = true;</span>
                 }                
             }
@@ -139,7 +139,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
         } 
 <span class="nc bnc" id="L140" title="All 2 branches missed.">        else if (PRINT_COMMAND.equals(e.getActionCommand())) {</span>
 <span class="nc" id="L141">            Printing.printDeployment();</span>
-        }
+<span class="nc" id="L142">        }</span>
 <span class="nc bnc" id="L143" title="All 2 branches missed.">        else if (HELP_COMMAND.equals(e.getActionCommand())) {</span>
 <span class="nc" id="L144">            Application.getHelp(DeploymentFrame.class);</span>
         }
@@ -156,7 +156,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
 <span class="nc bnc" id="L156" title="All 2 branches missed.">                if (Database.CURRENT_DEPLOYMENT_FILE_NAME.equals(deploymentTable.getModel().getValueAt(selectedRow, DeploymentTableModel.NAME))) {</span>
 <span class="nc" id="L157">                    deleteDeploymentButton.setEnabled(false);</span>
                 }
-            } 
+<span class="nc" id="L159">            } </span>
             else {
 <span class="nc" id="L161">                deleteDeploymentButton.setEnabled(false);</span>
 <span class="nc" id="L162">                exportDeploymentButton.setEnabled(false);</span>

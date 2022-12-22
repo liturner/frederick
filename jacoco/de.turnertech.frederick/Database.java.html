@@ -54,7 +54,7 @@ public class Database {
 <span class="nc" id="L54">        } catch (IOException e) {</span>
 <span class="nc" id="L55">            Logging.LOGGER.log(Level.SEVERE, &quot;Could not create database. Exiting!&quot;, e);</span>
 <span class="nc" id="L56">            Application.exit();</span>
-<span class="nc" id="L57">        }</span>
+        }
 
 <span class="nc" id="L59">    }</span>
 
@@ -66,7 +66,7 @@ public class Database {
 <span class="nc" id="L66">        ActionEvent actionEvent = new ActionEvent(this, event, &quot;&quot;);</span>
 <span class="nc bnc" id="L67" title="All 2 branches missed.">        for(ActionListener actionListener : actionListeners) {</span>
 <span class="nc" id="L68">            actionListener.actionPerformed(actionEvent);</span>
-<span class="nc" id="L69">        }</span>
+        }
 <span class="nc" id="L70">    }</span>
 
     /**
@@ -101,7 +101,7 @@ public class Database {
 <span class="nc bnc" id="L101" title="All 2 branches missed.">            if(optionalDeployment.isPresent()) {</span>
 <span class="nc" id="L102">                currentDeployment = optionalDeployment.get();</span>
 <span class="nc" id="L103">                Logging.LOGGER.log(Level.INFO, &quot;Loaded existing current deployment&quot;);</span>
-            } else {
+<span class="nc" id="L104">            } else {</span>
 <span class="nc" id="L105">                currentDeployment = new Deployment();</span>
 <span class="nc" id="L106">                Logging.LOGGER.log(Level.INFO, &quot;Created new current deployment&quot;);</span>
             }
@@ -119,7 +119,7 @@ public class Database {
 <span class="nc" id="L119">            Logging.LOGGER.severe(&quot;Unable to get path to current deployment! Cannot save current deployment!&quot;);</span>
 <span class="nc" id="L120">        } catch (Exception e) {</span>
 <span class="nc" id="L121">            Logging.LOGGER.severe(&quot;Unable to save the deployment!&quot;);</span>
-<span class="nc" id="L122">        } </span>
+        } 
 <span class="nc" id="L123">    }</span>
 
     /**
@@ -151,10 +151,10 @@ public class Database {
         }        
         try {
 <span class="nc" id="L153">            returnPath = Path.of(root.toString(), name);</span>
-        } 
+<span class="nc" id="L154">        } </span>
 <span class="nc" id="L155">        catch (Exception e) {</span>
 <span class="nc" id="L156">            Logging.LOGGER.severe(() -&gt; &quot;Could not get path to deployment. Is it a valid name?: &quot; + name);</span>
-<span class="nc" id="L157">        }</span>
+        }
 <span class="nc" id="L158">        return Optional.ofNullable(returnPath);</span>
     }
 
@@ -200,7 +200,7 @@ public class Database {
 <span class="nc" id="L200">            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT);</span>
 <span class="nc" id="L201">        } catch (IOException e) {</span>
 <span class="nc" id="L202">            Logging.LOGGER.severe(&quot;Unable to close the deployment!&quot;);</span>
-<span class="nc" id="L203">        }</span>
+        }
 <span class="nc" id="L204">    }</span>
 
     public void deleteDeployment(final String name) {
@@ -211,7 +211,7 @@ public class Database {
 <span class="nc" id="L211">            notifyActionListeners(DEPLOYMENT_DELETED_EVENT);</span>
 <span class="nc" id="L212">        } catch (IOException e) {</span>
 <span class="nc" id="L213">            Logging.LOGGER.severe(&quot;Unable to delete the deployment!&quot;);</span>
-<span class="nc" id="L214">        }</span>
+        }
 <span class="nc" id="L215">    }</span>
 
 }

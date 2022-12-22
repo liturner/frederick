@@ -27,7 +27,7 @@ public class Serialization {
 			}
 <span class="nc" id="L28">		} catch (JAXBException e) {</span>
 <span class="nc" id="L29">			e.printStackTrace();</span>
-<span class="nc" id="L30">		}</span>
+		}
 <span class="nc" id="L31">		return Optional.empty();</span>
 	}
 
@@ -40,7 +40,7 @@ public class Serialization {
 <span class="nc" id="L40">			mar.marshal(obj, new File(fileName));</span>
 <span class="nc" id="L41">		} catch(JAXBException e) {</span>
 <span class="nc" id="L42">			Logging.LOGGER.severe(() -&gt; &quot;Could not serialize to file: &quot; +  e.getMessage());</span>
-<span class="nc" id="L43">		}</span>
+		}
 <span class="nc" id="L44">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
