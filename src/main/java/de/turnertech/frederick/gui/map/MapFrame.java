@@ -41,6 +41,7 @@ public class MapFrame extends JMapFrame {
         this.enableToolBar(true);
         this.initComponents();
         this.setSize(800, 600);
+        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
 }
