@@ -1,10 +1,28 @@
 # Wilkommen
 
+<table border="0">
+ <tr>
+    <td>
+
 Wilkommen bei Frederick, den THW Zugtrupp Einsatz Assistent.
 
 Frederick is eine Java basierte Desktop Anwendung, der absichtlich für Einsatzzenarion bei eine Bundesanstalt entwickelt ist. Im gegenteil zu viele bestehende Werkzeuge ist Frederick nicht für eine stabiles vernetztes welt entwickelt, Sondern für eine welt ohne netze, am diversten geräten und wahrscheinlich unter zeitdruck.
 
+</td>
+<td>
+
+<img src="images/product-overview.png" alt="Product Overview" width="1600px"/>
+
+</td>
+ </tr>
+</table>
+
 Für Hilfe mit bedienung des Software, bitte sehe mal den [Handbuch](manual.html) an.
+
+
+
+
+
 
 ## Das Projekt und Das Produkt
 

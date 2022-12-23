@@ -21,6 +21,7 @@ public class StatusBar extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         status.setHorizontalAlignment(SwingConstants.LEFT);
+        status.setPreferredSize(new java.awt.Dimension(-1, 30));
         this.add(status);
 
         StatusBarLogHandler logHandler = new StatusBarLogHandler(this);

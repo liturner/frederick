@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.map.MapFrame;
+import de.turnertech.frederick.gui.map.MapFrameTake2;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
@@ -78,6 +79,8 @@ public class Application {
         etbFrame.setVisible(true);
         mapFrame = new MapFrame();
         mapFrame.setVisible(true);
+        MapFrameTake2 mapFrame2 = new MapFrameTake2();
+        mapFrame2.setVisible(true);
     }
 
     public static FrederickEtbFrame getEtbFrame() {
