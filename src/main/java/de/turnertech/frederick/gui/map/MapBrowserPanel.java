@@ -1,14 +1,11 @@
 package de.turnertech.frederick.gui.map;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +15,8 @@ import javax.swing.ScrollPaneConstants;
 import org.geotools.swing.JMapPane;
 
 import de.turnertech.frederick.Resources;
+import de.turnertech.frederick.gui.map.browser.JMouseCoordinateField;
+import de.turnertech.frederick.gui.map.browser.JPropertiesPane;
 
 public class MapBrowserPanel extends JPanel {
     
@@ -26,31 +25,13 @@ public class MapBrowserPanel extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new java.awt.Dimension(400, 0));
 
-
-
-
-
-
         //Lay out the text controls and the labels.
-        JPanel propertiesPane = new JPanel();
-        GridBagLayout gridbag = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
- 
-        propertiesPane.setLayout(gridbag);
+        JPanel propertiesPane = new JPropertiesPane(mapPane);
         propertiesPane.setPreferredSize(new java.awt.Dimension(0, 300));
         propertiesPane.setMinimumSize(new Dimension(0, 300));
         propertiesPane.setMaximumSize(new Dimension(this.getPreferredSize().width, 300));
- 
-        propertiesPane.add(new JLabel("A Label"));
-        propertiesPane.add(new JLabel("Another Label!"));
- 
-        c.gridwidth = GridBagConstraints.REMAINDER; //last
-        c.anchor = GridBagConstraints.WEST;
-        c.weightx = 1.0;
-        propertiesPane.setBorder(
-                BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("Eigenschaften"),
-                                BorderFactory.createEmptyBorder(5,5,5,5)));
+        
+        propertiesPane.add(new JMouseCoordinateField(mapPane));
         this.add(propertiesPane);
 
         DefaultListModel<ImageIcon> listModel = new DefaultListModel<>();
