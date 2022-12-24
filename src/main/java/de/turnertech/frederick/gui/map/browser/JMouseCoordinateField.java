@@ -5,95 +5,119 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.geotools.geometry.DirectPosition2D;
+import org.geotools.map.MapBoundsEvent;
+import org.geotools.map.MapContent;
 import org.geotools.measure.AngleFormat;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.swing.JMapPane;
 import org.geotools.swing.event.MapMouseAdapter;
 import org.geotools.swing.event.MapMouseEvent;
-import org.geotools.swing.event.MapPaneAdapter;
-import org.geotools.swing.event.MapPaneEvent;
 import org.opengis.geometry.MismatchedDimensionException;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
+import de.turnertech.frederick.Logging;
+
+/**
+ * A (deliberately) non configurable field to display the current position of
+ * the mouse cursor when over the map pane. The display output is a set of
+ * coordinate formats which cannot be changed.
+ */
 public class JMouseCoordinateField extends JPanel {
     
     private final JLabel label;
 
     private final JLabel content;
 
+    private DirectPosition2D position;
+
     private final AngleFormat angleFormat;
 
-    public JMouseCoordinateField(JMapPane mapPane) {
+    private transient MathTransform transform;
 
+    /**
+     * The only expected initialiser.
+     * 
+     * @param mapPane The {@link JMapPane} to which this field should listen to updates from.
+     */
+    public JMouseCoordinateField(final JMapPane mapPane) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         label = new JLabel("Mouse Position");
+        position = new DirectPosition2D(mapPane.getMapContent().getCoordinateReferenceSystem(), 0.0, 0.0);
         content = new JLabel();
+        angleFormat = new AngleFormat("DD°MM.mmm'");
+        updateCoordinateTransform(mapPane.getMapContent().getCoordinateReferenceSystem());
+        updateContent();
         add(label);
         add(content);
 
-        angleFormat = new AngleFormat("DD°MM.mmm'");
+        mapPane.getMapContent().addMapBoundsListener(mapBoundsEvent -> {
+                if(mapBoundsEvent.getEventType().contains(MapBoundsEvent.Type.CRS)) {
+                    updateCoordinateTransform(mapBoundsEvent.getNewCoordinateReferenceSystem());
+                }
+            }
+        );
 
         mapPane.addMouseListener(
-                new MapMouseAdapter() {
-                    @Override
-                    public void onMouseEntered(MapMouseEvent ev) {
-                        CoordinateReferenceSystem sourceCRS = ev.getSource().getMapContent().getCoordinateReferenceSystem();
-                        CoordinateReferenceSystem targetCRS = DefaultGeographicCRS.WGS84;
-                        try {
-                            MathTransform transform = CRS.findMathTransform(sourceCRS, targetCRS, true);
-                            DirectPosition2D posOut = new DirectPosition2D();
-                            transform.transform(ev.getWorldPos(), posOut);
-                            displayCoords(posOut);
-                        } catch (FactoryException | MismatchedDimensionException | TransformException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        
-                    }
+            new MapMouseAdapter() {
+                @Override
+                public void onMouseEntered(MapMouseEvent ev) {
+                    updatePosition(ev);                    
+                }
 
-                    @Override
-                    public void onMouseExited(MapMouseEvent ev) {
-                        displayNoCursor();
-                    }
+                @Override
+                public void onMouseExited(MapMouseEvent ev) {
+                    position.setLocation(0.0, 0.0);
+                    updateContent();
+                }
 
-                    @Override
-                    public void onMouseMoved(MapMouseEvent ev) {
-                        CoordinateReferenceSystem sourceCRS = ev.getSource().getMapContent().getCoordinateReferenceSystem();
-                        CoordinateReferenceSystem targetCRS = DefaultGeographicCRS.WGS84;
-                        try {
-                            MathTransform transform = CRS.findMathTransform(sourceCRS, targetCRS, true);
-                            DirectPosition2D posOut = new DirectPosition2D();
-                            transform.transform(ev.getWorldPos(), posOut);
-                            displayCoords(posOut);
-                        } catch (FactoryException | MismatchedDimensionException | TransformException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-        mapPane.addMapPaneListener(
-                new MapPaneAdapter() {
-                    @Override
-                    public void onDisplayAreaChanged(MapPaneEvent ev) {
-                        //setFormat(((ReferencedEnvelope) ev.getData()));
-                    }
-                });
-
-        displayNoCursor();
+                @Override
+                public void onMouseMoved(MapMouseEvent ev) {
+                    updatePosition(ev);
+                }
+            }
+        );
     }
 
-    private void displayNoCursor() {
-        content.setText("E00°00,000' N00°00,000'");
+    /**
+     * The math transform is cached. Calling this function will cause that transform
+     * to be updated. This should be called whenever the CRS of the world changes.
+     * 
+     * @param sourceCRS The source CRS to be assumed for subsequent calls to {@link JMouseCoordinateField#updatePosition}
+     */
+    private void updateCoordinateTransform(final CoordinateReferenceSystem sourceCRS) {
+        try {
+            this.transform = CRS.findMathTransform(sourceCRS, DefaultGeographicCRS.WGS84, true);
+        } catch (FactoryException e) {
+            Logging.LOGGER.severe("Could not create CRS transform. Coordinates may be false!");
+        }
     }
 
-    private void displayCoords(DirectPosition2D p) {
-        content.setText(String.format("E%s N%s", angleFormat.format(p.getX()), angleFormat.format(p.getY())));
+    /**
+     * Updates the cached position with the value of the mouse position in the 
+     * mapMouseEvent parameter. This function will trigger a transformation
+     * using the cached transform object.
+     * 
+     * @param mapMouseEvent The {@link MapMouseEvent} as delivered from {@link MapContent#addMapBoundsListener}
+     */
+    private void updatePosition(final MapMouseEvent mapMouseEvent) {
+        try {
+            transform.transform(mapMouseEvent.getWorldPos(), position);
+        } catch (MismatchedDimensionException | TransformException e) {
+            Logging.LOGGER.severe("Could not transform coordinate. Coordinates may be false!");
+        }
+        updateContent();
+    }
+
+    /**
+     * Updates the output text of the component.
+     */
+    private void updateContent() {
+        this.content.setText(String.format("E%s N%s", angleFormat.format(position.getX()), angleFormat.format(position.getY())));
     }
 
 }
