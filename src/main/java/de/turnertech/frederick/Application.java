@@ -12,7 +12,6 @@ import javax.swing.UIManager;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
-import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.map.MapFrameTake2;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
@@ -42,7 +41,7 @@ public class Application {
 
     private static DeploymentFrame deploymentFrame = null;
 
-    private static MapFrame mapFrame = null;
+    private static MapFrameTake2 mapFrame = null;
 
     private static final Database database = new Database();
 
@@ -77,10 +76,8 @@ public class Application {
         deploymentFrame = new DeploymentFrame();
         etbFrame = new FrederickEtbFrame();
         etbFrame.setVisible(true);
-        mapFrame = new MapFrame();
+        mapFrame = new MapFrameTake2();
         mapFrame.setVisible(true);
-        MapFrameTake2 mapFrame2 = new MapFrameTake2();
-        mapFrame2.setVisible(true);
     }
 
     public static FrederickEtbFrame getEtbFrame() {
@@ -91,7 +88,7 @@ public class Application {
         return deploymentFrame;
     }
 
-    public static MapFrame getMapFrame() {
+    public static MapFrameTake2 getMapFrame() {
         return mapFrame;
     }
 

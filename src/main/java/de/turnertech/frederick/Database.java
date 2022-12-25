@@ -29,6 +29,8 @@ public class Database {
 
     public static final Integer DEPLOYMENT_SAVED_EVENT = "DEPLOYMENT_SAVED_EVENT".hashCode();
 
+    public static final Integer DEPLOYMENT_UPDATED_EVENT = "DEPLOYMENT_UPDATED_EVENT".hashCode();
+
     public static final Integer DEPLOYMENT_DELETED_EVENT = "DEPLOYMENT_DELETED_EVENT".hashCode();
 
     private final ArrayList<ActionListener> actionListeners = new ArrayList<>();

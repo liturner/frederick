@@ -27,13 +27,13 @@ import org.geotools.swing.MapLayerTable;
 import org.geotools.tile.TileService;
 import org.geotools.tile.impl.osm.OSMService;
 import org.geotools.tile.util.TileLayer;
-import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
 import de.turnertech.frederick.gui.map.feature.Bullseye;
+import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
 import de.turnertech.frederick.gui.status.StatusBar;
@@ -58,6 +58,7 @@ public class MapFrameTake2 extends JFrame {
         }
 
         map.addLayer(layer);
+        map.addLayer(Bullseye.LAYER);
         addGrids(map);
 
         this.setTitle("Frederick - Einsatz Karte");
@@ -68,6 +69,7 @@ public class MapFrameTake2 extends JFrame {
         mapPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mapPane.addMouseListener(new ScrollTool(mapPane));
         mapPane.addMouseListener(new PanTool(mapPane));
+        mapPane.addMouseListener(new ContextMenuTool(mapPane));
         this.add(mapPane, BorderLayout.CENTER);
 
         MapLayerTable mapLayerTable = new MapLayerTable(mapPane);
@@ -86,11 +88,6 @@ public class MapFrameTake2 extends JFrame {
         //this.initComponents();
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-
-        // Basic Feature Example
-        SimpleFeature feature = Bullseye.create(11.18, 48.73);
-        Bullseye.COLLECTION.add(feature);
-        map.addLayer(Bullseye.LAYER);
     }
 
     private void addGrids(MapContent map) {

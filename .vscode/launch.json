@@ -9,7 +9,8 @@
             "name": "Launch Application",
             "request": "launch",
             "mainClass": "de.turnertech.frederick.Application",
-            "projectName": "frederick"
+            "projectName": "frederick",
+            "vmArgs": "-Xmx4G -Xms1G"
         }
     ]
 }

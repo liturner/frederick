@@ -22,8 +22,10 @@ public class PanTool extends CursorTool {
 
     @Override
     public void onMousePressed(MapMouseEvent mapMouseEvent) {
-        mousePosition = mapMouseEvent.getPoint();
-        panning = true;
+        if(mapMouseEvent.getButton() == MapMouseEvent.BUTTON1) {
+            mousePosition = mapMouseEvent.getPoint();
+            panning = true;
+        }
     }
 
     @Override
@@ -33,6 +35,7 @@ public class PanTool extends CursorTool {
             if (!newMousePosition.equals(mousePosition)) {
                 getMapPane().moveImage(newMousePosition.x - mousePosition.x, newMousePosition.y - mousePosition.y);
                 mousePosition = newMousePosition;
+                mapMouseEvent.consume();
             }
         }
     }

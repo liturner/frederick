@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import org.geotools.geometry.DirectPosition2D;
 import org.geotools.map.MapBoundsEvent;
 import org.geotools.map.MapContent;
-import org.geotools.measure.AngleFormat;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.swing.JMapPane;
@@ -20,6 +19,7 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.Logging;
+import de.turnertech.frederick.gui.map.MapHelper;
 
 /**
  * A (deliberately) non configurable field to display the current position of
@@ -34,8 +34,6 @@ public class JMouseCoordinateField extends JPanel {
 
     private DirectPosition2D position;
 
-    private final AngleFormat angleFormat;
-
     private transient MathTransform transform;
 
     /**
@@ -49,7 +47,6 @@ public class JMouseCoordinateField extends JPanel {
         label = new JLabel("Mouse Position");
         position = new DirectPosition2D(mapPane.getMapContent().getCoordinateReferenceSystem(), 0.0, 0.0);
         content = new JLabel();
-        angleFormat = new AngleFormat("DD°MM'SS\"");
         updateCoordinateTransform(mapPane.getMapContent().getCoordinateReferenceSystem());
         updateContent();
         add(label);
@@ -117,7 +114,7 @@ public class JMouseCoordinateField extends JPanel {
      * Updates the output text of the component.
      */
     private void updateContent() {
-        this.content.setText(String.format("E%s N%s", angleFormat.format(position.getX()), angleFormat.format(position.getY())));
+        this.content.setText(MapHelper.format(position));
     }
 
 }
