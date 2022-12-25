@@ -32,6 +32,7 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
+import de.turnertech.frederick.gui.map.tool.ScrollTool;
 import de.turnertech.frederick.gui.status.StatusBar;
 
 public class MapFrameTake2 extends JFrame {
@@ -62,6 +63,7 @@ public class MapFrameTake2 extends JFrame {
         JMapPane mapPane = new JMapPane(map);
         mapPane.setBackground(Color.WHITE);
         mapPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        mapPane.addMouseListener(new ScrollTool(mapPane));
         this.add(mapPane, BorderLayout.CENTER);
 
         MapLayerTable mapLayerTable = new MapLayerTable(mapPane);
