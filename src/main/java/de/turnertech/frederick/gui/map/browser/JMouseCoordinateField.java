@@ -49,7 +49,7 @@ public class JMouseCoordinateField extends JPanel {
         label = new JLabel("Mouse Position");
         position = new DirectPosition2D(mapPane.getMapContent().getCoordinateReferenceSystem(), 0.0, 0.0);
         content = new JLabel();
-        angleFormat = new AngleFormat("DD°MM.mmm'");
+        angleFormat = new AngleFormat("DD°MM'SS\"");
         updateCoordinateTransform(mapPane.getMapContent().getCoordinateReferenceSystem());
         updateContent();
         add(label);

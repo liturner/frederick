@@ -46,6 +46,7 @@ public class MapBrowserPanel extends JPanel {
         JScrollPane selementsScrollPane = new JScrollPane(elementsPane);
         selementsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         selementsScrollPane.setMinimumSize(new Dimension(200,200));
+        selementsScrollPane.setPreferredSize(new Dimension(200,Integer.MAX_VALUE));
         
 
         JPanel elementsGroup = new JPanel();
@@ -54,8 +55,8 @@ public class MapBrowserPanel extends JPanel {
         elementsGroup.add(selementsScrollPane);
         elementsGroup.setBorder(
             BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder("Lagekarte Elemente"),
-                            BorderFactory.createEmptyBorder(0,0,0,0)));
+                BorderFactory.createTitledBorder("Lagekarte Elemente"),
+                BorderFactory.createEmptyBorder(0,0,0,0)));
 
         this.add(elementsGroup);
     }

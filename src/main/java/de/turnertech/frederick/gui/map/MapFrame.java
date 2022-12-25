@@ -35,6 +35,10 @@ public class MapFrame extends JMapFrame {
         MapContent map = new MapContent();
         String baseURL = "http://tile.openstreetmap.org/";
         TileService service = new OSMService("OSM", baseURL);
+
+        //String baseURL = "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}";
+        //TileService service = new GoogleHybridService();
+
         TileLayer layer = new TileLayer(service);
         
         try {
