@@ -27,11 +27,13 @@ import org.geotools.swing.MapLayerTable;
 import org.geotools.tile.TileService;
 import org.geotools.tile.impl.osm.OSMService;
 import org.geotools.tile.util.TileLayer;
+import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
+import de.turnertech.frederick.gui.map.feature.Bullseye;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
 import de.turnertech.frederick.gui.status.StatusBar;
@@ -84,6 +86,11 @@ public class MapFrameTake2 extends JFrame {
         //this.initComponents();
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+
+        // Basic Feature Example
+        SimpleFeature feature = Bullseye.create(11.18, 48.73);
+        Bullseye.COLLECTION.add(feature);
+        map.addLayer(Bullseye.LAYER);
     }
 
     private void addGrids(MapContent map) {

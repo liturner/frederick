@@ -46,8 +46,7 @@ public class MapBrowserPanel extends JPanel {
         JScrollPane selementsScrollPane = new JScrollPane(elementsPane);
         selementsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         selementsScrollPane.setMinimumSize(new Dimension(200,200));
-        selementsScrollPane.setPreferredSize(new Dimension(200,Integer.MAX_VALUE));
-        
+        selementsScrollPane.setPreferredSize(new Dimension(200, Integer.MAX_VALUE));
 
         JPanel elementsGroup = new JPanel();
         elementsGroup.setLayout(new BoxLayout(elementsGroup, BoxLayout.Y_AXIS));
