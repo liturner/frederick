@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.turnertech.frederick","l":"LoggingTests"},{"p":"de.turnertech.frederick","l":"ResourcesTests"}];updateSearchResults();

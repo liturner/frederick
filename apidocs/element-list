@@ -1,0 +1,13 @@
+de.turnertech.frederick
+de.turnertech.frederick.data
+de.turnertech.frederick.gui
+de.turnertech.frederick.gui.deployments
+de.turnertech.frederick.gui.etb
+de.turnertech.frederick.gui.map
+de.turnertech.frederick.gui.map.action
+de.turnertech.frederick.gui.map.browser
+de.turnertech.frederick.gui.map.feature
+de.turnertech.frederick.gui.map.tool
+de.turnertech.frederick.gui.status
+de.turnertech.frederick.gui.tray
+de.turnertech.frederick.printing
