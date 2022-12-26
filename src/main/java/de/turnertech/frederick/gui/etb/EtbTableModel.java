@@ -98,7 +98,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID()) || Database.DEPLOYMENT_UPDATED_EVENT.equals(e.getID())) {
+        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID()) || Database.DEPLOYMENT_UPDATED_EVENT == e.getID()) {
             this.fireTableDataChanged();
         }
     }

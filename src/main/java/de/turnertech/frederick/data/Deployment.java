@@ -1,6 +1,5 @@
 package de.turnertech.frederick.data;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,9 +7,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "deployment")
-public class Deployment implements Serializable {
+public class Deployment {
     
     private String name;
+
+    private Bullseye bullseye = null;
 
     @XmlElement(name = "etbEntry")
     private LinkedList<EtbEntry> etbEntries;
@@ -32,4 +33,12 @@ public class Deployment implements Serializable {
         this.name = name;
     }
     
+    public Bullseye getBullseye() {
+        return bullseye;
+    }
+
+    public void setBullseye(Bullseye bullseye) {
+        this.bullseye = bullseye;
+    }
+
 }

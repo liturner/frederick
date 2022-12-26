@@ -8,11 +8,12 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.logging.Level;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
-import de.turnertech.frederick.gui.map.MapFrameTake2;
+import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
@@ -41,9 +42,11 @@ public class Application {
 
     private static DeploymentFrame deploymentFrame = null;
 
-    private static MapFrameTake2 mapFrame = null;
+    private static MapFrame mapFrame = null;
 
-    private static final Database database = new Database();
+    private static Database database;
+
+    private static Service service;
 
     public static final String CURRENT_USER = System.getProperty("user.name");
 
@@ -56,6 +59,8 @@ public class Application {
 
         Logging.initialise();
         Printing.initialise();
+        database = new Database();
+        service = new Service(database);
 
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
@@ -75,9 +80,15 @@ public class Application {
 
         deploymentFrame = new DeploymentFrame();
         etbFrame = new FrederickEtbFrame();
-        etbFrame.setVisible(true);
-        mapFrame = new MapFrameTake2();
-        mapFrame.setVisible(true);
+        mapFrame = new MapFrame();
+
+        // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
+        database.notifyActionListeners(Database.DEPLOYMENT_OPENED_EVENT);
+
+        SwingUtilities.invokeLater(() -> {
+            etbFrame.setVisible(true);
+            mapFrame.setVisible(true);
+        });
     }
 
     public static FrederickEtbFrame getEtbFrame() {
@@ -88,7 +99,7 @@ public class Application {
         return deploymentFrame;
     }
 
-    public static MapFrameTake2 getMapFrame() {
+    public static MapFrame getMapFrame() {
         return mapFrame;
     }
 
@@ -98,6 +109,10 @@ public class Application {
 
     public static Database getDatabase() {
         return database;
+    }
+
+    public static Service getService() {
+        return service;
     }
 
     /**

@@ -2,7 +2,6 @@ package de.turnertech.frederick.gui.map.feature;
 
 import org.geotools.data.FeatureSource;
 import org.geotools.map.FeatureLayer;
-import org.geotools.map.MapLayerEvent;
 import org.geotools.styling.Style;
 
 public class BullseyeLayer extends FeatureLayer {
@@ -11,8 +10,9 @@ public class BullseyeLayer extends FeatureLayer {
         super(featureSource, style, "Bullseye");
     }
 
-    public void makeThisFunctionBetterLater() {
-        this.fireMapLayerListenerLayerChanged(MapLayerEvent.DATA_CHANGED);
+    @Override
+    public void fireMapLayerListenerLayerChanged(int eventType) {
+        super.fireMapLayerListenerLayerChanged(eventType);
     }
     
 }

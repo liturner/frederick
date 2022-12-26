@@ -1,10 +1,18 @@
 package de.turnertech.frederick.gui.map;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+
 import org.geotools.data.simple.SimpleFeatureSource;
+import org.geotools.geometry.DirectPosition2D;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.grid.Lines;
 import org.geotools.grid.ortholine.LineOrientation;
@@ -17,28 +25,36 @@ import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.styling.FeatureTypeStyle;
 import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
-import org.geotools.swing.JMapFrame;
+import org.geotools.swing.JMapPane;
+import org.geotools.swing.MapLayerTable;
 import org.geotools.tile.TileService;
 import org.geotools.tile.impl.osm.OSMService;
 import org.geotools.tile.util.TileLayer;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
+import de.turnertech.frederick.Application;
+import de.turnertech.frederick.Database;
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
+import de.turnertech.frederick.gui.map.feature.Bullseye;
+import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
+import de.turnertech.frederick.gui.map.tool.PanTool;
+import de.turnertech.frederick.gui.map.tool.ScrollTool;
+import de.turnertech.frederick.gui.status.StatusBar;
 
-public class MapFrame extends JMapFrame {
+public class MapFrame extends JFrame implements ActionListener {
     
     private final ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(5.0, 16, 47.0, 55.0, DefaultGeographicCRS.WGS84);
 
+    private final MapToolbar mapToolbar;
+
     public MapFrame() {
+        this.getContentPane().setLayout(new java.awt.BorderLayout());
+        Application.getDatabase().addActionListener(this);
         MapContent map = new MapContent();
         String baseURL = "http://tile.openstreetmap.org/";
         TileService service = new OSMService("OSM", baseURL);
-
-        //String baseURL = "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}";
-        //TileService service = new GoogleHybridService();
-
         TileLayer layer = new TileLayer(service);
         
         try {
@@ -50,15 +66,36 @@ public class MapFrame extends JMapFrame {
         }
 
         map.addLayer(layer);
+        map.addLayer(Bullseye.LAYER);
         addGrids(map);
 
         this.setTitle("Frederick - Einsatz Karte");
         this.setIconImage(Resources.getdeployment24pxIcon().getImage());
-        this.setMapContent(map);
-        this.enableStatusBar(true);
-        this.enableToolBar(true);
-        this.enableLayerTable(true);
-        this.initComponents();
+        
+        JMapPane mapPane = new JMapPane(map);
+        mapPane.setBackground(Color.WHITE);
+        mapPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        mapPane.addMouseListener(new ScrollTool(mapPane));
+        mapPane.addMouseListener(new PanTool(mapPane));
+        mapPane.addMouseListener(new ContextMenuTool(mapPane));
+        this.add(mapPane, BorderLayout.CENTER);
+
+        MapLayerTable mapLayerTable = new MapLayerTable(mapPane);
+        mapLayerTable.setPreferredSize(new Dimension(200, -1));
+        //JSplitPane splitPane =
+        //        new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, mapLayerTable, mapPane);
+        //this.add(splitPane, "grow");
+
+        mapToolbar = new MapToolbar(mapPane);
+
+        this.add(new MapBrowserPanel(mapPane), BorderLayout.LINE_START);
+        this.add(mapToolbar, BorderLayout.PAGE_START);
+        this.add(new StatusBar(), BorderLayout.PAGE_END);
+        //this.setMapContent(map);
+        //this.enableStatusBar(true);
+        //this.enableToolBar(true);
+        //this.enableLayerTable(true);
+        //this.initComponents();
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
@@ -99,4 +136,19 @@ public class MapFrame extends JMapFrame {
         map.addLayer(minorGridLayer);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if(actionEvent.getID() == Database.DEPLOYMENT_UPDATED_EVENT || actionEvent.getID() == Database.DEPLOYMENT_OPENED_EVENT) {
+            if(Application.getService().getBullseye().isPresent()) {
+                de.turnertech.frederick.data.Bullseye bullsFromStorage = Application.getService().getBullseye().get();
+                Bullseye.set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
+                mapToolbar.setFocusBullseyeActionEnabled(true);
+            } else {
+                if(Bullseye.getPosition().isPresent()) {
+                    Bullseye.clear();
+                }
+                mapToolbar.setFocusBullseyeActionEnabled(false);
+            }       
+        }
+    }
 }

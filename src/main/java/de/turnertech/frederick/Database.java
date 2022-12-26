@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.SwingUtilities;
+
 import de.turnertech.frederick.data.Deployment;
 import de.turnertech.frederick.data.SaveTimerTask;
 
@@ -25,11 +27,13 @@ public class Database {
 
     public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
 
+    public static final int DEPLOYMENT_OPENED_EVENT = "DEPLOYMENT_OPENED_EVENT".hashCode();
+
     public static final Integer DEPLOYMENT_CLOSED_EVENT = "DEPLOYMENT_CLOSED_EVENT".hashCode();
 
     public static final Integer DEPLOYMENT_SAVED_EVENT = "DEPLOYMENT_SAVED_EVENT".hashCode();
 
-    public static final Integer DEPLOYMENT_UPDATED_EVENT = "DEPLOYMENT_UPDATED_EVENT".hashCode();
+    public static final int DEPLOYMENT_UPDATED_EVENT = "DEPLOYMENT_UPDATED_EVENT".hashCode();
 
     public static final Integer DEPLOYMENT_DELETED_EVENT = "DEPLOYMENT_DELETED_EVENT".hashCode();
 
@@ -64,11 +68,13 @@ public class Database {
         actionListeners.add(actionListener);
     }
 
-    public void notifyActionListeners(int event) {
-        ActionEvent actionEvent = new ActionEvent(this, event, "");
-        for(ActionListener actionListener : actionListeners) {
-            actionListener.actionPerformed(actionEvent);
-        }
+    public void notifyActionListeners(final int event) {
+        SwingUtilities.invokeLater(() -> {
+            ActionEvent actionEvent = new ActionEvent(this, event, "");
+            for(ActionListener actionListener : actionListeners) {
+                actionListener.actionPerformed(actionEvent);
+            }
+        });
     }
 
     /**

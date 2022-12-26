@@ -1,8 +1,6 @@
 package de.turnertech.frederick.gui.map.feature;
 
 import java.awt.Color;
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 import org.geotools.data.collection.CollectionFeatureSource;
@@ -14,6 +12,7 @@ import org.geotools.geometry.DirectPosition2D;
 import org.geotools.geometry.Envelope2D;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.geotools.geometry.jts.ReferencedEnvelope;
+import org.geotools.map.MapLayerEvent;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.styling.AnchorPoint;
@@ -43,10 +42,7 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.Application;
-import de.turnertech.frederick.Database;
 import de.turnertech.frederick.Logging;
-import de.turnertech.frederick.data.EtbEntry;
-import de.turnertech.frederick.gui.map.MapHelper;
 
 public class Bullseye {
     
@@ -80,7 +76,6 @@ public class Bullseye {
         SOURCE = new CollectionFeatureSource(COLLECTION);
 
         LAYER = new BullseyeLayer(SOURCE, STYLE);
-        LAYER.addMapLayerListener(null);
     }
 
     public static Style createStyle() {
@@ -140,17 +135,25 @@ public class Bullseye {
     }
 
     public static void clear() {
+        clear(true);
+    }
+
+    public static void clear(boolean notify) {
+        Application.getDatabase().getCurrentDeployment().setBullseye(null);
         COLLECTION.clear();
+        if(notify) {
+            LAYER.fireMapLayerListenerLayerChanged(MapLayerEvent.DATA_CHANGED);
+        }
     }
 
     public static void set(DirectPosition2D position) {
-        clear();
+        clear(false);
 
         MathTransform transform;
         DirectPosition2D crs84Position;
         try {
             transform = CRS.findMathTransform(position.getCoordinateReferenceSystem(), TYPE.getCoordinateReferenceSystem(), true);
-            crs84Position = new DirectPosition2D();
+            crs84Position = new DirectPosition2D(DefaultGeographicCRS.WGS84);
             transform.transform(position, crs84Position);
         } catch (FactoryException e2) {
             Logging.LOGGER.severe("Could not create CRS transform. Coordinates may be false!");
@@ -159,19 +162,13 @@ public class Bullseye {
             Logging.LOGGER.severe("Could not transform. Coordinates may be false!");
             return;
         }
-
+        
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(TYPE);
         GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
         Point point = geometryFactory.createPoint(new Coordinate(crs84Position.getX(), crs84Position.getY()));
         featureBuilder.set("geom", point);
         COLLECTION.add(featureBuilder.buildFeature(null));
-
-        // ToDo - Consider centralising this in Application? Maybe using events? Maybe this is fine as it is?
-        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Einsatzort festgelegt als " + MapHelper.format(crs84Position));
-        Application.getDatabase().getCurrentDeployment().getEtbEntries().add(etbEntry);
-        Application.getDatabase().notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT);
-        
-        LAYER.makeThisFunctionBetterLater();
+        LAYER.fireMapLayerListenerLayerChanged(MapLayerEvent.DATA_CHANGED);
     }
 
     public static Optional<DirectPosition2D> getPosition() {
