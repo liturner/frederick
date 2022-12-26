@@ -44,6 +44,7 @@
       <item name="Handbuch" title="Handbuch" href="manual.html" collapse="true">
         <item name="Einführung" href="overview.html"/>
         <item name="Einsatztagebuch" href="deployment-diary.html"/>
+        <item name="Einsatzkarte" href="deployment-map.html"/>
       </item>
     </menu>
  

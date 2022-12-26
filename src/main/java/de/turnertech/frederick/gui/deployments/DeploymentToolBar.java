@@ -135,7 +135,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
             Application.getDatabase().closeDeployment(name);
         } 
         else if (EXPORT_COMMAND.equals(e.getActionCommand())) {
-            
+            JOptionPane.showMessageDialog(this, "Not yet implemented", "Sorry", JOptionPane.INFORMATION_MESSAGE);
         } 
         else if (PRINT_COMMAND.equals(e.getActionCommand())) {
             Printing.printDeployment();

@@ -7,7 +7,7 @@ import org.geotools.swing.MapPane;
 import org.geotools.swing.action.MapAction;
 
 import de.turnertech.frederick.Logging;
-import de.turnertech.frederick.gui.map.feature.Bullseye;
+import de.turnertech.frederick.gui.map.feature.BullseyeLayer;
 
 public class FocusBullseyeAction extends MapAction {
     
@@ -19,7 +19,7 @@ public class FocusBullseyeAction extends MapAction {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        Optional<ReferencedEnvelope> bullseye = Bullseye.getArea(getMapPane());
+        Optional<ReferencedEnvelope> bullseye = BullseyeLayer.getArea(getMapPane());
         if(bullseye.isEmpty()) {
             Logging.LOGGER.warning("Bullseye not set. Cannot focus on bullseye untill it is set.");
             return;

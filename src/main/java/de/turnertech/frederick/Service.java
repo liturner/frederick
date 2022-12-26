@@ -31,7 +31,7 @@ public class Service {
         database.getCurrentDeployment().setBullseye(bullseye);
         EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Einsatzort festgelegt als " + logPosition);
         database.getCurrentDeployment().getEtbEntries().add(etbEntry);
-        database.notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT);
+        database.notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT_ID);
         database.saveCurrentDeployment();
     }
 

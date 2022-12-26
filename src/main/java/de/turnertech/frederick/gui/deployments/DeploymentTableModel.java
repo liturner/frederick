@@ -80,9 +80,9 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Database.DEPLOYMENT_CLOSED_EVENT.equals(e.getID()) || 
-                Database.DEPLOYMENT_SAVED_EVENT.equals(e.getID()) || 
-                Database.DEPLOYMENT_DELETED_EVENT.equals(e.getID())) {
+        if(Database.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || 
+                Database.DEPLOYMENT_SAVED_EVENT_ID == e.getID() || 
+                Database.DEPLOYMENT_DELETED_EVENT_ID == e.getID()) {
             fireTableDataChanged();
         }
     }    

@@ -17,8 +17,8 @@ import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 
 /**
- * Currently the only executable method for this application. Used to analyse
- * all balls with all methods.
+ * The core application class, hosting a few services which the sub modules can 
+ * use to interact.
  */
 public class Application {
 
@@ -83,7 +83,7 @@ public class Application {
         mapFrame = new MapFrame();
 
         // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
-        database.notifyActionListeners(Database.DEPLOYMENT_OPENED_EVENT);
+        database.notifyActionListeners(Database.DEPLOYMENT_OPENED_EVENT_ID);
 
         SwingUtilities.invokeLater(() -> {
             etbFrame.setVisible(true);

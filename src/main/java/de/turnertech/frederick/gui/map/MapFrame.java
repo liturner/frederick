@@ -2,7 +2,6 @@ package de.turnertech.frederick.gui.map;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -26,7 +25,6 @@ import org.geotools.styling.FeatureTypeStyle;
 import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapPane;
-import org.geotools.swing.MapLayerTable;
 import org.geotools.tile.TileService;
 import org.geotools.tile.impl.osm.OSMService;
 import org.geotools.tile.util.TileLayer;
@@ -37,7 +35,8 @@ import de.turnertech.frederick.Application;
 import de.turnertech.frederick.Database;
 import de.turnertech.frederick.Logging;
 import de.turnertech.frederick.Resources;
-import de.turnertech.frederick.gui.map.feature.Bullseye;
+import de.turnertech.frederick.data.Bullseye;
+import de.turnertech.frederick.gui.map.feature.BullseyeLayer;
 import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
@@ -66,7 +65,7 @@ public class MapFrame extends JFrame implements ActionListener {
         }
 
         map.addLayer(layer);
-        map.addLayer(Bullseye.LAYER);
+        map.addLayer(BullseyeLayer.instance());
         addGrids(map);
 
         this.setTitle("Frederick - Einsatz Karte");
@@ -80,22 +79,11 @@ public class MapFrame extends JFrame implements ActionListener {
         mapPane.addMouseListener(new ContextMenuTool(mapPane));
         this.add(mapPane, BorderLayout.CENTER);
 
-        MapLayerTable mapLayerTable = new MapLayerTable(mapPane);
-        mapLayerTable.setPreferredSize(new Dimension(200, -1));
-        //JSplitPane splitPane =
-        //        new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, mapLayerTable, mapPane);
-        //this.add(splitPane, "grow");
-
         mapToolbar = new MapToolbar(mapPane);
 
         this.add(new MapBrowserPanel(mapPane), BorderLayout.LINE_START);
         this.add(mapToolbar, BorderLayout.PAGE_START);
         this.add(new StatusBar(), BorderLayout.PAGE_END);
-        //this.setMapContent(map);
-        //this.enableStatusBar(true);
-        //this.enableToolBar(true);
-        //this.enableLayerTable(true);
-        //this.initComponents();
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
@@ -138,17 +126,18 @@ public class MapFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if(actionEvent.getID() == Database.DEPLOYMENT_UPDATED_EVENT || actionEvent.getID() == Database.DEPLOYMENT_OPENED_EVENT) {
+        if(actionEvent.getID() == Database.DEPLOYMENT_UPDATED_EVENT_ID || actionEvent.getID() == Database.DEPLOYMENT_OPENED_EVENT_ID) {
             if(Application.getService().getBullseye().isPresent()) {
-                de.turnertech.frederick.data.Bullseye bullsFromStorage = Application.getService().getBullseye().get();
-                Bullseye.set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
+                Bullseye bullsFromStorage = Application.getService().getBullseye().get();
+                BullseyeLayer.instance().set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
                 mapToolbar.setFocusBullseyeActionEnabled(true);
             } else {
-                if(Bullseye.getPosition().isPresent()) {
-                    Bullseye.clear();
-                }
+                BullseyeLayer.instance().clear();
                 mapToolbar.setFocusBullseyeActionEnabled(false);
             }       
+        } else if(actionEvent.getID() == Database.DEPLOYMENT_CLOSED_EVENT_ID) {
+            BullseyeLayer.instance().clear();
+            mapToolbar.setFocusBullseyeActionEnabled(false);
         }
     }
 }

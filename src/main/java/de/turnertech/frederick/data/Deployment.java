@@ -6,6 +6,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * A Data class for serialising the deployments. This class should never have complex
+ * functionality, rather simple getters and setters for parameters.
+ */
 @XmlRootElement(name = "deployment")
 public class Deployment {
     

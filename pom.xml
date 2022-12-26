@@ -7,6 +7,7 @@
   <artifactId>frederick</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
+  <url>https://liturner.github.io/frederick/</url>
 
   <name>Frederick</name>
   <licenses>
@@ -337,6 +338,15 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+
+      <!-- Generate and add Javadoc to the Project Site-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+            <doclint>all,-missing</doclint>
+        </configuration>
       </plugin>
 
     </plugins>

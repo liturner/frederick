@@ -27,15 +27,15 @@ public class Database {
 
     public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
 
-    public static final int DEPLOYMENT_OPENED_EVENT = "DEPLOYMENT_OPENED_EVENT".hashCode();
+    public static final int DEPLOYMENT_OPENED_EVENT_ID = "DEPLOYMENT_OPENED_EVENT".hashCode();
 
-    public static final Integer DEPLOYMENT_CLOSED_EVENT = "DEPLOYMENT_CLOSED_EVENT".hashCode();
+    public static final int DEPLOYMENT_CLOSED_EVENT_ID = "DEPLOYMENT_CLOSED_EVENT".hashCode();
 
-    public static final Integer DEPLOYMENT_SAVED_EVENT = "DEPLOYMENT_SAVED_EVENT".hashCode();
+    public static final int DEPLOYMENT_SAVED_EVENT_ID = "DEPLOYMENT_SAVED_EVENT".hashCode();
 
-    public static final int DEPLOYMENT_UPDATED_EVENT = "DEPLOYMENT_UPDATED_EVENT".hashCode();
+    public static final int DEPLOYMENT_UPDATED_EVENT_ID = "DEPLOYMENT_UPDATED_EVENT".hashCode();
 
-    public static final Integer DEPLOYMENT_DELETED_EVENT = "DEPLOYMENT_DELETED_EVENT".hashCode();
+    public static final int DEPLOYMENT_DELETED_EVENT_ID = "DEPLOYMENT_DELETED_EVENT".hashCode();
 
     private final ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
@@ -122,7 +122,7 @@ public class Database {
             Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElseThrow();
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.info("Saved current deployment");
-            notifyActionListeners(DEPLOYMENT_SAVED_EVENT);
+            notifyActionListeners(DEPLOYMENT_SAVED_EVENT_ID);
         } catch (NoSuchElementException e) {
             Logging.LOGGER.severe("Unable to get path to current deployment! Cannot save current deployment!");
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class Database {
             // This triggers creation of the new empty deployment
             getCurrentDeployment();
             saveCurrentDeployment();
-            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT);
+            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT_ID);
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to close the deployment!");
         }
@@ -216,7 +216,7 @@ public class Database {
             Path pathToDeployment = getPathToDeployment(name).orElse(null);
             Files.delete(pathToDeployment);
             Logging.LOGGER.info(() -> "\"" + Application.CURRENT_USER + "\" hat den Einsatz \"" + name + "\" gelöscht");
-            notifyActionListeners(DEPLOYMENT_DELETED_EVENT);
+            notifyActionListeners(DEPLOYMENT_DELETED_EVENT_ID);
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to delete the deployment!");
         }

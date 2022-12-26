@@ -20,9 +20,9 @@ import de.turnertech.frederick.gui.map.MapHelper;
 
 public class SetBullseyeAction extends AbstractAction {
 
-    final MapPane mapPane;
+    final transient MapPane mapPane;
     
-    final Point2D screenPoint;
+    final transient Point2D screenPoint;
 
     public SetBullseyeAction(final MapPane mapPane, int x, int y) {
         super("Bullseye Setzen");
@@ -50,7 +50,6 @@ public class SetBullseyeAction extends AbstractAction {
             return;
         }
 
-        // ToDo - Consider centralising this in Application? Maybe using events? Maybe this is fine as it is?
         de.turnertech.frederick.data.Bullseye dataToStore = new de.turnertech.frederick.data.Bullseye(crs84Position.getX(), crs84Position.getY());
         Application.getService().setBullseye(dataToStore, MapHelper.format(crs84Position));
     }    
