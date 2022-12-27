@@ -35,6 +35,7 @@
     <menu name="Frederick">
       <item name="Introduction" href="index.html"/>
       <item name="Herunterladen" href="download.html"/>
+      <item name="Lastenheft" href="specification.html"/>
       <item name="Produktkonformität" href="compliance.html" collapse="true">
         <item name="Lizenzkonformität" href="lico.html" collapse="true">
           <item name="Lizenz" href="licenses.html"/>
