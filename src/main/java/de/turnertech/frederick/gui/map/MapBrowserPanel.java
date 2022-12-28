@@ -14,7 +14,6 @@ import javax.swing.ScrollPaneConstants;
 
 import org.geotools.swing.JMapPane;
 
-import de.turnertech.frederick.Resources;
 import de.turnertech.frederick.gui.map.browser.JPropertiesPane;
 
 /**
@@ -36,9 +35,21 @@ public class MapBrowserPanel extends JPanel {
         JList<ImageIcon> elementsPane = new JList<>(listModel);
         elementsPane.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         elementsPane.setVisibleRowCount(-1);
-        for (int row = 0; row < 100; ++row) {
-            listModel.addElement(Resources.getHelp24pxIcon());
-        }
+
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Akute_Gefahr.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Entstehungsbrand.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Flächenbrand.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Gefahr_durch_Explosion.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Gefahr_durch_gefährliche_Stoffe.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Gefahr_durch_Luftmangel.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Gefahr_durch_Mineralöl.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr_durch_Explosion.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr_durch_Gas.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr_durch_Mineralöl.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr_durch_Radioaktivität.png").getImageIcon(48, 48));
+        listModel.addElement(new TaktischeZeichen("/de/turnertech/taktische_zeichen/gefahren/Vermutete_Gefahr_durch_Wassereinbruch.png").getImageIcon(48, 48));
+
         JScrollPane selementsScrollPane = new JScrollPane(elementsPane);
         selementsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         selementsScrollPane.setMinimumSize(new Dimension(200,200));

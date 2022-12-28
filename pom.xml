@@ -354,11 +354,23 @@
 
   <dependencies>
 
-    <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+    <!-- Following two deps are JAXB, both are needed -->
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
       <version>4.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>4.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>de.turnertech</groupId>
+      <artifactId>taktische-zeichen</artifactId>
+      <version>1.1</version>
     </dependency>
 
     <dependency>

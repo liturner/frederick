@@ -3,5 +3,6 @@
     "java.dependency.packagePresentation": "hierarchical",
     "files.exclude": {
         "target": true
-    }
+    },
+    "java.compile.nullAnalysis.mode": "disabled"
 }
