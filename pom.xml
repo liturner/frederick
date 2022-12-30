@@ -369,8 +369,8 @@
 
     <dependency>
       <groupId>de.turnertech</groupId>
-      <artifactId>taktische-zeichen</artifactId>
-      <version>1.1</version>
+      <artifactId>taktische-zeichen-swing</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <dependency>
