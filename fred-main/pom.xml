@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>de.turnertech.fred</groupId>
+    <artifactId>fred-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>fred-main</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Frederick</name>
+  <description>The main module, containing the application entry point.</description>
+
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>Für weiter entwicklung und nutzung dieses Projekt, und seine Quellcode</comments>
+    </license>
+    <license>
+      <name>EULA</name>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/EULA.txt</url>
+      <distribution>repo</distribution>
+      <comments>Den Lizenz für den Nutzer</comments>
+    </license>
+  </licenses>
+
+  <build>
+    
+    <plugins>
+
+
+
+      <!-- Generate a minimal JRE >
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jlink-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <noHeaderFiles>true</noHeaderFiles>
+          <addOptions>
+            <addOption>-Xmx512m</addOption>
+          </addOptions>
+        </configuration>
+      </plugin-->
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>update-project-license</id>
+            <goals>
+              <goal>update-project-license</goal>
+            </goals>
+            <configuration>
+              <licenseName>mit</licenseName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-third-party</id>
+            <goals>
+              <goal>add-third-party</goal>
+            </goals>
+            <configuration>
+              <useMissingfile>true</useMissingfile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>download-licenses</id>
+            <goals>
+              <goal>download-licenses</goal>
+            </goals>
+            <configuration>
+              <useMissingfile>true</useMissingfile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>

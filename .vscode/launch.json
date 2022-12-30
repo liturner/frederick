@@ -8,16 +8,8 @@
             "type": "java",
             "name": "Launch Application",
             "request": "launch",
-            "mainClass": "de.turnertech.frederick/de.turnertech.frederick.Application",
-            "projectName": "frederick"
-        },
-        {
-            "type": "java",
-            "name": "Launch Application",
-            "request": "launch",
-            "mainClass": "de.turnertech.frederick.Application",
-            "projectName": "frederick",
-            "vmArgs": "-Xmx4G -Xms1G"
+            "mainClass": "de.turnertech.frederick/de.turnertech.frederick.main.Application",
+            "projectName": "fred-main"
         }
     ]
 }

@@ -4,5 +4,11 @@
     "files.exclude": {
         "target": true
     },
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.compile.nullAnalysis.mode": "disabled",
+    "maven.terminal.favorites": [
+        {
+            "command": "clean compile site site:stage",
+            "debug": false
+        }
+    ]
 }

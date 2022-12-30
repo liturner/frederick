@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--https://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html#class_logo-->
-<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd" name="Frederick">
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd">
   <bannerLeft>
     <name>Frederick</name>
     <src>images/frederick-logo.svg</src>
@@ -15,14 +14,9 @@
   </bannerRight>
   <publishDate position="right" />
   <version position="right" />
-  <poweredBy>
-    <logo name="Unterstützt von Maven" href="https://maven.apache.org/" img="./images/logos/maven-feather.png" width="90" title="Maven" />
-  </poweredBy>
-<!--a href=><img alt="Download Frederick" src="" width=200></a>
-<img class="builtBy" alt="Erstellt von Maven" src=""  90 x 30 --> 
   <body>
     <head>
-      <![CDATA[<link rel="icon" type="image/svg+xml" href="./images/favicon.svg">]]>
+      <![CDATA[<link rel="icon" type="image/svg+xml" href="https://liturner.github.io/Taktische-Zeichen-Java/images/favicon.svg">]]>
     </head>
     <links>
       <item name="THW" href="https://www.thw.de/" img="https://www.thw.de/SiteGlobals/StyleBundles/Bilder/favicon.ico?__blob=normal&amp;v=2" height="14px"/>
@@ -30,7 +24,7 @@
     </links>
     <breadcrumbs>
       <item name="TurnerTech" href="https://github.com/liturner"/>
-      <item name="Frederick" href="https://liturner.github.io/frederick/"/>
+      <item name="Frederick (Parent)" href="/"/>
     </breadcrumbs>
 
     <menu name="Frederick">
@@ -49,9 +43,10 @@
         <item name="Einsatzkarte" href="deployment-map.html"/>
       </item>
     </menu>
- 
-    <menu ref="reports"/>
 
+    <menu ref="parent" inherit="top"/>
+    <menu ref="modules" inherit="top"/>
+    <menu ref="reports" inherit="top"/>
   </body>
   <skin>
     <groupId>org.apache.maven.skins</groupId>

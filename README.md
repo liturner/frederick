@@ -34,3 +34,7 @@ The application aims to have a failry minimalistic architechture, while still en
 - GIS Layers are singletons. The application is deliberately static, and adding / removing data to and from the layers is well defined enough that we can centralise the logic in classes which will only have one instance.
 
 It is known that this architechture is not complete. As the application expands it will be updated to be more robust using a strong pattern. For the time being the intention is to spend some time developing the requirements of the application, before settling on a long term architechture.
+
+# Help
+
+If you get stuck figuring out which module to require: https://stackoverflow.com/questions/74963898/how-do-i-discover-the-correct-java-11-module-names-for-my-geotools-project

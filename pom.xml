@@ -1,411 +1,365 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>de.turnertech</groupId>
-  <artifactId>frederick</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <url>https://liturner.github.io/frederick/</url>
+    <groupId>de.turnertech.fred</groupId>
+    <artifactId>fred-parent</artifactId>
+    <name>Frederick (Parent)</name>
+    <inceptionYear>2022</inceptionYear>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <url>https://liturner.github.io/frederick/</url>
 
-  <name>Frederick</name>
-  <licenses>
-    <license>
-      <name>MIT</name>
-      <url>https://raw.githubusercontent.com/liturner/frederick/main/LICENSE.txt</url>
-      <distribution>repo</distribution>
-      <comments>Für weiter entwicklung und nutzung dieses Projekt, und seine Quellcode</comments>
-    </license>
-    <license>
-      <name>EULA</name>
-      <url>https://raw.githubusercontent.com/liturner/frederick/main/EULA.txt</url>
-      <distribution>repo</distribution>
-      <comments>Den Lizenz für den Nutzer</comments>
-    </license>
-  </licenses>
+    <description>Parent and Aggregator POM for the Frederick project</description>
 
-  <inceptionYear>2022</inceptionYear>
+    <modules>
+        <module>fred-main</module>
+        <module>fred-jlink</module>
+    </modules>
 
-  <organization>
-    <name>TurnerTech</name>
-  </organization>
+    <organization>
+        <name>TurnerTech</name>
+        <url>https://github.com/liturner</url>
+    </organization>
 
-  <developers>
-    <developer>
-      <id>liturner</id>
-      <name>Luke Ian Turner</name>
-      <email>turnertech@outlook.de</email>
-      <organization>TurnerTech</organization>
-      <roles>
-        <role>Entwickler</role>
-      </roles>
-      <timezone>Europe/Berlin</timezone>
-    </developer>
-    <developer>
-      <name>Annika Hibben</name>
-      <email>turnertech@outlook.de</email>
-      <organization>TurnerTech</organization>
-      <roles>
-        <role>Designerin</role>
-      </roles>
-      <timezone>Europe/Berlin</timezone>
-    </developer>
-  </developers>
+    <scm>
+        <connection>scm:git:https://github.com/liturner/frederick.git</connection>
+        <developerConnection>scm:git:https://github.com/liturner/frederick.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/liturner/frederick</url>
+    </scm>
 
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/liturner/frederick</url>
-  </issueManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/liturner/frederick/issues</url>
+    </issueManagement>
+    
+    <distributionManagement>
+        <downloadUrl>https://central.sonatype.dev/artifact/de.turnertech.fred/</downloadUrl>
+        <repository>
+            <id>sonatype</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-snapshot</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>github</id>
+            <url>scm:git:https://github.com/liturner/frederick.git</url>
+        </site>
+    </distributionManagement>
 
-  <scm>
-    <connection>scm:git:https://github.com/liturner/frederick.git</connection>
-    <developerConnection>scm:git:https://github.com/liturner/frederick.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>https://github.com/liturner/frederick</url>
-  </scm>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://raw.githubusercontent.com/liturner/Taktische-Zeichen-Java/main/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.release>17</maven.compiler.release>
-    <sonar.java.source>17</sonar.java.source>
-    <geotools.version>28.0</geotools.version>
-    <downloadSources>true</downloadSources>
-		<downloadJavadocs>true</downloadJavadocs>
-  </properties>
+    <developers>
+        <developer>
+            <id>liturner</id>
+            <name>Luke Ian Turner</name>
+            <email>turnertech@outlook.de</email>
+            <organization>TurnerTech</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+    </developers>
 
-  <distributionManagement>
-    <site>
-      <id>github</id>
-      <url>scm:git:https://github.com/liturner/frederick.git</url>
-    </site>
-  </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <sonar.java.source>17</sonar.java.source>
+        <geotools.version>28.0</geotools.version>
+        <downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs>
+    </properties>
 
     <repositories>
-      <repository>
-        <id>osgeo</id>
-        <name>OSGeo Release Repository</name>
-        <url>https://repo.osgeo.org/repository/release/</url>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-      </repository>
-      <repository>
-        <id>osgeo-snapshot</id>
-        <name>OSGeo Snapshot Repository</name>
-        <url>https://repo.osgeo.org/repository/snapshot/</url>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-        <releases>
-          <enabled>false</enabled>
-        </releases>
-      </repository>
+        <repository>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>osgeo-snapshot</id>
+            <name>OSGeo Snapshot Repository</name>
+            <url>https://repo.osgeo.org/repository/snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
     </repositories>
 
-  <build>
-    <finalName>${project.artifactId}</finalName>
-    
-    <pluginManagement>
-      <plugins>
-        <!-- Package Plugins -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.4.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.4.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.10.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>3.0.0-M7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jlink-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Package Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.4.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.10.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.5</version>
+                </plugin>
 
-        <!-- Test Plugins -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0-M7</version>
-        </plugin>
+                <!-- Test Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                </plugin>
 
-        <!-- Reporting Plugins -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.4.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>3.0.0-M7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.4.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>2.0.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.12.1</version>
-          <configuration>
-            <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-scm-publish-plugin</artifactId>
-          <version>3.1.0</version>
-          <configuration>
-            <content>${project.reporting.outputDirectory}</content><!-- mono-module doesn't require site:stage -->
-            <scmBranch>site</scmBranch>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+                <!-- Reporting Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.12.1</version>
+                    <configuration>
+                        <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <scmBranch>site</scmBranch>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <disableXmlReport>false</disableXmlReport>
-          <useFile>false</useFile>
-        </configuration>
-      </plugin>
+        <plugins>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
+        <!-- Ensure a detailed MANIFEST is generated -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
             <configuration>
-              <includeScope>runtime</includeScope>
+            <archive>
+                <manifest>
+                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                </manifest>
+            </archive>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
+        </plugin>
 
-      <!-- Generate a minimal JRE >
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jlink-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <noHeaderFiles>true</noHeaderFiles>
-          <addOptions>
-            <addOption>-Xmx512m</addOption>
-          </addOptions>
-        </configuration>
-      </plugin-->
-
-      <!-- Ensure a detailed MANIFEST is generated -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-              <addClasspath>true</addClasspath>
-              <mainClass>de.turnertech.frederick.Application</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <configuration>
-          <locales>de</locales>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>update-project-license</id>
-            <goals>
-              <goal>update-project-license</goal>
-            </goals>
+        <!-- Generate Maven Site in German -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
             <configuration>
-              <licenseName>mit</licenseName>
+                <locales>de</locales>
             </configuration>
-          </execution>
-          <execution>
-            <id>add-third-party</id>
-            <goals>
-              <goal>add-third-party</goal>
-            </goals>
-            <configuration>
-              <useMissingfile>true</useMissingfile>
-            </configuration>
-          </execution>
-          <execution>
-            <id>download-licenses</id>
-            <goals>
-              <goal>download-licenses</goal>
-            </goals>
-            <configuration>
-              <useMissingfile>true</useMissingfile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+        </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-publish-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>scm-publish</id>
-            <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
-            <goals>
-              <goal>publish-scm</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+        <!-- PGP Sign to satisfy Maven Central -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+            <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                <goal>sign</goal>
+                </goals>
+            </execution>
+            </executions>
+        </plugin>
 
-    </plugins>
-  </build>
+        <!-- Generate sources to satisfy Maven Central -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
 
-  <reporting>
-    <plugins>
+        <!-- Generate javadoc to satisfy Maven Central -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/ -->
-            <reports>
-              <report>dependencies</report>
-              <report>team</report>
-              <report>mailing-lists</report>
-              <report>ci-management</report>
-              <report>issue-management</report>
-              <report>licenses</report>
-              <report>scm</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
+        </plugins>
+    </build>
 
-      <!-- Generate and add JUnit Tests to the Project Site-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-      </plugin>
+    <reporting>
+        <plugins>
 
-      <!-- Generate and add Javadoc to the Project Site-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-            <doclint>all,-missing</doclint>
-        </configuration>
-      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <reportSets>
+                <reportSet>
+                    <!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/ -->
+                    <reports>
+                        <report>index</report>
+                        <report>summary</report>
+                        <report>dependency-info</report>
+                        <report>dependencies</report>
+                        <report>ci-management</report>
+                        <report>issue-management</report>
+                        <report>licenses</report>
+                        <report>scm</report>
+                        <report>plugins</report>
+                        <report>modules</report>
+                        <report>dependency-management</report>
+                    </reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
 
-    </plugins>
-  </reporting>
+        </plugins>
+    </reporting>
 
-  <dependencies>
+    <dependencies>
 
-    <!-- Following two deps are JAXB, both are needed -->
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>4.0.1</version>
-      <scope>runtime</scope>
-    </dependency>
+        <!-- Following two deps are JAXB, both are needed -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.1</version>
+            <scope>runtime</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>de.turnertech</groupId>
-      <artifactId>taktische-zeichen-swing</artifactId>
-      <version>1.2</version>
-    </dependency>
+        <dependency>
+            <groupId>de.turnertech</groupId>
+            <artifactId>taktische-zeichen-swing</artifactId>
+            <version>1.2</version>
+        </dependency>
+       
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-swing</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-tile-client</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-epsg-hsql</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-grid</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency> <!-- Missing transitive dependency in GeoTools -->
+            <groupId>systems.uom</groupId>
+            <artifactId>systems-quantity</artifactId>
+            <version>2.0.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-shapefile</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-swing</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-tile-client</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-epsg-hsql</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-grid</artifactId>
-      <version>${geotools.version}</version>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>2.0.6</version>
+        </dependency>
 
-    <!-- Test Dependencies -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.9.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
