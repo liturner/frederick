@@ -10,7 +10,7 @@
     <artifactId>fred-jlink</artifactId>
     <name>Frederick (JLink)</name>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging> <!-- Will later be jlink -->
+    <packaging>jlink</packaging> <!-- Will later be jlink -->
 
     <description>JLink project to generate the lightweight JRE</description>
 
@@ -20,7 +20,7 @@
                 <artifactId>maven-jlink-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <!-- configuration elements goes here -->
+
                 </configuration>
             </plugin>
             <plugin>
