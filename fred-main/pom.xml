@@ -31,62 +31,6 @@
     </license>
   </licenses>
 
-  <build>
-    
-    <plugins>
-
-
-
-      <!-- Generate a minimal JRE >
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jlink-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <noHeaderFiles>true</noHeaderFiles>
-          <addOptions>
-            <addOption>-Xmx512m</addOption>
-          </addOptions>
-        </configuration>
-      </plugin-->
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>update-project-license</id>
-            <goals>
-              <goal>update-project-license</goal>
-            </goals>
-            <configuration>
-              <licenseName>mit</licenseName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>add-third-party</id>
-            <goals>
-              <goal>add-third-party</goal>
-            </goals>
-            <configuration>
-              <useMissingfile>true</useMissingfile>
-            </configuration>
-          </execution>
-          <execution>
-            <id>download-licenses</id>
-            <goals>
-              <goal>download-licenses</goal>
-            </goals>
-            <configuration>
-              <useMissingfile>true</useMissingfile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-    </plugins>
-  </build>
-
   <reporting>
     <plugins>
       <plugin>

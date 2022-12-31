@@ -177,11 +177,6 @@
                     <version>3.4.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>2.0.0</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.12.1</version>
@@ -306,19 +301,6 @@
     </reporting>
 
     <dependencies>
-
-        <!-- Following two deps are JAXB, both are needed -->
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>4.0.1</version>
-            <scope>runtime</scope>
-        </dependency>
 
         <dependency>
             <groupId>de.turnertech</groupId>

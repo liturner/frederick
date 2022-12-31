@@ -1,16 +1,15 @@
 module de.turnertech.frederick {
     exports de.turnertech.frederick.main;
 
-    opens de.turnertech.frederick.data to jakarta.xml.bind;
+    opens de.turnertech.frederick.data to java.xml.bind;
 
     requires de.turnertech.tz.swing;
 
     requires java.logging;
     requires java.desktop;
     requires java.sql;
-    
-    requires jakarta.xml.bind;
-    
+    requires java.xml.bind;
+
     requires org.geotools.opengis;
     requires org.geotools.referencing;
     requires org.geotools.coverage;
