@@ -22,18 +22,13 @@ jobs:
         echo "PROJECT_VERSION=$v" >> $GITHUB_ENV
 
     - name: Maven package site
-      run: mvn -B package site --no-transfer-progress --file pom.xml
+      run: mvn -B package site site:stage --no-transfer-progress --file pom.xml
 
     - name: Stage binaries
       run: |
         mkdir staging && \
-        cp install/Frederick.cmd staging/Frederick.cmd && \
-        cp target/generated-sources/license/THIRD-PARTY.txt staging/third-party.txt && \
-        cp target/generated-sources/license/LICENSE.txt staging/license.txt && \
-        mv target/dependency staging/lib && \
-        cp target/*.jar staging/lib && \
-        mv target/generated-resources/licenses staging/lic && \
-        mv target/generated-resources/licenses.xml staging/third-party.xml && \
+        cp fred-jlink/install/Frederick.cmd staging/Frederick.cmd && \
+        mv fred-jlink/target/dependency staging/lib && \
         mv target/site staging/doc
 
     - name: Inject JRE
