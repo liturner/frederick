@@ -1,11 +1,13 @@
 package de.turnertech.frederick.main;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
 import de.turnertech.frederick.data.Bullseye;
 import de.turnertech.frederick.data.EtbEntry;
+import de.turnertech.frederick.data.TacticalElement;
 
 /**
  * This is the service layer for the application. All actions performed by the GUI
@@ -37,6 +39,18 @@ public class Service {
 
     public Optional<Bullseye> getBullseye() {
         return Optional.ofNullable(database.getCurrentDeployment().getBullseye());
+    }
+
+    public void addTacticalElement(final TacticalElement tacticalElement, final String logPosition) {
+        database.getCurrentDeployment().getTacticalSymbolEntries().add(tacticalElement);
+        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Tactical Element added: " + logPosition);
+        database.getCurrentDeployment().getEtbEntries().add(etbEntry);
+        database.notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT_ID);
+        database.saveCurrentDeployment();
+    }
+
+    public Collection<TacticalElement> getTacticalElements() {
+        return database.getCurrentDeployment().getTacticalSymbolEntries();
     }
 
 }

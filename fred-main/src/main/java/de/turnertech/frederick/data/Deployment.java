@@ -20,13 +20,21 @@ public class Deployment {
     @XmlElement(name = "etbEntry")
     private LinkedList<EtbEntry> etbEntries;
 
+    @XmlElement(name = "tacticalSymbolEntry")
+    private LinkedList<TacticalElement> tacticalSymbolEntries;
+
     public Deployment() {
         etbEntries = new LinkedList<>();
+        tacticalSymbolEntries = new LinkedList<>();
         name = "Test";
     }
 
     public List<EtbEntry> getEtbEntries() {
         return etbEntries;
+    }
+
+    public List<TacticalElement> getTacticalSymbolEntries() {
+        return tacticalSymbolEntries;
     }
 
     public String getName() {

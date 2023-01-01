@@ -1,5 +1,4 @@
 package de.turnertech.frederick.gui.map.action;
-
 import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
 
@@ -14,20 +13,25 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
+import de.turnertech.frederick.data.TacticalElement;
 import de.turnertech.frederick.gui.map.MapHelper;
 import de.turnertech.frederick.main.Application;
 import de.turnertech.frederick.main.Logging;
+import de.turnertech.tz.swing.TacticalSymbol;
 
-public class SetBullseyeAction extends AbstractAction {
+public class AddTacticalSymbolAction extends AbstractAction {
 
     final transient MapPane mapPane;
     
     final transient Point2D screenPoint;
 
-    public SetBullseyeAction(final MapPane mapPane, int x, int y) {
-        super("Bullseye Setzen");
+    final TacticalSymbol tacticalSymbol;
+
+    public AddTacticalSymbolAction(final MapPane mapPane, double x, double y, TacticalSymbol tacticalSymbol) {
+        super("Add Tactical Symbol");
         this.mapPane = mapPane;
         this.screenPoint = new Point2D.Double(x, y);
+        this.tacticalSymbol = tacticalSymbol;
     }
 
     @Override
@@ -50,7 +54,8 @@ public class SetBullseyeAction extends AbstractAction {
             return;
         }
 
-        de.turnertech.frederick.data.Bullseye dataToStore = new de.turnertech.frederick.data.Bullseye(crs84Position.getX(), crs84Position.getY());
-        Application.getService().setBullseye(dataToStore, MapHelper.format(crs84Position));
-    }    
+        TacticalElement dataToStore = new TacticalElement(crs84Position.getX(), crs84Position.getY());
+        Application.getService().addTacticalElement(dataToStore, MapHelper.format(crs84Position));
+    }
+
 }

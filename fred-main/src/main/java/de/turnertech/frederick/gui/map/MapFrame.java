@@ -1,10 +1,19 @@
 package de.turnertech.frederick.gui.map;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -32,7 +41,10 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.data.Bullseye;
+import de.turnertech.frederick.data.TacticalElement;
+import de.turnertech.frederick.gui.map.action.AddTacticalSymbolAction;
 import de.turnertech.frederick.gui.map.feature.BullseyeLayer;
+import de.turnertech.frederick.gui.map.feature.TacticalSymbolLayer;
 import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
@@ -41,12 +53,15 @@ import de.turnertech.frederick.main.Application;
 import de.turnertech.frederick.main.Database;
 import de.turnertech.frederick.main.Logging;
 import de.turnertech.frederick.main.Resources;
+import de.turnertech.tz.swing.TacticalSymbol;
 
-public class MapFrame extends JFrame implements ActionListener {
+public class MapFrame extends JFrame implements ActionListener, DropTargetListener {
     
     private final ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(5.0, 16, 47.0, 55.0, DefaultGeographicCRS.WGS84);
 
     private final MapToolbar mapToolbar;
+
+    private final JMapPane mapPane;
 
     public MapFrame() {
         this.getContentPane().setLayout(new java.awt.BorderLayout());
@@ -66,12 +81,13 @@ public class MapFrame extends JFrame implements ActionListener {
 
         map.addLayer(layer);
         map.addLayer(BullseyeLayer.instance());
+        map.addLayer(TacticalSymbolLayer.instance());
         addGrids(map);
 
         this.setTitle("Frederick - Einsatz Karte");
         this.setIconImage(Resources.getdeployment24pxIcon().getImage());
         
-        JMapPane mapPane = new JMapPane(map);
+        mapPane = new JMapPane(map);
         mapPane.setBackground(Color.WHITE);
         mapPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mapPane.addMouseListener(new ScrollTool(mapPane));
@@ -86,6 +102,8 @@ public class MapFrame extends JFrame implements ActionListener {
         this.add(new StatusBar(), BorderLayout.PAGE_END);
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+
+        mapPane.setDropTarget(new DropTarget(mapPane, this));
     }
 
     private void addGrids(MapContent map) {
@@ -134,10 +152,76 @@ public class MapFrame extends JFrame implements ActionListener {
             } else {
                 BullseyeLayer.instance().clear();
                 mapToolbar.setFocusBullseyeActionEnabled(false);
-            }       
+            }   
+            
+            Collection<TacticalElement> allElements = Application.getService().getTacticalElements();
+            TacticalSymbolLayer.instance().clear();
+            for(TacticalElement element : allElements) {
+                TacticalSymbolLayer.instance().add(new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY()));
+            }
+            
         } else if(actionEvent.getID() == Database.DEPLOYMENT_CLOSED_EVENT_ID) {
             BullseyeLayer.instance().clear();
             mapToolbar.setFocusBullseyeActionEnabled(false);
         }
+    }
+
+
+
+
+
+    @Override
+    public void dragEnter(DropTargetDragEvent event) {
+        if(!event.isDataFlavorSupported(TacticalSymbol.DATA_FLAVOR)) {
+            event.rejectDrag();            
+            return;
+        }
+
+    }
+
+    @Override
+    public void dragExit(DropTargetEvent event) {
+        // According to docs, nothing mandatory to do here
+    }
+
+    @Override
+    public void dragOver(DropTargetDragEvent event) {
+        if(!event.isDataFlavorSupported(TacticalSymbol.DATA_FLAVOR)) {
+            event.rejectDrag();            
+            return;
+        }
+
+    }
+
+    @Override
+    public void drop(DropTargetDropEvent event) {
+        // Check if supported flavour, get the transferrable etc.
+        if(!event.isDataFlavorSupported(TacticalSymbol.DATA_FLAVOR)) {
+            event.rejectDrop();            
+            return;
+        }
+
+        // Must be called BEFORE accessing the Transferable! https://docs.oracle.com/javase/10/docs/api/java/awt/dnd/DropTargetListener.html#acceptDrag(int)
+        event.acceptDrop(DnDConstants.ACTION_COPY);
+        TacticalSymbol data;
+
+        try {
+            data = (TacticalSymbol)event.getTransferable().getTransferData(TacticalSymbol.DATA_FLAVOR);
+        } catch (UnsupportedFlavorException | IOException e) {
+            e.printStackTrace();
+            event.dropComplete(false);
+            return;
+        }
+
+        Point screenPoint = event.getLocation();
+        AddTacticalSymbolAction action = new AddTacticalSymbolAction(mapPane, screenPoint.getX(), screenPoint.getY(), data);
+        action.actionPerformed(null);
+
+        event.dropComplete(true);
+    }
+
+    @Override
+    public void dropActionChanged(DropTargetDragEvent event) {
+        // According to docs, nothing mandatory to do here
     }
 }
