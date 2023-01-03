@@ -1,11 +1,11 @@
-name: Java CI with Maven
+name: JPackage Windows
 
 on: push
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -16,38 +16,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Retrieve Version
-      run: |
-        v=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) && \
-        echo "PROJECT_VERSION=$v" >> $GITHUB_ENV
+    - name: Maven package
+      run: mvn -B package --no-transfer-progress --file pom.xml
 
-    - name: Maven package site
-      run: mvn -B package site site:stage --no-transfer-progress --file pom.xml
-
-    - name: Stage binaries
-      run: |
-        mkdir staging && \
-        cp fred-jlink/install/Frederick.cmd staging/Frederick.cmd && \
-        mv fred-jlink/target/dependency staging/lib && \
-        mv target/site staging/doc
-
-    - name: Inject JRE
-      run: |
-        wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip && \
-        unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.5_8.zip -d staging && \
-        mv staging/jdk-17.0.5+8-jre staging/jre
-
-    - name: Zip files
-      run: |
-        mkdir artefact && \
-        (cd staging && zip -q -r ../artefact/Frederick-${{env.PROJECT_VERSION}}.zip .)
+    - name: JPackage
+      run: fred-jpackage/package.cmd
 
     - name: Publish build
       uses: actions/upload-artifact@v3
       with:
-        name: Binaries
-        path: artefact/*.zip
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+        path: fred-jpackage/target/fred*.exe
