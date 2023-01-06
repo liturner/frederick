@@ -320,6 +320,11 @@
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
+            <artifactId>gt-coverage</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
             <version>${geotools.version}</version>
         </dependency>
@@ -328,10 +333,53 @@
             <artifactId>gt-grid</artifactId>
             <version>${geotools.version}</version>
         </dependency>
-        <dependency> <!-- Missing transitive dependency in GeoTools -->
+
+        <!-- GeoTools Dependency Fixes -->
+        <dependency> <!-- Provided dependency, I think we need this? -->
             <groupId>systems.uom</groupId>
             <artifactId>systems-quantity</artifactId>
             <version>2.0.1</version>
+        </dependency>
+        <dependency> <!-- Guava fiexed the problem in a newer version, PR is open -->
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+            <exclusions>
+                <exclusion> <!-- More complex conflict between guava and systems.uom, both expose javax.annotations as automatic modules. -->
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency> <!-- Runtime dependency needed at compile time for module-info.java? -->
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-runtime</artifactId>
+            <version>3.0.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency> <!-- Runtime dependency needed at compile time for module-info.java? -->
+            <groupId>com.sun.xml.fastinfoset</groupId>
+            <artifactId>FastInfoset</artifactId>
+            <version>1.2.15</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency> <!-- Runtime dependency needed at compile time for module-info.java? -->
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.4.0-b180830.0438</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency> <!-- Runtime dependency needed at compile time for module-info.java? -->
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>txw2</artifactId>
+            <version>2.4.0-b180830.0438</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency> <!-- Runtime dependency needed at compile time for module-info.java? -->
+            <groupId>org.jvnet.staxex</groupId>
+            <artifactId>stax-ex</artifactId>
+            <version>1.8</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Test Dependencies -->

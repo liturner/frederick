@@ -8,7 +8,7 @@
             "type": "java",
             "name": "Launch Application",
             "request": "launch",
-            "mainClass": "de.turnertech.frederick.main.Application",
+            "mainClass": "de.turnertech.frederick/de.turnertech.frederick.main.Application",
             "projectName": "fred-main"
         }
     ]
