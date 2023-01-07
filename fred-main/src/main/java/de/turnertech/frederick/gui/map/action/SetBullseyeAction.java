@@ -15,7 +15,7 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.gui.map.MapHelper;
-import de.turnertech.frederick.main.Application;
+import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.Logging;
 
 public class SetBullseyeAction extends AbstractAction {
@@ -51,6 +51,6 @@ public class SetBullseyeAction extends AbstractAction {
         }
 
         de.turnertech.frederick.data.Bullseye dataToStore = new de.turnertech.frederick.data.Bullseye(crs84Position.getX(), crs84Position.getY());
-        Application.getService().setBullseye(dataToStore, MapHelper.format(crs84Position));
+        ApplicationService.getInstance().setBullseye(dataToStore, MapHelper.format(crs84Position));
     }    
 }

@@ -5,8 +5,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import de.turnertech.frederick.gui.status.StatusBar;
-import de.turnertech.frederick.main.Resources;
+import de.turnertech.frederick.gui.common.StatusBar;
+import de.turnertech.frederick.services.Resources;
 
 public class DeploymentFrame extends JFrame  {
     

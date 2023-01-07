@@ -2,14 +2,13 @@ package de.turnertech.frederick.services;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
 import de.turnertech.frederick.data.Deployment;
 
-public interface PersistanceProvider {
+public abstract class PersistanceProvider {
 
     public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
 
@@ -23,27 +22,39 @@ public interface PersistanceProvider {
 
     public static final int DEPLOYMENT_DELETED_EVENT_ID = "DEPLOYMENT_DELETED_EVENT".hashCode();
     
-    static List<PersistanceProvider> getInstances() {
+    private static PersistanceProvider instance;
+
+    // Singleton Service, error on multiple instances
+    public static PersistanceProvider getInstance() {
+        if(instance != null) {
+            return instance;
+        }
+
         ServiceLoader<PersistanceProvider> services = ServiceLoader.load(PersistanceProvider.class);
-        List<PersistanceProvider> list = new ArrayList<>();
-        services.iterator().forEachRemaining(list::add);
-        return list;
+        instance = services.findFirst().orElse(null);
+
+        if(instance == null) {
+            Logging.LOGGER.severe("No Persistance Service found!");
+            System.exit(-1);
+        }
+
+        return instance;
     }
 
-    public void closeDeployment(final String name);
+    public abstract void closeDeployment(final String name);
 
-    public Optional<Path> getPathToDeployment(final String name);
+    public abstract Optional<Path> getPathToDeployment(final String name);
 
-    public boolean isDeploymentExists(final String name);
+    public abstract boolean isDeploymentExists(final String name);
 
-    public void deleteDeployment(final String name);
+    public abstract void deleteDeployment(final String name);
 
-    public Deployment getCurrentDeployment();
+    public abstract Deployment getCurrentDeployment();
 
-    public List<File> getDeploymentFiles();
+    public abstract List<File> getDeploymentFiles();
 
-    public void saveCurrentDeployment();
+    public abstract void saveCurrentDeployment();
 
-    public void saveCurrentDeploymentInFiveSeconds();
+    public abstract void saveCurrentDeploymentInFiveSeconds();
 
 }

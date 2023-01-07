@@ -1,4 +1,4 @@
-package de.turnertech.frederick.gui.status;
+package de.turnertech.frederick.gui.common;
 
 import java.util.logging.LogRecord;
 

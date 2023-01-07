@@ -13,6 +13,7 @@
 
   <modules>
     <module>fred-services</module>
+    <module>fred-gui-common</module>
     <module>fred-diary</module>
     <module>fred-file-persistance</module>
     <module>fred-data</module>

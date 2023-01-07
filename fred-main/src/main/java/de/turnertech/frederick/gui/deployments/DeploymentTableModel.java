@@ -12,7 +12,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import de.turnertech.frederick.gui.InstantCellRenderer;
-import de.turnertech.frederick.main.Application;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.PersistanceProvider;
 
@@ -45,7 +44,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public int getRowCount() {
-        return Application.getDatabase().getDeploymentFiles().size();
+        return PersistanceProvider.getInstance().getDeploymentFiles().size();
     }
 
     @Override
@@ -65,7 +64,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        File file = Application.getDatabase().getDeploymentFiles().get(rowIndex);
+        File file = PersistanceProvider.getInstance().getDeploymentFiles().get(rowIndex);
         if(columnIndex == DATE) {
             return Date.from(Instant.ofEpochMilli(file.lastModified()));
         } else if (columnIndex == NAME) {

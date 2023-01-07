@@ -8,7 +8,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import de.turnertech.frederick.main.Application;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionListener,  DocumentListener {
     
@@ -50,7 +50,7 @@ public class EtbFrameTableNotesArea extends JTextArea implements ListSelectionLi
     @Override
     public void changedUpdate(DocumentEvent e) {
         tableModel.setValueAt(this.getText(), selectionModel.getLeadSelectionIndex(), EtbTableModel.NOTES);
-        Application.getDatabase().saveCurrentDeploymentInFiveSeconds();
+        PersistanceProvider.getInstance().saveCurrentDeploymentInFiveSeconds();
     }
 
 }

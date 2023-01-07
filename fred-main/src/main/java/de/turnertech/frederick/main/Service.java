@@ -9,6 +9,7 @@ import de.turnertech.frederick.data.Bullseye;
 import de.turnertech.frederick.data.EtbEntry;
 import de.turnertech.frederick.data.TacticalElement;
 import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.PersistanceProvider;
 
 /**
@@ -17,14 +18,8 @@ import de.turnertech.frederick.services.PersistanceProvider;
  * 
  * This class should not have any dependency on Geotools, or the GUI in general.
  */
-public class Service {
+public class Service extends ApplicationService {
     
-    final PersistanceProvider database;
-
-    Service(final PersistanceProvider database) {
-        this.database = database;
-    }
-
     /**
      * Sets the current deployments Bullseye position.
      * 
@@ -32,27 +27,27 @@ public class Service {
      * @param logPosition The bullseye coordinates as they should be entered into the ETB.
      */
     public void setBullseye(final Bullseye bullseye, final String logPosition) {
-        database.getCurrentDeployment().setBullseye(bullseye);
-        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Einsatzort festgelegt als " + logPosition);
-        database.getCurrentDeployment().getEtbEntries().add(etbEntry);
+        PersistanceProvider.getInstance().getCurrentDeployment().setBullseye(bullseye);
+        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), ApplicationService.CURRENT_USER, "Einsatzort festgelegt als " + logPosition);
+        PersistanceProvider.getInstance().getCurrentDeployment().getEtbEntries().add(etbEntry);
         ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
-        database.saveCurrentDeployment();
+        PersistanceProvider.getInstance().saveCurrentDeployment();
     }
 
     public Optional<Bullseye> getBullseye() {
-        return Optional.ofNullable(database.getCurrentDeployment().getBullseye());
+        return Optional.ofNullable(PersistanceProvider.getInstance().getCurrentDeployment().getBullseye());
     }
 
     public void addTacticalElement(final TacticalElement tacticalElement, final String logPosition) {
-        database.getCurrentDeployment().getTacticalSymbolEntries().add(tacticalElement);
-        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Tactical Element added: " + logPosition);
-        database.getCurrentDeployment().getEtbEntries().add(etbEntry);
+        PersistanceProvider.getInstance().getCurrentDeployment().getTacticalSymbolEntries().add(tacticalElement);
+        EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), ApplicationService.CURRENT_USER, "Tactical Element added: " + logPosition);
+        PersistanceProvider.getInstance().getCurrentDeployment().getEtbEntries().add(etbEntry);
         ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
-        database.saveCurrentDeployment();
+        PersistanceProvider.getInstance().saveCurrentDeployment();
     }
 
     public Collection<TacticalElement> getTacticalElements() {
-        return database.getCurrentDeployment().getTacticalSymbolEntries();
+        return PersistanceProvider.getInstance().getCurrentDeployment().getTacticalSymbolEntries();
     }
 
 }

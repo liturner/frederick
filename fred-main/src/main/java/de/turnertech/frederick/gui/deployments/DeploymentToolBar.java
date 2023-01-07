@@ -12,9 +12,9 @@ import javax.swing.event.ListSelectionListener;
 
 import de.turnertech.frederick.main.Application;
 import de.turnertech.frederick.main.Printing;
-import de.turnertech.frederick.main.Resources;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.Resources;
 
 public class DeploymentToolBar extends JToolBar implements ActionListener, ListSelectionListener {
 
@@ -105,7 +105,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
 
             int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to permanently delete the deployment: " + name, "Einsatz Löschen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(response == JOptionPane.YES_OPTION) {
-                Application.getDatabase().deleteDeployment(name);
+                PersistanceProvider.getInstance().deleteDeployment(name);
             }
 
         } 
@@ -123,16 +123,16 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
                 if(name == null) {
                     Logging.LOGGER.info("User aborted the closing of the deployment.");
                     return;
-                } else if(Application.getDatabase().isDeploymentExists(name)) {
+                } else if(PersistanceProvider.getInstance().isDeploymentExists(name)) {
                     additionalInstructions = "Name already exists! Choose another name.";
-                } else if (Application.getDatabase().getPathToDeployment(name).isEmpty()) {
+                } else if (PersistanceProvider.getInstance().getPathToDeployment(name).isEmpty()) {
                     additionalInstructions = "Name invalid! Choose a valid file name.";
                 } else {
                     nameValid = true;
                 }                
             }
 
-            Application.getDatabase().closeDeployment(name);
+            PersistanceProvider.getInstance().closeDeployment(name);
         } 
         else if (EXPORT_COMMAND.equals(e.getActionCommand())) {
             JOptionPane.showMessageDialog(this, "Not yet implemented", "Sorry", JOptionPane.INFORMATION_MESSAGE);

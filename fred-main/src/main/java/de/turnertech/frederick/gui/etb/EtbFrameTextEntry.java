@@ -11,7 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import de.turnertech.frederick.data.EtbEntry;
-import de.turnertech.frederick.main.Application;
+import de.turnertech.frederick.services.ApplicationService;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 public class EtbFrameTextEntry extends JScrollPane implements KeyListener {
 
@@ -37,9 +38,9 @@ public class EtbFrameTextEntry extends JScrollPane implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER && e.isControlDown() ) {
-            tableModel.addEtbEntry(new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, textArea.getText()));    
+            tableModel.addEtbEntry(new EtbEntry(Date.from(Instant.now()), ApplicationService.CURRENT_USER, textArea.getText()));    
             textArea.setText("");
-            Application.getDatabase().saveCurrentDeployment();
+            PersistanceProvider.getInstance().saveCurrentDeployment();
             e.consume();
         }   
     }

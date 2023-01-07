@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Resources;
+import de.turnertech.frederick.services.Resources;
 
 
 public class FrederickTrayIcon extends TrayIcon implements MouseListener  {

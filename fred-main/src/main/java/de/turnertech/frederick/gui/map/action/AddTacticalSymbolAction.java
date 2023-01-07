@@ -15,7 +15,7 @@ import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.data.TacticalElement;
 import de.turnertech.frederick.gui.map.MapHelper;
-import de.turnertech.frederick.main.Application;
+import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.tz.swing.TacticalSymbol;
 
@@ -55,7 +55,7 @@ public class AddTacticalSymbolAction extends AbstractAction {
         }
 
         TacticalElement dataToStore = new TacticalElement(crs84Position.getX(), crs84Position.getY());
-        Application.getService().addTacticalElement(dataToStore, MapHelper.format(crs84Position));
+        ApplicationService.getInstance().addTacticalElement(dataToStore, MapHelper.format(crs84Position));
     }
 
 }

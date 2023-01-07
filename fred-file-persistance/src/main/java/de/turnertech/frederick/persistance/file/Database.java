@@ -19,7 +19,7 @@ import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
 import de.turnertech.frederick.services.Serialization;
 
-public class Database implements PersistanceProvider {
+public class Database extends PersistanceProvider {
     
     private final Path root;
 

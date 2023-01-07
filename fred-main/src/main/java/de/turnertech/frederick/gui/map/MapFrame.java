@@ -42,18 +42,17 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.data.Bullseye;
 import de.turnertech.frederick.data.TacticalElement;
+import de.turnertech.frederick.gui.common.StatusBar;
 import de.turnertech.frederick.gui.map.action.AddTacticalSymbolAction;
 import de.turnertech.frederick.gui.map.feature.BullseyeLayer;
 import de.turnertech.frederick.gui.map.feature.TacticalSymbolLayer;
 import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
-import de.turnertech.frederick.gui.status.StatusBar;
-import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Resources;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.Resources;
 import de.turnertech.tz.swing.TacticalSymbol;
 
 public class MapFrame extends JFrame implements ActionListener, DropTargetListener {
@@ -146,8 +145,8 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getID() == PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID || actionEvent.getID() == PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID) {
-            if(Application.getService().getBullseye().isPresent()) {
-                Bullseye bullsFromStorage = Application.getService().getBullseye().get();
+            if(PersistanceProvider.getInstance().getCurrentDeployment().getBullseye() != null) {
+                Bullseye bullsFromStorage = PersistanceProvider.getInstance().getCurrentDeployment().getBullseye();
                 BullseyeLayer.instance().set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
                 mapToolbar.setFocusBullseyeActionEnabled(true);
             } else {
@@ -155,7 +154,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
                 mapToolbar.setFocusBullseyeActionEnabled(false);
             }   
             
-            Collection<TacticalElement> allElements = Application.getService().getTacticalElements();
+            Collection<TacticalElement> allElements = PersistanceProvider.getInstance().getCurrentDeployment().getTacticalSymbolEntries();
             TacticalSymbolLayer.instance().clear();
             for(TacticalElement element : allElements) {
                 TacticalSymbolLayer.instance().add(new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY()));

@@ -17,6 +17,7 @@ import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.FrameProvider;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
@@ -49,12 +50,6 @@ public class Application {
 
     private static MapFrame mapFrame = null;
 
-    private static PersistanceProvider database;
-
-    private static Service service;
-
-    public static final String CURRENT_USER = System.getProperty("user.name");
-
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
      * 
@@ -65,19 +60,15 @@ public class Application {
         Logging.initialise();
         Printing.initialise();
 
-        List<PersistanceProvider> persistanceProviders = PersistanceProvider.getInstances();
-        for(PersistanceProvider persistanceProvider : persistanceProviders) {
-            Logging.LOGGER.info("PersistanceProvider: " + persistanceProvider.getClass().getName());
-            database = persistanceProvider;
-            break;  // TODO: Add check to ensure only one provider at current.
-        }
+        PersistanceProvider persistanceProvider = PersistanceProvider.getInstance();
+        Logging.LOGGER.info("PersistanceProvider: " + persistanceProvider.getClass().getName());
 
-        service = new Service(database);
+        ApplicationService applicationService = ApplicationService.getInstance();
+        Logging.LOGGER.info("ApplicationService: " + applicationService.getClass().getName());
 
         List<FrameProvider> msgServices = FrameProvider.getInstances();
         for (FrameProvider msgService : msgServices) {
             Logging.LOGGER.info("FrameProvider: " + msgService.getClass().getName());
-            
         }
 
         //Check the SystemTray is supported
@@ -123,14 +114,6 @@ public class Application {
 
     public static void exit() {
         System.exit(0);
-    }
-
-    public static PersistanceProvider getDatabase() {
-        return database;
-    }
-
-    public static Service getService() {
-        return service;
     }
 
     /**
