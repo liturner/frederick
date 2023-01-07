@@ -75,6 +75,11 @@
       <artifactId>fred-data</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-file-persistance</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>de.turnertech.fred</groupId>

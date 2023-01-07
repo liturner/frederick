@@ -20,7 +20,7 @@ import org.geotools.swing.JMapPane;
 
 import de.turnertech.frederick.gui.map.browser.JPropertiesPane;
 import de.turnertech.frederick.gui.map.symbols.TacticalSymbolListCellRenderer;
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 import de.turnertech.tz.swing.TacticalSymbol;
 
 /**

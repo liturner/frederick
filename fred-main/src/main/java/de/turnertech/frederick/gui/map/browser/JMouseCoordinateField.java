@@ -19,7 +19,7 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.gui.map.MapHelper;
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 
 /**
  * A (deliberately) non configurable field to display the current position of

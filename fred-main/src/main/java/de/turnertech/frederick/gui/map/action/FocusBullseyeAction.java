@@ -7,7 +7,7 @@ import org.geotools.swing.MapPane;
 import org.geotools.swing.action.MapAction;
 
 import de.turnertech.frederick.gui.map.feature.BullseyeLayer;
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 
 public class FocusBullseyeAction extends MapAction {
     

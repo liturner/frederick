@@ -50,9 +50,10 @@ import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
 import de.turnertech.frederick.gui.status.StatusBar;
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Database;
-import de.turnertech.frederick.main.Logging;
 import de.turnertech.frederick.main.Resources;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.Logging;
+import de.turnertech.frederick.services.PersistanceProvider;
 import de.turnertech.tz.swing.TacticalSymbol;
 
 public class MapFrame extends JFrame implements ActionListener, DropTargetListener {
@@ -65,7 +66,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
 
     public MapFrame() {
         this.getContentPane().setLayout(new java.awt.BorderLayout());
-        Application.getDatabase().addActionListener(this);
+        ActionService.addActionListener(this);
         MapContent map = new MapContent();
         String baseURL = "http://tile.openstreetmap.org/";
         TileService service = new OSMService("OSM", baseURL);
@@ -144,7 +145,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if(actionEvent.getID() == Database.DEPLOYMENT_UPDATED_EVENT_ID || actionEvent.getID() == Database.DEPLOYMENT_OPENED_EVENT_ID) {
+        if(actionEvent.getID() == PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID || actionEvent.getID() == PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID) {
             if(Application.getService().getBullseye().isPresent()) {
                 Bullseye bullsFromStorage = Application.getService().getBullseye().get();
                 BullseyeLayer.instance().set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
@@ -160,7 +161,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
                 TacticalSymbolLayer.instance().add(new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY()));
             }
             
-        } else if(actionEvent.getID() == Database.DEPLOYMENT_CLOSED_EVENT_ID) {
+        } else if(actionEvent.getID() == PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID) {
             BullseyeLayer.instance().clear();
             mapToolbar.setFocusBullseyeActionEnabled(false);
         }

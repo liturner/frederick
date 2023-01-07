@@ -13,7 +13,8 @@ import javax.swing.table.TableColumnModel;
 
 import de.turnertech.frederick.gui.InstantCellRenderer;
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Database;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 public class DeploymentTableModel extends AbstractTableModel implements ActionListener  {
 
@@ -26,7 +27,7 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
     public DeploymentTableModel() {
 
         // Prepare Column Model
-        Application.getDatabase().addActionListener(this);
+        ActionService.addActionListener(this);
 
         TableColumn date = new TableColumn(DATE);
         date.setHeaderValue("Date");
@@ -80,9 +81,9 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Database.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || 
-                Database.DEPLOYMENT_SAVED_EVENT_ID == e.getID() || 
-                Database.DEPLOYMENT_DELETED_EVENT_ID == e.getID()) {
+        if(PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || 
+                PersistanceProvider.DEPLOYMENT_SAVED_EVENT_ID == e.getID() || 
+                PersistanceProvider.DEPLOYMENT_DELETED_EVENT_ID == e.getID()) {
             fireTableDataChanged();
         }
     }    

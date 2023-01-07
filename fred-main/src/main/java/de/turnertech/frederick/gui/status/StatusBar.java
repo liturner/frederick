@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 
 public class StatusBar extends JPanel {
     

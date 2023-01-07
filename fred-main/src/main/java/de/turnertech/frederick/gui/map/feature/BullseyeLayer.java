@@ -37,7 +37,7 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 
 public class BullseyeLayer extends FeatureLayer {
     

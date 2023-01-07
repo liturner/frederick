@@ -8,6 +8,8 @@ import java.util.Optional;
 import de.turnertech.frederick.data.Bullseye;
 import de.turnertech.frederick.data.EtbEntry;
 import de.turnertech.frederick.data.TacticalElement;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 /**
  * This is the service layer for the application. All actions performed by the GUI
@@ -17,9 +19,9 @@ import de.turnertech.frederick.data.TacticalElement;
  */
 public class Service {
     
-    final Database database;
+    final PersistanceProvider database;
 
-    Service(final Database database) {
+    Service(final PersistanceProvider database) {
         this.database = database;
     }
 
@@ -33,7 +35,7 @@ public class Service {
         database.getCurrentDeployment().setBullseye(bullseye);
         EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Einsatzort festgelegt als " + logPosition);
         database.getCurrentDeployment().getEtbEntries().add(etbEntry);
-        database.notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT_ID);
+        ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
         database.saveCurrentDeployment();
     }
 
@@ -45,7 +47,7 @@ public class Service {
         database.getCurrentDeployment().getTacticalSymbolEntries().add(tacticalElement);
         EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), Application.CURRENT_USER, "Tactical Element added: " + logPosition);
         database.getCurrentDeployment().getEtbEntries().add(etbEntry);
-        database.notifyActionListeners(Database.DEPLOYMENT_UPDATED_EVENT_ID);
+        ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
         database.saveCurrentDeployment();
     }
 

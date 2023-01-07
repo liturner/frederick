@@ -16,7 +16,10 @@ import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
+import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.FrameProvider;
+import de.turnertech.frederick.services.Logging;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 /**
  * The core application class, hosting a few services which the sub modules can 
@@ -46,7 +49,7 @@ public class Application {
 
     private static MapFrame mapFrame = null;
 
-    private static Database database;
+    private static PersistanceProvider database;
 
     private static Service service;
 
@@ -61,12 +64,19 @@ public class Application {
 
         Logging.initialise();
         Printing.initialise();
-        database = new Database();
+
+        List<PersistanceProvider> persistanceProviders = PersistanceProvider.getInstances();
+        for(PersistanceProvider persistanceProvider : persistanceProviders) {
+            Logging.LOGGER.info("PersistanceProvider: " + persistanceProvider.getClass().getName());
+            database = persistanceProvider;
+            break;  // TODO: Add check to ensure only one provider at current.
+        }
+
         service = new Service(database);
 
         List<FrameProvider> msgServices = FrameProvider.getInstances();
         for (FrameProvider msgService : msgServices) {
-            Logging.LOGGER.info("Found a Service: " + msgService.getClass().getName());
+            Logging.LOGGER.info("FrameProvider: " + msgService.getClass().getName());
             
         }
 
@@ -91,7 +101,7 @@ public class Application {
         mapFrame = new MapFrame();
 
         // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
-        database.notifyActionListeners(Database.DEPLOYMENT_OPENED_EVENT_ID);
+        ActionService.notifyActionListeners(deploymentFrame, PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID);
 
         SwingUtilities.invokeLater(() -> {
             etbFrame.setVisible(true);
@@ -115,7 +125,7 @@ public class Application {
         System.exit(0);
     }
 
-    public static Database getDatabase() {
+    public static PersistanceProvider getDatabase() {
         return database;
     }
 

@@ -9,12 +9,12 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>fred-services</artifactId>
+  <artifactId>fred-file-persistance</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Frederick (Services)</name>
-  <description>The services module, containing the API and service registry.</description>
+  <name>Frederick (File Persistance)</name>
+  <description>The module enabling saving to disk.</description>
 
   <licenses>
     <license>
@@ -45,7 +45,7 @@
             </manifest>
             <manifestSections>
               <manifestSection>
-                <name>de/turnertech/frederick/services/</name>
+                <name>de/turnertech/frederick/persistance/file/</name>
                 <manifestEntries>
                   <Sealed>true</Sealed>
                 </manifestEntries>
@@ -79,6 +79,16 @@
       <artifactId>fred-data</artifactId>
       <version>${project.version}</version>
     </dependency>
-  </dependencies>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
+    <dependency><!-- This contains a transitive dependency with jaxb in it. We use it to prevent CP conflicts. -->
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-coverage</artifactId>
+    </dependency>
+  </dependencies>
+      
 </project>

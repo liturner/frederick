@@ -1,4 +1,4 @@
-package de.turnertech.frederick.main;
+package de.turnertech.frederick.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,7 +30,7 @@ public class Logging {
             Files.createDirectories(fullLogFolder);
         } catch (Exception e) {
             Logging.LOGGER.log(Level.SEVERE, "Could not create database. Exiting!", e);
-            Application.exit();
+            System.exit(-1);
         }
 
         LogManager.getLogManager().reset();

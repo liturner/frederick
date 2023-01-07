@@ -1,12 +1,9 @@
-package de.turnertech.frederick.main;
+package de.turnertech.frederick.persistance.file;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,28 +13,15 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.swing.SwingUtilities;
-
 import de.turnertech.frederick.data.Deployment;
-import de.turnertech.frederick.data.SaveTimerTask;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.Logging;
+import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.Serialization;
 
-public class Database {
+public class Database implements PersistanceProvider {
     
     private final Path root;
-
-    public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
-
-    public static final int DEPLOYMENT_OPENED_EVENT_ID = "DEPLOYMENT_OPENED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_CLOSED_EVENT_ID = "DEPLOYMENT_CLOSED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_SAVED_EVENT_ID = "DEPLOYMENT_SAVED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_UPDATED_EVENT_ID = "DEPLOYMENT_UPDATED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_DELETED_EVENT_ID = "DEPLOYMENT_DELETED_EVENT".hashCode();
-
-    private final ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
     private final Timer saveTimer = new Timer("Save Timer");
 
@@ -59,22 +43,9 @@ public class Database {
             Files.createDirectories(root);
         } catch (IOException e) {
             Logging.LOGGER.log(Level.SEVERE, "Could not create database. Exiting!", e);
-            Application.exit();
+            System.exit(-1);
         }
 
-    }
-
-    public void addActionListener(ActionListener actionListener) {
-        actionListeners.add(actionListener);
-    }
-
-    public void notifyActionListeners(final int event) {
-        SwingUtilities.invokeLater(() -> {
-            ActionEvent actionEvent = new ActionEvent(this, event, "");
-            for(ActionListener actionListener : actionListeners) {
-                actionListener.actionPerformed(actionEvent);
-            }
-        });
     }
 
     /**
@@ -103,6 +74,7 @@ public class Database {
      * 
      * @return The active deployment.
      */
+    @Override
     public Deployment getCurrentDeployment() {
         if(currentDeployment == null) {
             Optional<Deployment> optionalDeployment = getDeployment(CURRENT_DEPLOYMENT_FILE_NAME);
@@ -122,7 +94,7 @@ public class Database {
             Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElseThrow();
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.info("Saved current deployment");
-            notifyActionListeners(DEPLOYMENT_SAVED_EVENT_ID);
+            ActionService.notifyActionListeners(this, DEPLOYMENT_SAVED_EVENT_ID);
         } catch (NoSuchElementException e) {
             Logging.LOGGER.severe("Unable to get path to current deployment! Cannot save current deployment!");
         } catch (Exception e) {
@@ -139,7 +111,7 @@ public class Database {
         if(saveTimerTask.isPresent()) {
             saveTimerTask.get().cancel();
         }
-        saveTimerTask = Optional.of(new SaveTimerTask());
+        saveTimerTask = Optional.of(new SaveTimerTask(this));
         saveTimer.schedule(saveTimerTask.get(), 5000);
     }
 
@@ -205,7 +177,7 @@ public class Database {
             // This triggers creation of the new empty deployment
             getCurrentDeployment();
             saveCurrentDeployment();
-            notifyActionListeners(DEPLOYMENT_CLOSED_EVENT_ID);
+            ActionService.notifyActionListeners(this, DEPLOYMENT_CLOSED_EVENT_ID);
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to close the deployment!");
         }
@@ -215,8 +187,8 @@ public class Database {
         try {
             Path pathToDeployment = getPathToDeployment(name).orElse(null);
             Files.delete(pathToDeployment);
-            Logging.LOGGER.info(() -> "\"" + Application.CURRENT_USER + "\" hat den Einsatz \"" + name + "\" gelöscht");
-            notifyActionListeners(DEPLOYMENT_DELETED_EVENT_ID);
+            Logging.LOGGER.info(() -> "\"" + "TODO - Fix this" + "\" hat den Einsatz \"" + name + "\" gelöscht");
+            ActionService.notifyActionListeners(this, DEPLOYMENT_DELETED_EVENT_ID);
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to delete the deployment!");
         }

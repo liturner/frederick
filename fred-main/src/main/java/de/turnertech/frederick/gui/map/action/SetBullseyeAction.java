@@ -16,7 +16,7 @@ import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.gui.map.MapHelper;
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Logging;
+import de.turnertech.frederick.services.Logging;
 
 public class SetBullseyeAction extends AbstractAction {
 

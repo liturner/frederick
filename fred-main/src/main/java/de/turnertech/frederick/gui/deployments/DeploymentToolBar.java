@@ -11,10 +11,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Database;
-import de.turnertech.frederick.main.Logging;
 import de.turnertech.frederick.main.Printing;
 import de.turnertech.frederick.main.Resources;
+import de.turnertech.frederick.services.Logging;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 public class DeploymentToolBar extends JToolBar implements ActionListener, ListSelectionListener {
 
@@ -153,7 +153,7 @@ public class DeploymentToolBar extends JToolBar implements ActionListener, ListS
                 deleteDeploymentButton.setEnabled(true);
                 exportDeploymentButton.setEnabled(true);
                 printDeploymentButton.setEnabled(true);
-                if (Database.CURRENT_DEPLOYMENT_FILE_NAME.equals(deploymentTable.getModel().getValueAt(selectedRow, DeploymentTableModel.NAME))) {
+                if (PersistanceProvider.CURRENT_DEPLOYMENT_FILE_NAME.equals(deploymentTable.getModel().getValueAt(selectedRow, DeploymentTableModel.NAME))) {
                     deleteDeploymentButton.setEnabled(false);
                 }
             } 

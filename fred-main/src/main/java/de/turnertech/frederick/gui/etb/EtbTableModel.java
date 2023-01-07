@@ -9,7 +9,8 @@ import javax.swing.table.TableColumnModel;
 
 import de.turnertech.frederick.data.EtbEntry;
 import de.turnertech.frederick.main.Application;
-import de.turnertech.frederick.main.Database;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.PersistanceProvider;
 
 /**
  * This model is somewhat stateless. It uses the {@link Application} class
@@ -31,7 +32,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
     private final FrederickEtbTableColumnModel columnModel = new FrederickEtbTableColumnModel();
 
     public EtbTableModel() {
-        Application.getDatabase().addActionListener(this);
+        ActionService.addActionListener(this);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Database.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || Database.DEPLOYMENT_UPDATED_EVENT_ID == e.getID()) {
+        if(PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID == e.getID()) {
             this.fireTableDataChanged();
         }
     }

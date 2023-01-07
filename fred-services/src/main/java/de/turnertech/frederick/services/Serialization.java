@@ -1,4 +1,4 @@
-package de.turnertech.frederick.main;
+package de.turnertech.frederick.services;
 
 import java.io.File;
 import java.util.Optional;
