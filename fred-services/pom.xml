@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <name>Frederick (Services)</name>
-  <description>The services module, containing the API and service registry.</description>
+  <description>The services module, containing the API and service registry. It is expected that almost every other module will depend on this one, with the exception of the Data Model module.</description>
 
   <licenses>
     <license>

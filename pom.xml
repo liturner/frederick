@@ -339,7 +339,7 @@
         <artifactId>gt-grid</artifactId>
         <version>${geotools.version}</version>
       </dependency>
-      <dependency>        <!-- Missing transitive dependency in GeoTools -->
+      <dependency><!-- Missing transitive dependency in GeoTools -->
         <groupId>systems.uom</groupId>
         <artifactId>systems-quantity</artifactId>
         <version>2.0.1</version>

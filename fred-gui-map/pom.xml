@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <name>Frederick (Map)</name>
-  <description>The deployment map form module.</description>
+  <description>The deployment map module.</description>
 
   <licenses>
     <license>
@@ -45,7 +45,7 @@
             </manifest>
             <manifestSections>
               <manifestSection>
-                <name>de/turnertech/frederick/diary/</name>
+                <name>de/turnertech/frederick/gui/map/</name>
                 <manifestEntries>
                   <Sealed>true</Sealed>
                 </manifestEntries>
