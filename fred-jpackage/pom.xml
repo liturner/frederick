@@ -4,12 +4,12 @@
     <parent>
         <groupId>de.turnertech.fred</groupId>
         <artifactId>fred-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>fred-jpackage</artifactId>
     <name>Frederick (JPackage)</name>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging> <!-- Will later be jlink, once all dependencies are named modules.... -->
 
     <description>JPackage project to generate the lightweight JRE</description>

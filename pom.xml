@@ -5,7 +5,7 @@
   <artifactId>fred-parent</artifactId>
   <name>Frederick (Parent)</name>
   <inceptionYear>2022</inceptionYear>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://liturner.github.io/frederick/</url>
 
