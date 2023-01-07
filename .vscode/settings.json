@@ -9,6 +9,10 @@
         {
             "command": "clean compile site site:stage",
             "debug": false
+        },
+        {
+            "command": "scm-publish:publish-scm",
+            "debug": false
         }
     ]
 }
