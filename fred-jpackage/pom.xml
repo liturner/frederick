@@ -21,7 +21,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
@@ -30,6 +30,41 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>jpackage</executable>
+                    <arguments>
+                        <argument>-n</argument>
+                        <argument>Frederick</argument>
+                        <argument>-i</argument>
+                        <argument>target/dependency</argument>
+                        <argument>--main-class</argument>
+                        <argument>de.turnertech.frederick.main.Application</argument>
+                        <argument>--main-jar</argument>
+                        <argument>fred-main-${project.version}.jar</argument>
+                        <argument>-d</argument>
+                        <argument>target</argument>
+                        <argument>--vendor</argument>
+                        <argument>TurnerTech</argument>
+                        <argument>--icon</argument>
+                        <argument>frederick-logo.ico</argument>
+                        <argument>--license-file</argument>
+                        <argument>EULA.txt</argument>
+                        <argument>--win-shortcut</argument>
+                        <argument>--win-menu</argument>
+                    </arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
