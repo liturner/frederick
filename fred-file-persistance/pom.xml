@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>de.turnertech.fred</groupId>
+    <artifactId>fred-parent</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>fred-file-persistance</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Frederick (File Persistance)</name>
+  <description>The module enabling saving to disk.</description>
+
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>Für weiter entwicklung und nutzung dieses Projekt, und seine Quellcode</comments>
+    </license>
+    <license>
+      <name>EULA</name>
+      <url>https://raw.githubusercontent.com/liturner/frederick/main/EULA.txt</url>
+      <distribution>repo</distribution>
+      <comments>Den Lizenz für den Nutzer</comments>
+    </license>
+  </licenses>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+            <manifestSections>
+              <manifestSection>
+                <name>de/turnertech/frederick/persistance/file/</name>
+                <manifestEntries>
+                  <Sealed>true</Sealed>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency><!-- This contains a transitive dependency with jaxb in it. We use it to prevent CP conflicts. -->
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-coverage</artifactId>
+    </dependency>
+  </dependencies>
+      
+</project>

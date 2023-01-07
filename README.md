@@ -26,10 +26,9 @@ We aim to provide a set of tools to help with the missions and deployments of th
 
 The application aims to have a failry minimalistic architechture, while still ensuring that future refactoring is not a nightmare. The GUI is generally seperate from the application, and the individual windows or major components of the application do not communicate directly with one another, but rather through a central command and event system. The primary points of interest are:
 
-- We treat the Application class as a global service provider. It is anyway static, and as we control the initialisation order within it, we can ensure that service order initialisation is handled.
-- There is a single Service class which is not tied to the GUI or any major SDK. This is where all actions and events are consumed and produced. Future iterations may see this evolve into multiple services provided by modules. This class hides the data storage and logging from the user interfaces. This is a critical aspect to consider, as Unit Testing must be able to validate that the application allways logs certain actions. (relevant for certification)
-- Each window is trated like a plugin which adds a new view on the data. It does not add any new functionality! All functionality is handled by the "Service" class.
-- Action Listeners should be limited to the main window frames, which themselves update their sub components. This is purely for kognitive simplicity and may change if not strong enough as a tactic.
+- There is a single Application Service class which is not tied to the GUI or any major SDK. This is where all actions and events are consumed and produced. Future iterations may see this evolve into multiple services provided by modules. This class hides the data storage and logging from the user interfaces. This is a critical aspect to consider, as Unit Testing must be able to validate that the application allways logs certain actions. (relevant for certification)
+- Each window is trated like a plugin which adds a new view on the data. It does not add any new functionality! All functionality is handled by the "Application Service" class.
+- Action Listeners should be limited to the main window frames, which themselves update their sub components. This is purely for cognitive simplicity and may change if not strong enough as a tactic.
 - GIS stuff (Geotools) is kept in a single package. The application should never become dependant on such a major SDK.
 - GIS Layers are singletons. The application is deliberately static, and adding / removing data to and from the layers is well defined enough that we can centralise the logic in classes which will only have one instance.
 

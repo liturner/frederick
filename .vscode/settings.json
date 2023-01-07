@@ -1,10 +1,10 @@
 {
+    "java.compile.nullAnalysis.mode": "disabled",
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.dependency.packagePresentation": "hierarchical",
     "files.exclude": {
         "target": true
     },
-    "java.compile.nullAnalysis.mode": "disabled",
     "maven.terminal.favorites": [
         {
             "command": "clean compile site site:stage",

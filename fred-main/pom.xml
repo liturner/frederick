@@ -6,15 +6,15 @@
   <parent>
     <groupId>de.turnertech.fred</groupId>
     <artifactId>fred-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>fred-main</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Frederick</name>
-  <description>The main module, containing the application entry point.</description>
+  <description>The main module, containing the application entry point and the runtime dependencies needed to pull the extensions into the application.</description>
 
   <licenses>
     <license>
@@ -48,20 +48,38 @@
     </plugins>
   </build>
 
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>javadoc</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
+  <dependencies>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-gui-diary</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
+    </dependency>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-gui-deployment</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
+    </dependency>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-gui-map</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
+    </dependency>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-file-persistance</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
+    </dependency>
+
+  </dependencies>
 
 </project>

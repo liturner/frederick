@@ -6,15 +6,18 @@ import java.awt.SystemTray;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import de.turnertech.frederick.gui.deployments.DeploymentFrame;
-import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
-import de.turnertech.frederick.gui.map.MapFrame;
-import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
+import de.turnertech.frederick.services.ActionService;
+import de.turnertech.frederick.services.ApplicationService;
+import de.turnertech.frederick.services.FrameProvider;
+import de.turnertech.frederick.services.Logging;
+import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.event.DeploymentOpenedEvent;
 
 /**
  * The core application class, hosting a few services which the sub modules can 
@@ -38,29 +41,27 @@ public class Application {
         }
     }
 
-    private static FrederickEtbFrame etbFrame = null;
-
-    private static DeploymentFrame deploymentFrame = null;
-
-    private static MapFrame mapFrame = null;
-
-    private static Database database;
-
-    private static Service service;
-
-    public static final String CURRENT_USER = System.getProperty("user.name");
-
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
      * 
      * @param args System provided arguments
      */
     public static void main(String[] args) {
-
         Logging.initialise();
         Printing.initialise();
-        database = new Database();
-        service = new Service(database);
+
+        PersistanceProvider persistanceProvider = PersistanceProvider.getInstance();
+        Logging.LOGGER.info("PersistanceProvider: " + persistanceProvider.getClass().getName());
+
+        ApplicationService applicationService = ApplicationService.getInstance();
+        Logging.LOGGER.info("ApplicationService: " + applicationService.getClass().getName());
+
+        
+        List<FrameProvider> frameProviders = FrameProvider.getInstances();
+        for (FrameProvider frameProvider : frameProviders) {
+            Logging.LOGGER.info("FrameProvider: " + frameProvider.getClass().getName());
+            Logging.LOGGER.info("FrameProviderFrame: " + frameProvider.getFrame().getClass().getName()); // This is important to trigger creation of the actuall Frames.
+        }
 
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
@@ -78,46 +79,19 @@ public class Application {
             return;
         }
 
-        deploymentFrame = new DeploymentFrame();
-        etbFrame = new FrederickEtbFrame();
-        mapFrame = new MapFrame();
-
         // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
-        database.notifyActionListeners(Database.DEPLOYMENT_OPENED_EVENT_ID);
+        ActionService.notifyActionListeners(new DeploymentOpenedEvent(tray));
 
         SwingUtilities.invokeLater(() -> {
-            etbFrame.setVisible(true);
-            mapFrame.setVisible(true);
+            for (FrameProvider frameProvider : frameProviders) {
+                frameProvider.getFrame().setVisible(true);
+            }
         });
-    }
-
-    public static FrederickEtbFrame getEtbFrame() {
-        return etbFrame;
-    }
-
-    public static DeploymentFrame getDeploymentFrame() {
-        return deploymentFrame;
-    }
-
-    public static MapFrame getMapFrame() {
-        return mapFrame;
-    }
-
-    public static void exit() {
-        System.exit(0);
-    }
-
-    public static Database getDatabase() {
-        return database;
-    }
-
-    public static Service getService() {
-        return service;
     }
 
     /**
      * Shows the system web browser with the manual page for a given window.
-     * For example, if requested for {@link DeploymentFrame} class, then the
+     * For example, if requested for ... class, then the
      * web browser should open to the manual page describing the deployment 
      * manager.
      * 
@@ -128,7 +102,7 @@ public class Application {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("www.example.com");
 
-            if(FrederickEtbFrame.class.equals(clazz)) {
+            if(true) {
                 oURL = new URI("www.example.com/example");
             } 
 
