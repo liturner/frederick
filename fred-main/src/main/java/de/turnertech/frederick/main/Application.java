@@ -46,7 +46,6 @@ public class Application {
      * @param args System provided arguments
      */
     public static void main(String[] args) {
-
         Logging.initialise();
         Printing.initialise();
 
@@ -60,6 +59,7 @@ public class Application {
         List<FrameProvider> frameProviders = FrameProvider.getInstances();
         for (FrameProvider frameProvider : frameProviders) {
             Logging.LOGGER.info("FrameProvider: " + frameProvider.getClass().getName());
+            Logging.LOGGER.info("FrameProviderFrame: " + frameProvider.getFrame().getClass().getName()); // This is important to trigger creation of the actuall Frames.
         }
 
         //Check the SystemTray is supported

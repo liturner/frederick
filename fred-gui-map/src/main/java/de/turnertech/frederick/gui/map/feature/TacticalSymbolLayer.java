@@ -165,7 +165,6 @@ public class TacticalSymbolLayer extends FeatureLayer {
         Point point = geometryFactory.createPoint(new Coordinate(crs84Position.getX(), crs84Position.getY()));
         featureBuilder.set("geom", point);
         COLLECTION.add(featureBuilder.buildFeature(null));
-        fireMapLayerListenerLayerChanged(MapLayerEvent.DATA_CHANGED);
     }
 
 }

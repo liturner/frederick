@@ -20,6 +20,7 @@ public class ActionService {
 
     public static void notifyActionListeners(final ActionEvent event) {
         SwingUtilities.invokeLater(() -> {
+            Logging.LOGGER.info("ActionService: " + event.getActionCommand());
             for(ActionListener actionListener : actionListeners) {
                 actionListener.actionPerformed(event);
             }
@@ -27,7 +28,7 @@ public class ActionService {
     }
 
     public static void notifyActionListeners(final Object source, final int event) {
-        ActionEvent actionEvent = new ActionEvent(source, event, "");
+        ActionEvent actionEvent = new ActionEvent(source, event, String.valueOf(event));
         notifyActionListeners(actionEvent);
     }
 
