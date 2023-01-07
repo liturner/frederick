@@ -9,12 +9,12 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>fred-main</artifactId>
+  <artifactId>fred-registration</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Frederick</name>
-  <description>The main module, containing the application entry point.</description>
+  <name>Frederick (Erfassungsbogen)</name>
+  <description>The registration form module.</description>
 
   <licenses>
     <license>
@@ -40,8 +40,17 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>de.turnertech.frederick.main.Application</mainClass>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
+            <manifestSections>
+              <manifestSection>
+                <name>de/turnertech/frederick/registration/</name>
+                <manifestEntries>
+                  <Sealed>true</Sealed>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
           </archive>
         </configuration>
       </plugin>
@@ -70,39 +79,6 @@
       <artifactId>fred-services</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-registration</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
-    </dependency>
-
-    <dependency>
-      <groupId>de.turnertech</groupId>
-      <artifactId>taktische-zeichen-swing</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-swing</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-tile-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-epsg-hsql</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-grid</artifactId>
-    </dependency>
-    <dependency> <!-- Missing transitive dependency in GeoTools -->
-      <groupId>systems.uom</groupId>
-      <artifactId>systems-quantity</artifactId>
-    </dependency>
-
   </dependencies>
 
 </project>

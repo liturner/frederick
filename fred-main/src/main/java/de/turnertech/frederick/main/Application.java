@@ -6,6 +6,7 @@ import java.awt.SystemTray;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.swing.SwingUtilities;
@@ -15,6 +16,7 @@ import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
+import de.turnertech.frederick.services.SreenProvider;
 
 /**
  * The core application class, hosting a few services which the sub modules can 
@@ -61,6 +63,11 @@ public class Application {
         Printing.initialise();
         database = new Database();
         service = new Service(database);
+
+        List<SreenProvider> msgServices = SreenProvider.getInstances();
+        for (SreenProvider msgService : msgServices) {
+            Logging.LOGGER.info("Found a Service!");
+        }
 
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
