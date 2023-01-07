@@ -27,9 +27,4 @@ public class ActionService {
         });
     }
 
-    public static void notifyActionListeners(final Object source, final int event) {
-        ActionEvent actionEvent = new ActionEvent(source, event, String.valueOf(event));
-        notifyActionListeners(actionEvent);
-    }
-
 }

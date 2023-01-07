@@ -17,6 +17,7 @@ import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.FrameProvider;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.event.DeploymentOpenedEvent;
 
 /**
  * The core application class, hosting a few services which the sub modules can 
@@ -79,7 +80,7 @@ public class Application {
         }
 
         // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
-        ActionService.notifyActionListeners(tray, PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID);
+        ActionService.notifyActionListeners(new DeploymentOpenedEvent(tray));
 
         SwingUtilities.invokeLater(() -> {
             for (FrameProvider frameProvider : frameProviders) {

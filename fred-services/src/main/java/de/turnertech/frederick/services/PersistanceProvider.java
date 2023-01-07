@@ -11,16 +11,6 @@ import de.turnertech.frederick.data.Deployment;
 public abstract class PersistanceProvider {
 
     public static final String CURRENT_DEPLOYMENT_FILE_NAME = "Current";
-
-    public static final int DEPLOYMENT_OPENED_EVENT_ID = "DEPLOYMENT_OPENED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_CLOSED_EVENT_ID = "DEPLOYMENT_CLOSED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_SAVED_EVENT_ID = "DEPLOYMENT_SAVED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_UPDATED_EVENT_ID = "DEPLOYMENT_UPDATED_EVENT".hashCode();
-
-    public static final int DEPLOYMENT_DELETED_EVENT_ID = "DEPLOYMENT_DELETED_EVENT".hashCode();
     
     private static PersistanceProvider instance;
 

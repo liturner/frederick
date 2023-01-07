@@ -53,6 +53,9 @@ import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
 import de.turnertech.frederick.services.Resources;
+import de.turnertech.frederick.services.event.DeploymentClosedEvent;
+import de.turnertech.frederick.services.event.DeploymentOpenedEvent;
+import de.turnertech.frederick.services.event.DeploymentUpdatedEvent;
 import de.turnertech.tz.swing.TacticalSymbol;
 
 public class MapFrame extends JFrame implements ActionListener, DropTargetListener {
@@ -144,7 +147,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if(actionEvent.getID() == PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID || actionEvent.getID() == PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID) {
+        if(actionEvent.getID() == DeploymentUpdatedEvent.getEventId() || actionEvent.getID() == DeploymentOpenedEvent.getEventId()) {
             if(PersistanceProvider.getInstance().getCurrentDeployment().getBullseye() != null) {
                 Bullseye bullsFromStorage = PersistanceProvider.getInstance().getCurrentDeployment().getBullseye();
                 BullseyeLayer.instance().set(new DirectPosition2D(DefaultGeographicCRS.WGS84, bullsFromStorage.getX(), bullsFromStorage.getY()));
@@ -160,7 +163,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
                 TacticalSymbolLayer.instance().add(new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY()));
             }
             
-        } else if(actionEvent.getID() == PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID) {
+        } else if(actionEvent.getID() == DeploymentClosedEvent.getEventId()) {
             BullseyeLayer.instance().clear();
             mapToolbar.setFocusBullseyeActionEnabled(false);
         }

@@ -14,6 +14,9 @@ import javax.swing.table.TableColumnModel;
 import de.turnertech.frederick.gui.common.InstantCellRenderer;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.event.DeploymentClosedEvent;
+import de.turnertech.frederick.services.event.DeploymentDeletedEvent;
+import de.turnertech.frederick.services.event.DeploymentSavedEvent;
 
 public class DeploymentTableModel extends AbstractTableModel implements ActionListener  {
 
@@ -80,9 +83,9 @@ public class DeploymentTableModel extends AbstractTableModel implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || 
-                PersistanceProvider.DEPLOYMENT_SAVED_EVENT_ID == e.getID() || 
-                PersistanceProvider.DEPLOYMENT_DELETED_EVENT_ID == e.getID()) {
+        if(DeploymentClosedEvent.getEventId() == e.getID() || 
+            DeploymentSavedEvent.getEventId() == e.getID() || 
+            DeploymentDeletedEvent.getEventId() == e.getID()) {
             fireTableDataChanged();
         }
     }    

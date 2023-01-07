@@ -11,6 +11,7 @@ import de.turnertech.frederick.data.TacticalElement;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.event.DeploymentUpdatedEvent;
 
 /**
  * This is the service layer for the application. All actions performed by the GUI
@@ -30,7 +31,7 @@ public class Service extends ApplicationService {
         PersistanceProvider.getInstance().getCurrentDeployment().setBullseye(bullseye);
         EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), ApplicationService.CURRENT_USER, "Einsatzort festgelegt als " + logPosition);
         PersistanceProvider.getInstance().getCurrentDeployment().getEtbEntries().add(etbEntry);
-        ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
+        ActionService.notifyActionListeners(new DeploymentUpdatedEvent(this));
         PersistanceProvider.getInstance().saveCurrentDeployment();
     }
 
@@ -42,7 +43,7 @@ public class Service extends ApplicationService {
         PersistanceProvider.getInstance().getCurrentDeployment().getTacticalSymbolEntries().add(tacticalElement);
         EtbEntry etbEntry = new EtbEntry(Date.from(Instant.now()), ApplicationService.CURRENT_USER, "Tactical Element added: " + logPosition);
         PersistanceProvider.getInstance().getCurrentDeployment().getEtbEntries().add(etbEntry);
-        ActionService.notifyActionListeners(this, PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID);
+        ActionService.notifyActionListeners(new DeploymentUpdatedEvent(this));
         PersistanceProvider.getInstance().saveCurrentDeployment();
     }
 

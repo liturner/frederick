@@ -11,6 +11,8 @@ import de.turnertech.frederick.data.EtbEntry;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.PersistanceProvider;
+import de.turnertech.frederick.services.event.DeploymentClosedEvent;
+import de.turnertech.frederick.services.event.DeploymentUpdatedEvent;
 
 /**
  * This model is somewhat stateless. It uses the {@link ApplicationService} class
@@ -99,7 +101,7 @@ public class EtbTableModel extends AbstractTableModel implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(PersistanceProvider.DEPLOYMENT_CLOSED_EVENT_ID == e.getID() || PersistanceProvider.DEPLOYMENT_UPDATED_EVENT_ID == e.getID()) {
+        if(DeploymentClosedEvent.getEventId() == e.getID() || DeploymentUpdatedEvent.getEventId() == e.getID()) {
             this.fireTableDataChanged();
         }
     }

@@ -18,6 +18,9 @@ import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
 import de.turnertech.frederick.services.Serialization;
+import de.turnertech.frederick.services.event.DeploymentClosedEvent;
+import de.turnertech.frederick.services.event.DeploymentDeletedEvent;
+import de.turnertech.frederick.services.event.DeploymentSavedEvent;
 
 public class Database extends PersistanceProvider {
     
@@ -94,7 +97,7 @@ public class Database extends PersistanceProvider {
             Path pathToDeployment = getPathToDeployment(CURRENT_DEPLOYMENT_FILE_NAME).orElseThrow();
             Serialization.serialize(currentDeployment, pathToDeployment.toString());
             Logging.LOGGER.info("Saved current deployment");
-            ActionService.notifyActionListeners(this, DEPLOYMENT_SAVED_EVENT_ID);
+            ActionService.notifyActionListeners(new DeploymentSavedEvent(this));
         } catch (NoSuchElementException e) {
             Logging.LOGGER.severe("Unable to get path to current deployment! Cannot save current deployment!");
         } catch (Exception e) {
@@ -177,7 +180,7 @@ public class Database extends PersistanceProvider {
             // This triggers creation of the new empty deployment
             getCurrentDeployment();
             saveCurrentDeployment();
-            ActionService.notifyActionListeners(this, DEPLOYMENT_CLOSED_EVENT_ID);
+            ActionService.notifyActionListeners(new DeploymentClosedEvent(this));
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to close the deployment!");
         }
@@ -188,7 +191,7 @@ public class Database extends PersistanceProvider {
             Path pathToDeployment = getPathToDeployment(name).orElse(null);
             Files.delete(pathToDeployment);
             Logging.LOGGER.info(() -> "\"" + "TODO - Fix this" + "\" hat den Einsatz \"" + name + "\" gelöscht");
-            ActionService.notifyActionListeners(this, DEPLOYMENT_DELETED_EVENT_ID);
+            ActionService.notifyActionListeners(new DeploymentDeletedEvent(this));
         } catch (IOException e) {
             Logging.LOGGER.severe("Unable to delete the deployment!");
         }
