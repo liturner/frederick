@@ -13,7 +13,8 @@
 
   <modules>
     <module>fred-services</module>
-    <module>fred-registration</module>
+    <module>fred-diary</module>
+    <module>fred-data</module>
     <module>fred-main</module>
     <module>fred-jlink</module>
   </modules>
@@ -317,6 +318,11 @@
       <dependency>
         <groupId>org.geotools</groupId>
         <artifactId>gt-tile-client</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-coverage</artifactId>
         <version>${geotools.version}</version>
       </dependency>
       <dependency>

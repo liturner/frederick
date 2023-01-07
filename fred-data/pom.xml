@@ -9,12 +9,12 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>fred-main</artifactId>
+  <artifactId>fred-data</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Frederick</name>
-  <description>The main module, containing the application entry point.</description>
+  <name>Frederick (Data)</name>
+  <description>The data model module.</description>
 
   <licenses>
     <license>
@@ -40,8 +40,17 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>de.turnertech.frederick.main.Application</mainClass>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
+            <manifestSections>
+              <manifestSection>
+                <name>de/turnertech/frederick/diary/</name>
+                <manifestEntries>
+                  <Sealed>true</Sealed>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
           </archive>
         </configuration>
       </plugin>
@@ -65,49 +74,10 @@
   </reporting>
 
   <dependencies>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-services</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-data</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-diary</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
-    </dependency>
-
-    <dependency>
-      <groupId>de.turnertech</groupId>
-      <artifactId>taktische-zeichen-swing</artifactId>
-    </dependency>
-    <dependency>
+    <dependency><!-- This contains a transitive dependency with jaxb in it. We use it to prevent CP conflicts. -->
       <groupId>org.geotools</groupId>
-      <artifactId>gt-swing</artifactId>
+      <artifactId>gt-coverage</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-tile-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-epsg-hsql</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-grid</artifactId>
-    </dependency>
-    <dependency> <!-- Missing transitive dependency in GeoTools -->
-      <groupId>systems.uom</groupId>
-      <artifactId>systems-quantity</artifactId>
-    </dependency>
-
   </dependencies>
-
+      
 </project>

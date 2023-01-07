@@ -9,12 +9,12 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>fred-registration</artifactId>
+  <artifactId>fred-diary</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Frederick (Erfassungsbogen)</name>
-  <description>The registration form module.</description>
+  <name>Frederick (ETB)</name>
+  <description>The deployment diary form module.</description>
 
   <licenses>
     <license>
@@ -45,7 +45,7 @@
             </manifest>
             <manifestSections>
               <manifestSection>
-                <name>de/turnertech/frederick/registration/</name>
+                <name>de/turnertech/frederick/diary/</name>
                 <manifestEntries>
                   <Sealed>true</Sealed>
                 </manifestEntries>

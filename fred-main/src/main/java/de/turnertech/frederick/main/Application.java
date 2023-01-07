@@ -16,7 +16,7 @@ import de.turnertech.frederick.gui.deployments.DeploymentFrame;
 import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
 import de.turnertech.frederick.gui.map.MapFrame;
 import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
-import de.turnertech.frederick.services.SreenProvider;
+import de.turnertech.frederick.services.FrameProvider;
 
 /**
  * The core application class, hosting a few services which the sub modules can 
@@ -64,9 +64,10 @@ public class Application {
         database = new Database();
         service = new Service(database);
 
-        List<SreenProvider> msgServices = SreenProvider.getInstances();
-        for (SreenProvider msgService : msgServices) {
-            Logging.LOGGER.info("Found a Service!");
+        List<FrameProvider> msgServices = FrameProvider.getInstances();
+        for (FrameProvider msgService : msgServices) {
+            Logging.LOGGER.info("Found a Service: " + msgService.getClass().getName());
+            
         }
 
         //Check the SystemTray is supported
