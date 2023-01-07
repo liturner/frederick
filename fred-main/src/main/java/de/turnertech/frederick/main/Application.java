@@ -12,10 +12,6 @@ import java.util.logging.Level;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import de.turnertech.frederick.gui.deployments.DeploymentFrame;
-import de.turnertech.frederick.gui.etb.FrederickEtbFrame;
-import de.turnertech.frederick.gui.map.MapFrame;
-import de.turnertech.frederick.gui.tray.FrederickTrayIcon;
 import de.turnertech.frederick.services.ActionService;
 import de.turnertech.frederick.services.ApplicationService;
 import de.turnertech.frederick.services.FrameProvider;
@@ -44,12 +40,6 @@ public class Application {
         }
     }
 
-    private static FrederickEtbFrame etbFrame = null;
-
-    private static DeploymentFrame deploymentFrame = null;
-
-    private static MapFrame mapFrame = null;
-
     /**
      * Basic no gui analysis using all methods and printing results using the loggers.
      * 
@@ -66,9 +56,10 @@ public class Application {
         ApplicationService applicationService = ApplicationService.getInstance();
         Logging.LOGGER.info("ApplicationService: " + applicationService.getClass().getName());
 
-        List<FrameProvider> msgServices = FrameProvider.getInstances();
-        for (FrameProvider msgService : msgServices) {
-            Logging.LOGGER.info("FrameProvider: " + msgService.getClass().getName());
+        
+        List<FrameProvider> frameProviders = FrameProvider.getInstances();
+        for (FrameProvider frameProvider : frameProviders) {
+            Logging.LOGGER.info("FrameProvider: " + frameProvider.getClass().getName());
         }
 
         //Check the SystemTray is supported
@@ -87,38 +78,19 @@ public class Application {
             return;
         }
 
-        deploymentFrame = new DeploymentFrame();
-        etbFrame = new FrederickEtbFrame();
-        mapFrame = new MapFrame();
-
         // Technically, there is always a depolyment open. This is more a trigger to say "initialisation finished"
-        ActionService.notifyActionListeners(deploymentFrame, PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID);
+        ActionService.notifyActionListeners(tray, PersistanceProvider.DEPLOYMENT_OPENED_EVENT_ID);
 
         SwingUtilities.invokeLater(() -> {
-            etbFrame.setVisible(true);
-            mapFrame.setVisible(true);
+            for (FrameProvider frameProvider : frameProviders) {
+                frameProvider.getFrame().setVisible(true);
+            }
         });
-    }
-
-    public static FrederickEtbFrame getEtbFrame() {
-        return etbFrame;
-    }
-
-    public static DeploymentFrame getDeploymentFrame() {
-        return deploymentFrame;
-    }
-
-    public static MapFrame getMapFrame() {
-        return mapFrame;
-    }
-
-    public static void exit() {
-        System.exit(0);
     }
 
     /**
      * Shows the system web browser with the manual page for a given window.
-     * For example, if requested for {@link DeploymentFrame} class, then the
+     * For example, if requested for ... class, then the
      * web browser should open to the manual page describing the deployment 
      * manager.
      * 
@@ -129,7 +101,7 @@ public class Application {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("www.example.com");
 
-            if(FrederickEtbFrame.class.equals(clazz)) {
+            if(true) {
                 oURL = new URI("www.example.com/example");
             } 
 

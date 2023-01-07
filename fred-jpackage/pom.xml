@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.turnertech.fred</groupId>
+        <artifactId>fred-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>fred-jpackage</artifactId>
+    <name>Frederick (JPackage)</name>
+    <version>1.0.0</version>
+    <packaging>pom</packaging> <!-- Will later be jlink, once all dependencies are named modules.... -->
+
+    <description>JPackage project to generate the lightweight JRE</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.turnertech.fred</groupId>
+            <artifactId>fred-main</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>  
+
+</project>

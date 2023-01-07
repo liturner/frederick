@@ -14,11 +14,13 @@
   <modules>
     <module>fred-services</module>
     <module>fred-gui-common</module>
-    <module>fred-diary</module>
+    <module>fred-gui-diary</module>
+    <module>fred-gui-deployment</module>
+    <module>fred-gui-map</module>
     <module>fred-file-persistance</module>
     <module>fred-data</module>
     <module>fred-main</module>
-    <module>fred-jlink</module>
+    <module>fred-jpackage</module>
   </modules>
 
   <organization>

@@ -15,6 +15,10 @@ public interface FrameProvider {
         return list;
     }
 
-    public JFrame createFrame();
+    public JFrame getFrame();
+
+    public String getFrameName();
+
+    public String getShowFrameActionCommand();
     
 }

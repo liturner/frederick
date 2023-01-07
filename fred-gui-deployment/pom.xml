@@ -9,12 +9,12 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>fred-main</artifactId>
+  <artifactId>fred-gui-deployment</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Frederick</name>
-  <description>The main module, containing the application entry point.</description>
+  <name>Frederick (Deployment Manager)</name>
+  <description>The deployment manager form module.</description>
 
   <licenses>
     <license>
@@ -40,8 +40,17 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>de.turnertech.frederick.main.Application</mainClass>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
+            <manifestSections>
+              <manifestSection>
+                <name>de/turnertech/frederick/diary/</name>
+                <manifestEntries>
+                  <Sealed>true</Sealed>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
           </archive>
         </configuration>
       </plugin>
@@ -67,44 +76,9 @@
   <dependencies>
     <dependency>
       <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-services</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-data</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-file-persistance</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency><!--TEMP! Remove once the other GUI providers are seperated-->
-      <groupId>de.turnertech.fred</groupId>
       <artifactId>fred-gui-common</artifactId>
       <version>${project.version}</version>
     </dependency>
-    
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-gui-diary</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
-    </dependency>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-gui-deployment</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
-    </dependency>
-    <dependency>
-      <groupId>de.turnertech.fred</groupId>
-      <artifactId>fred-gui-map</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
-    </dependency>
-
   </dependencies>
 
 </project>
