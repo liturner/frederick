@@ -20,6 +20,9 @@ public class EtbEntry implements Serializable {
      */
     private String entry;
 
+    /**
+     * Notes regarding the entry, which may be added at any time later in the deployment.
+     */
     private String notes;
 
     public EtbEntry() {
@@ -80,10 +83,21 @@ public class EtbEntry implements Serializable {
         this.entry = entry;
     }
 
+    /**
+     * Get the notes which a user may have entered after writing to the ETB. These are
+     * mutable and there is not much concern about modifying them.
+     * 
+     * @return The notes regarding this ETB entry.
+     */
     public String getNotes() {
         return notes;
     }
 
+    /**
+     * Sets the Notes field. Accepts null.
+     * 
+     * @param notes Notes regarding this ETB entry.
+     */
     public void setNotes(String notes) {
         this.notes = notes;
     }

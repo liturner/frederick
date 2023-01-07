@@ -45,6 +45,11 @@ public class Deployment {
         this.name = name;
     }
     
+    /**
+     * Gets the single point of interest related to this Deployment. Most likely the Meldekopf
+     * 
+     * @return The Deployment focus point
+     */
     public Bullseye getBullseye() {
         return bullseye;
     }
