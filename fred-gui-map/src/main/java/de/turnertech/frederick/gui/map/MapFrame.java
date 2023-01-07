@@ -160,7 +160,7 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
             Collection<TacticalElement> allElements = PersistanceProvider.getInstance().getCurrentDeployment().getTacticalSymbolEntries();
             TacticalSymbolLayer.instance().clear();
             for(TacticalElement element : allElements) {
-                TacticalSymbolLayer.instance().add(new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY()));
+                TacticalSymbolLayer.instance().add(element);
             }
             
         } else if(actionEvent.getID() == DeploymentClosedEvent.getEventId()) {

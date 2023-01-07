@@ -1,6 +1,8 @@
 package de.turnertech.frederick.gui.map.feature;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.geotools.data.collection.CollectionFeatureSource;
@@ -14,15 +16,20 @@ import org.geotools.map.FeatureLayer;
 import org.geotools.map.MapLayerEvent;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
+import org.geotools.styling.FeatureTypeStyle;
+import org.geotools.styling.Fill;
 import org.geotools.styling.Graphic;
+import org.geotools.styling.Mark;
 import org.geotools.styling.PointSymbolizer;
-import org.geotools.styling.SLD;
+import org.geotools.styling.Rule;
+import org.geotools.styling.Stroke;
 import org.geotools.styling.Style;
 import org.geotools.styling.StyleFactory;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.filter.Filter;
 import org.opengis.filter.FilterFactory;
 import org.opengis.geometry.MismatchedDimensionException;
 import org.opengis.referencing.FactoryException;
@@ -30,6 +37,7 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 import org.opengis.style.GraphicalSymbol;
 
+import de.turnertech.frederick.data.TacticalElement;
 import de.turnertech.frederick.services.Logging;
 import de.turnertech.tz.swing.TacticalSymbol;
 import de.turnertech.tz.swing.TacticalSymbolFactory;
@@ -48,6 +56,8 @@ public class TacticalSymbolLayer extends FeatureLayer {
 
     private static final String GEOMETRY = "geom";
 
+    private static final String SYMBOL = "sym";
+
     private static StyleFactory sf = CommonFactoryFinder.getStyleFactory(null);
 
     private static FilterFactory ff = CommonFactoryFinder.getFilterFactory(null);
@@ -57,6 +67,7 @@ public class TacticalSymbolLayer extends FeatureLayer {
         builder.setName("Tactical Symbols");
         builder.setCRS(DefaultGeographicCRS.WGS84);
         builder.add(GEOMETRY, Point.class);
+        builder.add(SYMBOL, Integer.class);
         TYPE = builder.buildFeatureType();
 
         STYLE = createStyle();
@@ -84,15 +95,42 @@ public class TacticalSymbolLayer extends FeatureLayer {
 
     // https://docs.geotools.org/stable/userguide/tutorial/map/style.html
     public static Style createStyle() {
-        
-        TacticalSymbol tz = TacticalSymbolFactory.getTacticalSymbols().iterator().next();
-        
-        List<GraphicalSymbol> symbols = new ArrayList<>();
-        symbols.add(sf.createExternalGraphic(tz.getImageIcon(), "PNG"));
-        Graphic graphic = sf.graphic(symbols, null, ff.literal(10), null, null, null);
+        FeatureTypeStyle fts = sf.createFeatureTypeStyle();
+        Collection<TacticalSymbol> tacticalSymbols = TacticalSymbolFactory.getTacticalSymbols();
 
-        PointSymbolizer pointSym = sf.createPointSymbolizer(graphic, null);
-        return SLD.wrapSymbolizers(pointSym);
+        for(TacticalSymbol tacticalSymbol : tacticalSymbols) {
+            List<GraphicalSymbol> symbols = new ArrayList<>();
+            symbols.add(sf.createExternalGraphic(tacticalSymbol.getImageIcon(64, 64), "PNG"));
+            Graphic graphic = sf.graphic(symbols, null, ff.literal(5), null, null, null);
+
+            PointSymbolizer pointSym = sf.createPointSymbolizer(graphic, GEOMETRY);
+
+            Rule rule = sf.createRule();
+            Filter filter = ff.equals(ff.property(SYMBOL), ff.literal(tacticalSymbol.hashCode()));
+            rule.setFilter(filter);
+            rule.symbolizers().add(pointSym);
+
+            fts.rules().add(rule);
+        }
+
+        // Default rule for fallback
+        Rule rule = sf.createRule();
+        rule.setElseFilter(true);
+        Fill fill = sf.createFill(ff.literal(Color.RED), ff.literal(1.0));
+        Stroke stroke = sf.createStroke(ff.literal(Color.RED), ff.literal(1.0));
+        Mark mark = sf.getCircleMark();
+        mark.setFill(fill);
+        mark.setStroke(stroke);
+        Graphic graphic = sf.createDefaultGraphic();
+        graphic.graphicalSymbols().clear();
+        graphic.graphicalSymbols().add(mark);
+        graphic.setSize(ff.literal(10));
+        rule.symbolizers().add(sf.createPointSymbolizer(graphic, GEOMETRY));
+        fts.rules().add(rule);
+
+        Style style = sf.createStyle();
+        style.featureTypeStyles().add(fts);
+        return style;
     }
 
     /**
@@ -125,7 +163,8 @@ public class TacticalSymbolLayer extends FeatureLayer {
         }
     }
 
-    public void add(final DirectPosition2D position) {
+    public void add(final TacticalElement element) {
+        DirectPosition2D position = new DirectPosition2D(DefaultGeographicCRS.WGS84, element.getX(), element.getY());
         MathTransform transform;
         DirectPosition2D crs84Position;
         try {
@@ -143,7 +182,8 @@ public class TacticalSymbolLayer extends FeatureLayer {
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(TYPE);
         GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
         Point point = geometryFactory.createPoint(new Coordinate(crs84Position.getX(), crs84Position.getY()));
-        featureBuilder.set("geom", point);
+        featureBuilder.set(GEOMETRY, point);
+        featureBuilder.set(SYMBOL, element.getIcon());
         COLLECTION.add(featureBuilder.buildFeature(null));
     }
 

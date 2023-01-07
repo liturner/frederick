@@ -8,7 +8,8 @@ import java.io.Serializable;
  */
 public class TacticalElement implements Serializable {
     
-    // TODO: Get a unique TSil ID
+    /** The TacticalSymbol.hashCode() of the associated symbol */
+    private int icon;
 
     /** Longitude */
     private double x;
@@ -68,6 +69,20 @@ public class TacticalElement implements Serializable {
      */
     public void setY(final double y) {
         this.y = y;
+    }
+
+    /**
+     * @return the icon
+     */
+    public int getIcon() {
+        return icon;
+    }
+
+    /**
+     * @param icon the icon to set
+     */
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
 }
