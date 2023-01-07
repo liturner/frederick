@@ -1,6 +1,7 @@
 package de.turnertech.frederick.gui.map.feature;
 
-import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.geotools.data.collection.CollectionFeatureSource;
 import org.geotools.data.collection.ListFeatureCollection;
@@ -13,14 +14,10 @@ import org.geotools.map.FeatureLayer;
 import org.geotools.map.MapLayerEvent;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
-import org.geotools.styling.Fill;
 import org.geotools.styling.Graphic;
-import org.geotools.styling.Mark;
 import org.geotools.styling.PointSymbolizer;
 import org.geotools.styling.SLD;
-import org.geotools.styling.Stroke;
 import org.geotools.styling.Style;
-import org.geotools.styling.StyleBuilder;
 import org.geotools.styling.StyleFactory;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -31,8 +28,11 @@ import org.opengis.geometry.MismatchedDimensionException;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
+import org.opengis.style.GraphicalSymbol;
 
 import de.turnertech.frederick.services.Logging;
+import de.turnertech.tz.swing.TacticalSymbol;
+import de.turnertech.tz.swing.TacticalSymbolFactory;
 
 public class TacticalSymbolLayer extends FeatureLayer {
     
@@ -82,34 +82,14 @@ public class TacticalSymbolLayer extends FeatureLayer {
         super.fireMapLayerListenerLayerChanged(eventType);
     }
 
+    // https://docs.geotools.org/stable/userguide/tutorial/map/style.html
     public static Style createStyle() {
-        String wellKnownName = "Circle";
-        Color lineColor = Color.RED;
-        Color fillColor = Color.BLUE;
-        float opacity = 1.0f;
-        float size = 15;
         
-        StyleBuilder builder = new StyleBuilder();
-        Stroke stroke = sf.createStroke(ff.literal(lineColor), ff.literal(1.0f));
-        Fill fill = Fill.NULL;
-        if (fillColor != null) {
-            fill = sf.createFill(ff.literal(fillColor), ff.literal(opacity));
-        }
-
-        Mark mark = sf.createMark(
-            ff.literal(wellKnownName), stroke, fill, ff.literal(size), ff.literal(0)
-        );
-
-        Mark outerRing = sf.createMark(
-            ff.literal("Circle"), stroke, Fill.NULL, ff.literal(30.0f), ff.literal(0)
-        );
-        Graphic graphic = sf.createDefaultGraphic();
-        graphic.graphicalSymbols().clear();
-        graphic.graphicalSymbols().add(outerRing);
-        graphic.graphicalSymbols().add(mark);
-        graphic.setSize(ff.literal(30.0f));
+        TacticalSymbol tz = TacticalSymbolFactory.getTacticalSymbols().iterator().next();
         
-        graphic = builder.createGraphic(null, new Mark[]{outerRing, mark}, null, 1, 30.0, 0.0);
+        List<GraphicalSymbol> symbols = new ArrayList<>();
+        symbols.add(sf.createExternalGraphic(tz.getImageIcon(), "PNG"));
+        Graphic graphic = sf.graphic(symbols, null, ff.literal(10), null, null, null);
 
         PointSymbolizer pointSym = sf.createPointSymbolizer(graphic, null);
         return SLD.wrapSymbolizers(pointSym);
