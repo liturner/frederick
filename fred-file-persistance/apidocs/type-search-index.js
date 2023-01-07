@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.turnertech.frederick.persistance.file","l":"Database"},{"p":"de.turnertech.frederick.persistance.file","l":"SaveTimerTask"}];updateSearchResults();

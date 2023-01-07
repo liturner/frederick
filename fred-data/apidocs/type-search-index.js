@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.turnertech.frederick.data","l":"Bullseye"},{"p":"de.turnertech.frederick.data","l":"Deployment"},{"p":"de.turnertech.frederick.data","l":"EtbEntry"},{"p":"de.turnertech.frederick.data","l":"TacticalElement"}];updateSearchResults();

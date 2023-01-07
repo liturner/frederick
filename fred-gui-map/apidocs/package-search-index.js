@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.turnertech.frederick.gui.map"},{"l":"de.turnertech.frederick.gui.map.action"},{"l":"de.turnertech.frederick.gui.map.browser"},{"l":"de.turnertech.frederick.gui.map.feature"},{"l":"de.turnertech.frederick.gui.map.symbols"},{"l":"de.turnertech.frederick.gui.map.tool"}];updateSearchResults();
