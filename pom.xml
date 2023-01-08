@@ -20,6 +20,7 @@
     <module>fred-file-persistance</module>
     <module>fred-data</module>
     <module>fred-main</module>
+    <module>fred-printouts</module>
     <module>fred-jpackage</module>
   </modules>
 
