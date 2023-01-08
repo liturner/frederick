@@ -30,6 +30,8 @@ import org.geotools.map.Layer;
 import org.geotools.map.MapContent;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
+import org.geotools.renderer.GTRenderer;
+import org.geotools.renderer.lite.StreamingRenderer;
 import org.geotools.styling.FeatureTypeStyle;
 import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
@@ -90,7 +92,10 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
         this.setTitle("Frederick - Einsatz Karte");
         this.setIconImage(Resources.getdeployment24pxIcon().getImage());
         
+        GTRenderer renderer = new StreamingRenderer();
+
         mapPane = new JMapPane(map);
+        mapPane.setRenderer(renderer);
         mapPane.setBackground(Color.WHITE);
         mapPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mapPane.addMouseListener(new ScrollTool(mapPane));
