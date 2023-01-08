@@ -55,6 +55,8 @@ public class AddTacticalSymbolAction extends AbstractAction {
         }
 
         TacticalElement dataToStore = new TacticalElement(crs84Position.getX(), crs84Position.getY());
+        dataToStore.setIcon(tacticalSymbol.hashCode());
+        
         ApplicationService.getInstance().addTacticalElement(dataToStore, MapHelper.format(crs84Position));
     }
 
