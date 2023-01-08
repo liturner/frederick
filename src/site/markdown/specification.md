@@ -19,7 +19,7 @@
 This document describes the desired
 
 * A high level requirement
-    > Hig level Requirement comment 
+    > High level Requirement comment 
     - A low level requirement, detailing the parent high level requirement
         > Low level Requirement comment
 
@@ -45,9 +45,15 @@ The ZTr. must be digitized. Notes must be taken on a digital device, maps plans 
 
 In the event that additional network services are available, then the ZTr. must be able to benefit from them in addition to the core features. For example, if internet is available, then files must be sendable via Hermine.
 
+The document artefacts as they are used in the THW must remain present. For example, it is mandatory that the information can be represented in the form of the Fb Fü 2 document. The reason for this is the interoperability with systems and processes. Any solution **may** offer better solutions to digitalization, but **must** provide for the existing document format.
+
 Note, that there is no requirement that the information is immediately available everywhere! The use of "cool features" may **not** come at the cost of the ability to effectively operate the software offline.
 
 ## Beschreibung von Schnittstellen
+
+- GUI for human use
+- Possibility of extending with other interfaces such as HTTP
+- Export of the data in existing document layouts as PDF files
 
 ## Funktionale Anforderungen
 
@@ -76,6 +82,8 @@ Note, that there is no requirement that the information is immediately available
 
 ### Effizienz
 
+
+
 ### Änderbarkeit
 
 * The System must prevent modification and customisation where possible
@@ -84,13 +92,20 @@ Note, that there is no requirement that the information is immediately available
 ### Übertragbarkeit
 
 * The System must provide communication via STANAG methods where applicable.
+* The System must provide export to existing THW document layouts (e.g. Fb Fü 2).
 
 ### Wartbarkeit
 
 ## Risikoakzeptanz
 
+There is little to no risk acceptance. This software is to be used in deployment scenarion, and in extreme cases the information captured over the user interface may be called upon for legal preceedings.
+
 ## Skizze des Entwicklungszyklus und der Systemarchitektur
 
+- Central Data Model
+-- Export and data transfer can access the data model for e.g. printing
+-- Application Layer controls modification
+--- GUI Input accesses application layer
 
 
 ## Lieferumfang
