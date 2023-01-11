@@ -2,9 +2,22 @@
 
 ## Verwandte Dokumente
 
-- DIN 69901, Projektmanagement
-- DIN 69901-5, Begriffe der Projektabwicklung
-- IEEE 830-1998: Software Requirements Specification, Lastenhefte für Softwaresysteme
+
+
+
+
+|Id|Name|
+|---|---|
+|DIN 69901|Projektmanagement|
+|DIN 69901-5|Begriffe der Projektabwicklung|
+|IEEE 830-1998|Software Requirements Specification, Lastenhefte für Softwaresysteme|
+|AGeoP-21|GEODETIC DATUMS, PROJECTIONS, GRIDS AND GRID REFERENCES|
+
+## STANAGs
+
+|Id|Name|Verwandte Dokumente|
+|---|---|---|
+|STANAG 2211|GEODETIC DATUMS, PROJECTIONS, GRIDS, AND GRID REFERENCES|AGeoP-21
 
 ## Acronyms
 
@@ -66,6 +79,12 @@ Note, that there is no requirement that the information is immediately available
 * The System must provide the functionality to Print a Deployment Report
 * The System must provide the functionality to Import & Export a Deployment to & from a system file
 * The System must provide the functionality to work in English or German
+* The System must provide Grid References according to AGeoP-21
+    - Coordinates must be reference with the CRS WGS 84
+        > (EPSG:4326)
+    - Coordinates must be displayed using UTMRef (MGRS)
+        > Zone 32N (EPSG:32632)
+    - Coordinates must be stored as Decimal Degrees
 
 ## Nichtfunktionale Anforderungen
 

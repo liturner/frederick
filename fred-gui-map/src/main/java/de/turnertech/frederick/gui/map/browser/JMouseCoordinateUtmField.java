@@ -19,17 +19,20 @@ import org.opengis.referencing.operation.TransformException;
 
 import de.turnertech.frederick.gui.map.MapHelper;
 import de.turnertech.frederick.services.Logging;
+import mil.nga.grid.features.Point;
+import mil.nga.mgrs.MGRS;
+import mil.nga.mgrs.grid.GridType;
 
 /**
  * A (deliberately) non configurable field to display the current position of
  * the mouse cursor when over the map pane. The display output is a set of
  * coordinate formats which cannot be changed.
  */
-public class JMouseCoordinateField extends JPanel {
+public class JMouseCoordinateUtmField extends JPanel {
     
     private final JLabel label;
 
-    private final JLabel content;
+    private final JLabel lat;
 
     private DirectPosition2D position;
 
@@ -40,16 +43,16 @@ public class JMouseCoordinateField extends JPanel {
      * 
      * @param mapPane The {@link JMapPane} to which this field should listen to updates from.
      */
-    public JMouseCoordinateField(final JMapPane mapPane) {
+    public JMouseCoordinateUtmField(final JMapPane mapPane) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        label = new JLabel("Mouse Position (WGS 84)");
+        label = new JLabel("Mouse Position (UTMRef)");
         position = new DirectPosition2D(mapPane.getMapContent().getCoordinateReferenceSystem(), 0.0, 0.0);
-        content = new JLabel();
+        lat = new JLabel();
         updateCoordinateTransform(mapPane.getMapContent().getCoordinateReferenceSystem());
         updateContent();
         add(label);
-        add(content);
+        add(lat);
 
         mapPane.getMapContent().addMapBoundsListener(mapBoundsEvent -> {
                 if(mapBoundsEvent.getEventType().contains(MapBoundsEvent.Type.CRS)) {
@@ -113,7 +116,13 @@ public class JMouseCoordinateField extends JPanel {
      * Updates the output text of the component.
      */
     private void updateContent() {
-        this.content.setText(MapHelper.format(position));
+        MGRS mgrsPoint = MGRS.from(Point.degrees(position.getX(), position.getY()));
+
+        String eastNorth = mgrsPoint.getEastingAndNorthing(GridType.METER);
+        String east = eastNorth.substring(0, 5);
+        String north = eastNorth.substring(5, 10);
+
+        this.lat.setText(String.format("%d%s %s%s %s %s", mgrsPoint.getZone(), mgrsPoint.getBand(), mgrsPoint.getColumn(), mgrsPoint.getRow(), east, north));
     }
 
 }

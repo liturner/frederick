@@ -28,7 +28,6 @@ import org.geotools.grid.ortholine.OrthoLineDef;
 import org.geotools.map.FeatureLayer;
 import org.geotools.map.Layer;
 import org.geotools.map.MapContent;
-import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.renderer.GTRenderer;
 import org.geotools.renderer.lite.StreamingRenderer;
@@ -37,10 +36,9 @@ import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapPane;
 import org.geotools.tile.TileService;
+import org.geotools.tile.impl.WebMercatorTileService;
 import org.geotools.tile.impl.osm.OSMService;
 import org.geotools.tile.util.TileLayer;
-import org.opengis.referencing.FactoryException;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import de.turnertech.frederick.data.Bullseye;
 import de.turnertech.frederick.data.TacticalElement;
@@ -52,7 +50,6 @@ import de.turnertech.frederick.gui.map.tool.ContextMenuTool;
 import de.turnertech.frederick.gui.map.tool.PanTool;
 import de.turnertech.frederick.gui.map.tool.ScrollTool;
 import de.turnertech.frederick.services.ActionService;
-import de.turnertech.frederick.services.Logging;
 import de.turnertech.frederick.services.PersistanceProvider;
 import de.turnertech.frederick.services.Resources;
 import de.turnertech.frederick.services.event.DeploymentClosedEvent;
@@ -62,7 +59,7 @@ import de.turnertech.tz.swing.TacticalSymbol;
 
 public class MapFrame extends JFrame implements ActionListener, DropTargetListener {
     
-    private final ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(5.0, 16, 47.0, 55.0, DefaultGeographicCRS.WGS84);
+    private final ReferencedEnvelope germanyEnvelope = new ReferencedEnvelope(5.0, 16, 47.0, 55.0, MapHelper.WGS_84);
 
     private final MapToolbar mapToolbar;
 
@@ -75,15 +72,9 @@ public class MapFrame extends JFrame implements ActionListener, DropTargetListen
         String baseURL = "http://tile.openstreetmap.org/";
         TileService service = new OSMService("OSM", baseURL);
         TileLayer layer = new TileLayer(service);
-        
-        try {
-            CoordinateReferenceSystem crs = CRS.decode("EPSG:3857");
-            map.getViewport().setBounds(germanyEnvelope);
-            map.getViewport().setCoordinateReferenceSystem(crs);
-        } catch (FactoryException e) {
-            Logging.LOGGER.severe("Could not decode CRS");
-        }
 
+        map.getViewport().setBounds(germanyEnvelope);
+        map.getViewport().setCoordinateReferenceSystem(WebMercatorTileService.WEB_MERCATOR_CRS);
         map.addLayer(layer);
         map.addLayer(BullseyeLayer.instance());
         map.addLayer(TacticalSymbolLayer.instance());
