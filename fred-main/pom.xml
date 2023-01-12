@@ -79,6 +79,12 @@
       <version>${project.version}</version>
       <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
     </dependency>
+    <dependency>
+      <groupId>de.turnertech.fred</groupId>
+      <artifactId>fred-printouts</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope><!-- This is an extension, it should not be availbale at compile time! -->
+    </dependency>
 
   </dependencies>
 

@@ -10,8 +10,6 @@ public class FrederickTrayIconActionListener implements ActionListener {
 
     public static final String EXIT_COMMAND = "EXIT";
 
-    public static final String SHOW_MAP_COMMAND = "SHOW_MAP";
-
     @Override
     public void actionPerformed(ActionEvent e) {
 

@@ -48,7 +48,6 @@ public class Application {
      */
     public static void main(String[] args) {
         Logging.initialise();
-        Printing.initialise();
 
         PersistanceProvider persistanceProvider = PersistanceProvider.getInstance();
         Logging.LOGGER.info("PersistanceProvider: " + persistanceProvider.getClass().getName());

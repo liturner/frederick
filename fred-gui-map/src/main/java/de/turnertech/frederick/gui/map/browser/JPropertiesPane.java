@@ -20,7 +20,7 @@ public class JPropertiesPane extends JPanel {
                 BorderFactory.createEmptyBorder(5,5,5,5))
         );
 
-        this.add(new JMouseCoordinateField(mapPane));
+        this.add(new JMouseCoordinateUtmField(mapPane));
     }
     
 }

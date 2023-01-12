@@ -34,6 +34,7 @@ public class MapBrowserPanel extends JPanel implements DragGestureListener {
     public MapBrowserPanel(JMapPane mapPane) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setAlignmentX(LEFT_ALIGNMENT);
         this.setPreferredSize(new java.awt.Dimension(400, 0));
 
         JPanel propertiesPane = new JPropertiesPane(mapPane);
