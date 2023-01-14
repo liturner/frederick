@@ -1,6 +1,6 @@
 # Herunterladen
 
-Für die, die Frederick nutzen wollen, können dir bei GitHub unsere installer herunterladen.
+Um _Frederick_ zu nutzen, lade hier bei GitHub unseren Installer herunter.
 
 ## Windows (x64)
 
@@ -8,11 +8,11 @@ Für die, die Frederick nutzen wollen, können dir bei GitHub unsere installer h
 
 [Download Frederick](https://github.com/liturner/frederick/releases)
 
-## Instalation
+## Installation
 
-Frederick ist aktuell als .zip geliefert. Um es zu installieren einfach den .zip ordner in z.b. "C:\Program Files\Frederick" entpacken und eine Shortcut zu den "Frederick.cmd" datei erstellen.
+_Frederick_ wird aktuell als .zip geliefert. Um das Programm zu installieren, einfach den .zip-Ordner in z. B. `C:\Program Files\Frederick` entpacken und eine Shortcut zu der Datei `Frederick.cmd` erstellen.
 
 ### System Anforderungen
 
 - Windows 10 oder neuer
-- 512Mb verfügbaren RAM
+- 512Mb verfügbarer RAM

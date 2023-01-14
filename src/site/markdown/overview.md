@@ -1,5 +1,5 @@
 # Einführung
 
-## Das Toolbar Icon in Windows
+## Toolbar-Icon in Windows
 
-Unten rechts, right click to open windows.
+Unten rechts: Rechtsklick, um Fenster zu öffnen.
