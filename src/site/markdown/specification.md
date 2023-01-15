@@ -27,13 +27,12 @@
 |STANAG 7044|Functional Aspects of Mission Planning Station Interface Design|AGEOP-5|
 |STANAG 7074|Digital Geographic Information Exchange Standard (Digest)||
 
-## Acronyms
+## Akronyme
 
-|||
 |---|---|
 |GUI|Graphical User Interface|
 |PC|Personal Computer|
-|THW|Technischeshilfswerk|
+|THW|Technisches Hilfswerk|
 |ZTr.|Zugtrupp|
 
 ## Einführung

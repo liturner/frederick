@@ -1,12 +1,12 @@
-# Wilkommen
+# Willkommen
 
 <table border="0">
  <tr>
     <td>
 
-Wilkommen bei Frederick, den THW Zugtrupp Einsatz Assistent.
+Willkommen bei _Frederick_, dem THW-Zugtrupp-Einsatzassistenten.
 
-Frederick is eine Java basierte Desktop Anwendung, der absichtlich für Einsatzzenarion bei eine Bundesanstalt entwickelt ist. Im gegenteil zu viele bestehende Werkzeuge ist Frederick nicht für eine stabiles vernetztes welt entwickelt, Sondern für eine welt ohne netze, am diversten geräten und wahrscheinlich unter zeitdruck.
+_Frederick_ ist eine Java-basierte Desktopanwendung, die explizit für Einsatzszenarien bei einer Bundesanstalt entwickelt ist. Im Gegensatz zu vielen bestehenden Werkzeugen, ist Frederick nicht für eine stabile vernetzte Welt entwickelt, sondern für eine Welt ohne Verbindungen, auf unterschiedlichen Geräten und wo unter Zeitdruck gearbeitet werden muss.
 
 </td>
 <td>
@@ -17,22 +17,22 @@ Frederick is eine Java basierte Desktop Anwendung, der absichtlich für Einsatzz
  </tr>
 </table>
 
-Für Hilfe mit bedienung des Software, bitte sehe mal den [Handbuch](manual.html) an.
+Für Hilfe zur Bedienung der Software schaue Dir bitte das [Handbuch](manual.html) an.
 
 
 
 
 
 
-## Das Projekt und Das Produkt
+## Das Projekt und das Produkt
 
-Um etwas klarheit zu schaffen, soll man den unterschied zwischen das project und das product verstehen.
+Um etwas Klarheit zu schaffen, soll der Unterschied zwischen Projekt und Produkt aufgezeigt werden:
 
-- Das Projekt ist den organisation und entwicklung das Produkt. Es ist eine betreibung von aufwand usw.
-- Das Product ist den Binär Desktop Anwendung. Es ist eine Artefact.
+- Das Projekt ist die Organisation und Entwicklung des Produktes. Es ist das Vorgehen, hierbei entstehen Aufwand usw.
+- Das Produkt ist die Desktopanwendung. Es ist ein Artefakt/ Ergebnis aus dem Projekt.
 
-Da dieser Software Produkt für eine Bundesanstalt gezielt ist, wird schon einiges mit den Projekt anders als mit anderen Privaten oder Open Source Projekte nötig sein. Obwohl das Open Source Welt eine wunderschönne Welt ist, ist den Welt eine Bundesanstalt schon (für gute Grunde) etwas komplitzierte. Als eine Anstallt des Staates, muss viele Rechtliches geklärt sein, bevor man eine Produkt offiziel annerkennen kann. Allein einfache fragen mit Lizenzen von Open Source Software mussen geklärt sein, den DSVGO muss beachtet werden, möglicherweise mussen bestimmte ISO vorschriften bei den Dokumente und Testergebnisse vorliegen.
+Da dieses Softwareprodukt für eine Bundesanstalt ausgelegt ist, unterscheidet es sich von anderen privaten oder Open-Source-Projekten. Obwohl die Open-Source-Welt eine wunderschöne Welt ist, ist die Welt einer Bundesbehörde (aus guten Gründen) etwas komplizierter. Als eine Anstalt des Staates, muss vieles Rechtliches geklärt sein, bevor ein Produkt offiziell anerkannt werden kann: Lizenzen von Open-Source-Software müssen geklärt sein, die DSGVO muss beachtet werden, möglicherweise müssen bestimmte ISO-Vorschriften bei den Dokumenten und Testergebnisse vorliegen.
 
-Diese Projekt hat den Ziel nicht nur eine nutzliche Anwendung zu schaffen, sondern als eine Template da zu stehen. Es soll die verschiedene Anforderungen sammeln und dokumentieren. Gleichzeitig soll viele von diesen (öfters zeitaufwändig) Anforderungen durch Continuous Integration (CI) erledigt werden. Dies soll es ermöglichen, andere Software Entwickler ihre Projekte leichter an den beinen zu kriegen.
+Dieses Projekt hat das Ziel, nicht nur eine nützliche Anwendung zu schaffen, sondern als Template dazustehen. Es soll die verschiedene Anforderungen sammeln und dokumentieren. Gleichzeitig sollen viele dieser (oft zeitaufwändigen) Anforderungen durch Continuous Integration (CI) erledigt werden. Dies soll ermöglichen, dass andere Softwareentwickler ihre Projekte leichter integrieren können.
 
 

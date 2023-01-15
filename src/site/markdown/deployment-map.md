@@ -1,19 +1,19 @@
 # Einsatzkarte
 
-Das Einsatzkarte ist so konzipiert als eine einfache tool, um eine visuelle überblick halten zu können. Gegenüber viele andere Karten tools, ist den Frederick Einsatzkarte absichtlich minimalistich. Es ist nicht möglich externe Daten laden zu können, oder neue elemente selbst zu definieren.
+Die Einsatzkarte ist konzipiert als ein einfaches Tool, um einen visuelle überblick zu erhalten. Gegenüber vielen anderen Kartentools, ist die Einsatzkarte in _Frederick_ absichtlich minimalistisch gehalten. Es ist nicht möglich, externe Daten zu laden oder neue Elemente selbst zu definieren.
 
-## Bullseye Definieren
+## Bullseye definieren
 
-Eine den erste dinge die du in Einsatz machen sollst, ist deine Bullseye setzen. Den Bullseye definiert deine "Einsatz Mitte". Es ist eine frei wählbar Punkt an den Karte, zu den du jederzeit zuruckkehren kann mit eine einzelne klick auf den Toolbar.
+Eine der ersten Aktivitäten, die Du in Einsatz machen solltest, ist Dein _Bullseye_ zu setzen. Das Bullseye definiert Deine "Einsatzmitte". Es ist ein frei wählbarer Punkt auf der Karte, zu dem Du jederzeit mit einem einzigen Klick in der Toolbar zurückkehren kannst.
 
-1. Öffne den Einsatzkarte
-1. Pan und Zoom zu den ungefähren Einsatz Ort
-1. Auf den Karte, Right Click und "Bullseye Setzen" wählen
+1. Öffne die Einsatzkarte
+1. Navigiere und zoome zum ungefähren Einsatzort
+1. Klicke mit der rechten Maustaste auf die Karte und wähle "Bullseye setzen"
 
-Nach den Bullseye definiert ist, kann es nicht entfernt. Es kann nur verschoben. Da eine "Einsatz Ort" sich nur zu ende eine Einsatz aufhört zu existieren, so existiert deine Bullseye bit du den Einsatz in Frederick schließt. Es mach daher keinen sinn den UI zu komplizieren mit eine Funktion, der keine platz in eine Aktiven Einsatz hat.
+Nachdem das Bullseye definiert ist, kann es nicht mehr entfernt, sondern nur noch verschoben werden. Da ein "Einsatzort" erst zum Ende eines Einsatzes aufhört zu existieren, existiert das Bullseye bis Du den Einsatz in _Frederick_ schließt.
 
-Viel mehr als nur eine Punkt, den [Bullseye](https://www.airgoons.com/w/Bullseye) Konzept kommt von den Militär und kann navigierung und Radio Kommunication erheblich erleichtern.
+Das [Bullseye-Konzept](https://www.airgoons.com/w/Bullseye) kommt vom Militär und hilft dort, Navigation und Funkkommunikation erheblich zu erleichtern.
 
-## Bullseye Zentrieren
+## Bullseye zentrieren
 
-Knopf in Toolbar klicken.
+Knopf in Toolbar klicken, um den Kartenausschnitt auf den Bereich vom Bullseye auszurichten.
