@@ -29,7 +29,6 @@
 
 ## Akronyme
 
-|||
 |---|---|
 |GUI|Graphical User Interface|
 |PC|Personal Computer|
